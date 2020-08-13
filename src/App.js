@@ -1,8 +1,8 @@
 import React from 'react';
 import { Route } from "react-router-dom";
+import "bootstrap/dist/css/bootstrap.css";
 import './App.css';
 import Authentication from './Pages/authentication';
-
  class App extends React.Component {
    
   render() {
@@ -10,6 +10,7 @@ import Authentication from './Pages/authentication';
     return (
       <div >
         <Route exact path="/" component={Authentication} />
+
         
       </div>
     );

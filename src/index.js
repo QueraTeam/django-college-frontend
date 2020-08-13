@@ -2,6 +2,7 @@
 import React, { Suspense } from "react";
 import ReactDOM from "react-dom";
 import "./index.css";
+import 'bootstrap/dist/css/bootstrap.css'
 /* App is the entry point to the React code.*/
 import App from "./App";
 // import serviceWorker from "./serviceWorker";
