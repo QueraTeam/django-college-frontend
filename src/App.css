@@ -108,8 +108,12 @@
   width: 40%;
   padding: 2%;
   font-weight: bold;
+  box-shadow: 2px 5px 13px #181515;
+
 }
 .logbtn:hover,
 .logbtn:focus{
-  transform: scale(1.2);
+  transform: scale(1.1);
+  box-shadow: 5px 12px 20px #0e0d0d;
+
 }

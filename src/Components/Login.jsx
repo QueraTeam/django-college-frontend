@@ -21,13 +21,13 @@ export default class Login extends React.Component {
     }
 
     handleRequest () {
-        axios.post('https://api.paywith.click/auth/signin/', { 
+        axios.post('http://localhost:8000/accounts/login/', { 
           username: this.state.fields.username,
           password: this.state.fields.password
         })
           .then((response) => {
-            window.localStorage.setItem('token', response.data.data.token)
-            window.localStorage.setItem('id', response.data.data.profile.id)
+              console.log(response.data.token)
+            window.localStorage.setItem('token', response.data.token)
            // this.props.history.push('/page/')
           })
           .catch(function (error) {
