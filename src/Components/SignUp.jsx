@@ -4,47 +4,100 @@ import axios from 'axios'
 import { Button, Modal } from 'react-bootstrap'
 
 export default class SignUp extends React.Component {
-  constructor (props) {
+  constructor(props) {
     super(props)
     this.state = {
       fields: {
         username: '',
-        password: ''
+        password: '',
+        charityName: '',
+        charityReg: ''
       },
+      isCharity: false,
+      isBenefactor: false,
       show: false
     }
   }
 
-  handleChange (event) {
+  checkboxChange(event) {
+    const checked = event.target.checked;
+    const name = event.target.name;
+
+    // console.log(this.state[name]);
+
+    console.log(name, event.target.checked);
+
+    this.setState({
+      [name]: checked
+    });
+    // console.log(this.state[name]);
+  }
+  handleChange(event) {
     const name = event.target.name
     const changeFields = this.state.fields
     changeFields[name] = event.target.value
     this.setState({ fields: changeFields })
   }
 
-  handleShow () {
-    this.setState({ show: true })
-  }
 
-  handleClose () {
+
+  handleClose() {
     this.setState({ show: false })
   }
 
-  SignupRequest () {
+  charityCheckbox(event) {
+    this.setState({ charity: event.target.value })
+
+
+  }
+
+  signupRequest() {
     axios.post('http://localhost:8000/accounts/register/', {
       username: this.state.fields.username,
       password: this.state.fields.password
     })
       .then((response) => {
         console.log(response.data)
+        this.setState({ show: true })
       })
       .catch(function (error) {
         console.log(error)
       })
   }
 
-  render () {
-    console.log('chnge', this.state.fields)
+  sendRegType() {
+    console.log('isChar', this.state.isCharity);
+    console.log(this.state.isBenefactor);
+    let isBenefactor = this.state.isBenefactor
+    let ischarity = this.state.isCharity
+
+    if (isBenefactor) {
+      axios.post('http://localhost:8000/benefactors/', {
+
+      })
+        .then((response) => {
+          console.log(response.data)
+        })
+        .catch(function (error) {
+          console.log(error)
+        })
+    }
+    if (ischarity) {
+      axios.post('http://localhost:8000/accounts/register/', {
+        name: this.state.fields.charityName,
+        reg_number: this.state.fields.charityReg
+      })
+        .then((response) => {
+          console.log(response.data)
+        })
+        .catch(function (error) {
+          console.log(error)
+        })
+
+    }
+  }
+
+  render() {
     return (
       <div className='enter-container'>
         <div className='user-icon'>
@@ -63,26 +116,48 @@ export default class SignUp extends React.Component {
             onChange={(event) => this.handleChange(event)}
           />
         </div>
-        <button className='logbtn' onClick={() => this.SignupRequest()} >ثبت نام</button>
-        <button className='logbtn' onClick={() => this.handleShow()} >ثبت نام</button>
+        <button className='logbtn' onClick={() => this.signupRequest()} >ثبت نام</button>
 
         <Modal show={this.state.show} onHide={() => this.handleClose()}>
           <Modal.Header closeButton >
             <Modal.Title> نحوه همکاری </Modal.Title>
           </Modal.Header>
           <Modal.Body dir='rtl'>
-            <p dir='rtl' >  لطفا نحوه همکاری خود را انتخاب کنید</p>
-            <div className='registerdiv'>
-              <input type='checkbox' name='benefactor' value='benefactor' style={{ width: '20px', height: '20px' }} />
-              <label for='benefactor' style={{ marginRight: '10px' }}> نیکوکار</label>
-              <input type='checkbox' name='charity' value='charity' style={{ marginRight: '40px', width: '20px', height: '20px' }} />
-              <label for='charity' style={{ marginRight: '10px' }}> مرکز خیریه</label><br />
+            <div>
+              <p dir='rtl' >  لطفا نحوه همکاری خود را انتخاب کنید</p>
+              <div className='registerdiv'>
+                <input type='checkbox' name='isCharity'
+                  onChange={(event) => this.checkboxChange(event)}
+                  style={{ width: '20px', height: '20px' }}
+                />
+                <label style={{ marginRight: '10px' }}> مرکز خیریه</label>
+                <input type='checkbox' name='isBenefactor'
+                  onChange={(event) => this.checkboxChange(event)}
+                  style={{ marginRight: '40px', width: '20px', height: '20px' }}
+                />
+                <label style={{ marginRight: '10px' }}>نیکوکار</label><br />
+              </div>
+              {this.state.isCharity &&
+                <div className='charityreg'>
+                  <div className='reg'>
+                    <label style={{ fontSize: 'larger' }}> نام خیریه:</label>
+                    <input type='text' name='charityName'
+                      onChange={(event) => this.handleChange(event)}
+                    />
+                  </div>
+                  <div className='reg'>
+                    <label style={{ fontSize: 'larger' }} > شماره ثبت:</label>
+                    <input name='charutyReg'
+                      onChange={(event) => this.handleChange(event)}
+                    />
+                  </div>
+                </div>
+              }
             </div>
-
           </Modal.Body>
           <Modal.Footer>
-            <Button variant='outline-danger' onClick={() => this.handleClose()}>
-              بستن
+            <Button variant='success' onClick={() => this.sendRegType()}>
+              ثبت
             </Button>
           </Modal.Footer>
         </Modal>

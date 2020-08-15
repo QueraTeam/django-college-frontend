@@ -127,6 +127,9 @@ margin-top: 42%;
 margin-left:38%;
 color:rgb(36, 36, 59)
 }
+.modal-header {
+  border: none
+}
 .modal-body {
   margin-left:45%;
 }
@@ -141,4 +144,23 @@ color:rgb(36, 36, 59)
   align-items: center;
   direction: rtl;
   font-weight: bold;
+}
+.charityreg {
+  width: 473px;
+  display: flex;
+  flex-direction: column;
+  justify-content: flex-start;
+  align-items: flex-start;
+  direction: rtl;
+  margin-top: 12%;
+}
+.reg {
+width: 60%;
+}
+.reg input {
+  margin-right: 1%;
+  border-radius: 5vh;
+  padding: 3px;
+  margin-top: 3%;
+  outline: none !important;
 }
