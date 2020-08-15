@@ -111,9 +111,34 @@
   box-shadow: 2px 5px 13px #181515;
 
 }
-.logbtn:hover,
-.logbtn:focus{
+.logbtn:hover,.logbtn:focus{
   transform: scale(1.1);
   box-shadow: 5px 12px 20px #0e0d0d;
+}
+.modal-content {
+  background: #A1FFCE;  /* fallback for old browsers */
+  background: -webkit-linear-gradient(to bottom, #FAFFD1, #A1FFCE);  /* Chrome 10-25, Safari 5.1-6 */
+  background: linear-gradient(to bottom, #FAFFD1, #A1FFCE); /* W3C, IE 10+/ Edge, Firefox 16+, Chrome 26+, Opera 12+, Safari 7+ */
+  
+margin-top: 42%;
+}
 
+.modal-title {
+margin-left:38%;
+color:rgb(36, 36, 59)
+}
+.modal-body {
+  margin-left:45%;
+}
+.modal-footer {
+  direction: rtl;
+  border:none
+}
+.registerdiv {
+  width: 473px;
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  direction: rtl;
+  font-weight: bold;
 }
