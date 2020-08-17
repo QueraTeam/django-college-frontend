@@ -15,7 +15,8 @@ export default class SignUp extends React.Component {
       },
       isCharity: false,
       isBenefactor: false,
-      show: false
+      show: false,
+      token: '',
     }
   }
 
@@ -58,7 +59,21 @@ export default class SignUp extends React.Component {
     })
       .then((response) => {
         console.log(response.data)
+        axios.post('http://localhost:8000/accounts/login/', {
+          username: this.state.fields.username,
+          password: this.state.fields.password
+        })
+          .then((response) => {
+            console.log('signup token',response.data.token)
+            window.localStorage.setItem('token', response.data.token)
+            this.setState({token: window.localStorage.getItem('token')})
+            // this.props.history.push('/page/')
+          })
+          .catch(function (error) {
+            console.log(error)
+          })
         this.setState({ show: true })
+
       })
       .catch(function (error) {
         console.log(error)
@@ -66,14 +81,19 @@ export default class SignUp extends React.Component {
   }
 
   sendRegType() {
+    
     console.log('isChar', this.state.isCharity);
     console.log(this.state.isBenefactor);
     let isBenefactor = this.state.isBenefactor
     let ischarity = this.state.isCharity
 
+    
     if (isBenefactor) {
-      axios.post('http://localhost:8000/benefactors/', {
-
+      
+      axios.post('http://localhost:8000/benefactors/', '',{
+        headers: {
+          'Authorization': `Token ${this.state.token}`
+        },
       })
         .then((response) => {
           console.log(response.data)
@@ -83,7 +103,7 @@ export default class SignUp extends React.Component {
         })
     }
     if (ischarity) {
-      axios.post('http://localhost:8000/accounts/register/', {
+      axios.post('http://localhost:8000/charities/', {
         name: this.state.fields.charityName,
         reg_number: this.state.fields.charityReg
       })
