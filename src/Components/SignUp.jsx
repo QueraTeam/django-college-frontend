@@ -38,6 +38,7 @@ export default class SignUp extends React.Component {
     const changeFields = this.state.fields
     changeFields[name] = event.target.value
     this.setState({ fields: changeFields })
+
   }
 
 
@@ -64,9 +65,9 @@ export default class SignUp extends React.Component {
           password: this.state.fields.password
         })
           .then((response) => {
-            console.log('signup token',response.data.token)
+            console.log('signup token', response.data.token)
             window.localStorage.setItem('token', response.data.token)
-            this.setState({token: window.localStorage.getItem('token')})
+            this.setState({ token: window.localStorage.getItem('token') })
             // this.props.history.push('/page/')
           })
           .catch(function (error) {
@@ -81,16 +82,16 @@ export default class SignUp extends React.Component {
   }
 
   sendRegType() {
-    
+
     console.log('isChar', this.state.isCharity);
     console.log(this.state.isBenefactor);
     let isBenefactor = this.state.isBenefactor
     let ischarity = this.state.isCharity
 
-    
+
     if (isBenefactor) {
-      
-      axios.post('http://localhost:8000/benefactors/', '',{
+
+      axios.post('http://localhost:8000/benefactors/', '', {
         headers: {
           'Authorization': `Token ${this.state.token}`
         },
@@ -106,6 +107,10 @@ export default class SignUp extends React.Component {
       axios.post('http://localhost:8000/charities/', {
         name: this.state.fields.charityName,
         reg_number: this.state.fields.charityReg
+      }, {
+        headers: {
+          'Authorization': `Token ${this.state.token}`
+        }
       })
         .then((response) => {
           console.log(response.data)
@@ -118,6 +123,7 @@ export default class SignUp extends React.Component {
   }
 
   render() {
+    console.log('reg', this.state.fields.charityReg)
     return (
       <div className='enter-container'>
         <div className='user-icon'>
@@ -167,7 +173,7 @@ export default class SignUp extends React.Component {
                   </div>
                   <div className='reg'>
                     <label style={{ fontSize: 'larger' }} > شماره ثبت:</label>
-                    <input name='charutyReg'
+                    <input type='text' name='charityReg'
                       onChange={(event) => this.handleChange(event)}
                     />
                   </div>
