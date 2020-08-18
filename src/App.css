@@ -35,7 +35,10 @@
   flex-direction: column;
   align-items: flex-start;
   justify-content: center;
-  background-color:rgb(36, 36, 59);
+  background: #141E30;  /* fallback for old browsers */
+background: -webkit-linear-gradient(to top, #243B55, #141E30);  /* Chrome 10-25, Safari 5.1-6 */
+background: linear-gradient(to top, #243B55, #141E30); /* W3C, IE 10+/ Edge, Firefox 16+, Chrome 26+, Opera 12+, Safari 7+ */
+
   height: 100%;
   width: 50%;
   border-radius: 1vh 0vh 0vh 1vh;
@@ -163,4 +166,25 @@ width: 60%;
   padding: 3px;
   margin-top: 3%;
   outline: none !important;
+}
+.charityNav {
+  direction: rtl;
+  background: #141E30;  
+  background: -webkit-linear-gradient(to top, #243B55, #141E30);  
+  background: linear-gradient(to top, #243B55, #141E30); 
+  border: none;
+  border-bottom: 2px solid #1a2b3f;
+}
+.nav-link {
+  color: #fff;
+}
+.nav-link:hover{ transform: scale(1.1);}
+.logOutbtn {
+  position: absolute;
+  top: 22%;
+  left: 5%;
+}
+.btn-danger {
+  font-weight: bolder;
+  padding: 7px 20px;
 }
