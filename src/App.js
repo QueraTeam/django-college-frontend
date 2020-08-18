@@ -3,7 +3,7 @@ import { Route } from 'react-router-dom'
 import 'bootstrap/dist/css/bootstrap.css'
 import './App.css'
 import Authentication from './Pages/authentication'
-import Navbar from'./Pages/Tasks'
+import Tasks from './Pages/Tasks'
 
 export default class App extends React.Component {
    
@@ -12,7 +12,7 @@ export default class App extends React.Component {
     return (
       <div >
         <Route exact path='/' component={Authentication} />
-        <Route exact path='/nav' component={Navbar} />
+        <Route exact path='/tasks' component={Tasks} />
 
 
         

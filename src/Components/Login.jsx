@@ -1,14 +1,17 @@
 import React from 'react'
 import { IoMdPerson, IoMdLock } from 'react-icons/io'
 import axios from 'axios'
+import { withRouter } from 'react-router'
 
-export default class Login extends React.Component {
+
+class Login extends React.Component {
   constructor (props) {
     super(props)
     this.state = {
       fields: {
         username: '',
-        password: ''
+        password: '',
+        token: ''
       }
     }
   }
@@ -28,7 +31,11 @@ export default class Login extends React.Component {
       .then((response) => {
         console.log(response.data.token)
         window.localStorage.setItem('token', response.data.token)
-        // this.props.history.push('/page/')
+        this.setState({ token: window.localStorage.getItem('token') })
+        this.props.history.push({
+          pathname: '/tasks',
+          state: { token: this.state.token }
+        })
       })
       .catch(function (error) {
         console.log(error)
@@ -60,3 +67,4 @@ export default class Login extends React.Component {
     )
   }
 }
+export default withRouter(Login)

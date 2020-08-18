@@ -1,12 +1,28 @@
 import React from 'react'
 import { Button } from 'react-bootstrap'
+import axios from 'axios'
+import { withRouter } from 'react-router'
 
 
-export default class Navbar extends React.Component {
+class Navbar extends React.Component {
   //constructor(props) {
   //super(props)
 
-
+ logOut() {
+     const {token}= this.props
+     axios.post('http://localhost:8000/accounts/logout/', '', {
+        headers: {
+          'Authorization': `Token ${token}`
+        },
+      })
+        .then((response) => {
+          console.log(response.data)
+          this.props.history.push('/')
+        })
+        .catch(function (error) {
+          console.log(error)
+        })
+ }
 
   render() {
     return (
@@ -38,3 +54,4 @@ export default class Navbar extends React.Component {
     )
   }
 }
+export default withRouter(Navbar)
