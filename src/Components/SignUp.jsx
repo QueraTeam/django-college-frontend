@@ -2,8 +2,9 @@ import React from 'react'
 import { IoMdPerson, IoMdLock } from 'react-icons/io'
 import axios from 'axios'
 import { Button, Modal } from 'react-bootstrap'
+import { withRouter } from 'react-router'
 
-export default class SignUp extends React.Component {
+class SignUp extends React.Component {
   constructor(props) {
     super(props)
     this.state = {
@@ -16,23 +17,19 @@ export default class SignUp extends React.Component {
       isCharity: false,
       isBenefactor: false,
       show: false,
-      token: '',
     }
   }
 
   checkboxChange(event) {
     const checked = event.target.checked;
     const name = event.target.name;
-
-    // console.log(this.state[name]);
-
     console.log(name, event.target.checked);
 
     this.setState({
       [name]: checked
     });
-    // console.log(this.state[name]);
   }
+
   handleChange(event) {
     const name = event.target.name
     const changeFields = this.state.fields
@@ -41,16 +38,12 @@ export default class SignUp extends React.Component {
 
   }
 
-
-
   handleClose() {
     this.setState({ show: false })
   }
 
   charityCheckbox(event) {
     this.setState({ charity: event.target.value })
-
-
   }
 
   signupRequest() {
@@ -67,8 +60,7 @@ export default class SignUp extends React.Component {
           .then((response) => {
             console.log('signup token', response.data.token)
             window.localStorage.setItem('token', response.data.token)
-            this.setState({ token: window.localStorage.getItem('token') })
-            // this.props.history.push('/page/')
+
           })
           .catch(function (error) {
             console.log(error)
@@ -82,22 +74,20 @@ export default class SignUp extends React.Component {
   }
 
   sendRegType() {
-
     console.log('isChar', this.state.isCharity);
     console.log(this.state.isBenefactor);
     let isBenefactor = this.state.isBenefactor
     let ischarity = this.state.isCharity
-
-
+    var token = window.localStorage.getItem('token')
     if (isBenefactor) {
-
       axios.post('http://localhost:8000/benefactors/', '', {
         headers: {
-          'Authorization': `Token ${this.state.token}`
+          'Authorization': `Token ${token}`
         },
       })
         .then((response) => {
           console.log(response.data)
+          this.props.history.push('/tasks')
         })
         .catch(function (error) {
           console.log(error)
@@ -109,16 +99,16 @@ export default class SignUp extends React.Component {
         reg_number: this.state.fields.charityReg
       }, {
         headers: {
-          'Authorization': `Token ${this.state.token}`
+          'Authorization': `Token ${token}`
         }
       })
         .then((response) => {
           console.log(response.data)
+          this.props.history.push('/tasks')
         })
         .catch(function (error) {
           console.log(error)
         })
-
     }
   }
 
@@ -156,7 +146,7 @@ export default class SignUp extends React.Component {
                   onChange={(event) => this.checkboxChange(event)}
                   style={{ width: '20px', height: '20px' }}
                 />
-                <label style={{ marginRight: '10px' }}> مرکز خیریه</label>
+                <label style={{ marginRight: '10px' }}> موسسه خیریه</label>
                 <input type='checkbox' name='isBenefactor'
                   onChange={(event) => this.checkboxChange(event)}
                   style={{ marginRight: '40px', width: '20px', height: '20px' }}
@@ -191,3 +181,5 @@ export default class SignUp extends React.Component {
     )
   }
 }
+export default withRouter(SignUp)
+

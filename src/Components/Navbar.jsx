@@ -5,11 +5,9 @@ import { withRouter } from 'react-router'
 
 
 class Navbar extends React.Component {
-  //constructor(props) {
-  //super(props)
 
  logOut() {
-     const {token}= this.props
+     const token = window.localStorage.getItem('token')
      axios.post('http://localhost:8000/accounts/logout/', '', {
         headers: {
           'Authorization': `Token ${token}`
@@ -37,7 +35,7 @@ class Navbar extends React.Component {
               </li>
               <li >
                 <a className='nav-link' href='/' style={{ color: '#fff' }}>
-                  فرصت های نیکویی
+                  فرصت های نیکو
                 </a>
               </li>
               <li  >

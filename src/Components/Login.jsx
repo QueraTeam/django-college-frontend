@@ -11,7 +11,6 @@ class Login extends React.Component {
       fields: {
         username: '',
         password: '',
-        token: ''
       }
     }
   }
@@ -31,11 +30,7 @@ class Login extends React.Component {
       .then((response) => {
         console.log(response.data.token)
         window.localStorage.setItem('token', response.data.token)
-        this.setState({ token: window.localStorage.getItem('token') })
-        this.props.history.push({
-          pathname: '/tasks',
-          state: { token: this.state.token }
-        })
+        this.props.history.push('/tasks')
       })
       .catch(function (error) {
         console.log(error)
