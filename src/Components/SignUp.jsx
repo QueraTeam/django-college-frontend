@@ -71,7 +71,7 @@ class SignUp extends React.Component {
 
   sendRegType () {
     console.log('isChar', this.state.isCharity)
-    console.log(this.state.isBenefactor)
+    console.log('isben',this.state.isBenefactor)
     const isBenefactor = this.state.isBenefactor
     const ischarity = this.state.isCharity
     var token = window.localStorage.getItem('token')
@@ -84,6 +84,9 @@ class SignUp extends React.Component {
         .then((response) => {
           console.log(response.data)
           this.props.history.push('/tasks')
+          
+          window.localStorage.setItem('b', isBenefactor)
+
         })
         .catch(function (error) {
           console.log(error)
@@ -101,6 +104,8 @@ class SignUp extends React.Component {
         .then((response) => {
           console.log(response.data)
           this.props.history.push('/tasks')
+          window.localStorage.setItem('ch', ischarity)
+
         })
         .catch(function (error) {
           console.log(error)
@@ -109,7 +114,6 @@ class SignUp extends React.Component {
   }
 
   render () {
-    console.log('reg', this.state.fields.charityReg)
     return (
       <div className='enter-container'>
         <div className='user-icon'>

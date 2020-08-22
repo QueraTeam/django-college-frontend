@@ -36,9 +36,9 @@
   flex-direction: column;
   align-items: flex-start;
   justify-content: center;
-  background: #141E30;  /* fallback for old browsers */
-background: -webkit-linear-gradient(to top, #243B55, #141E30);  /* Chrome 10-25, Safari 5.1-6 */
-background: linear-gradient(to top, #243B55, #141E30); /* W3C, IE 10+/ Edge, Firefox 16+, Chrome 26+, Opera 12+, Safari 7+ */
+  background: #141E30;  
+background: -webkit-linear-gradient(to top, #243B55, #141E30);
+background: linear-gradient(to top, #243B55, #141E30); 
 
   height: 100%;
   width: 50%;
@@ -47,24 +47,25 @@ background: linear-gradient(to top, #243B55, #141E30); /* W3C, IE 10+/ Edge, Fir
   
 
 }
+
 .nav-tabs .nav-link.active {
   background-color: inherit !important;
   color: #fff !important;
   font-weight: bold;
   margin-bottom: 25%;
 }
-
+.nav-link:hover{   color: rgb(175, 169, 169) !important;
+}
 .nav-link {
-  color: rgb(175, 169, 169);
+  color: rgb(175, 169, 169) !important;
   text-decoration: none;
   background-color: transparent !important;
   outline: none;
   font-weight: bold;
-  font-size: 17px;
+  font-size: large;
   border: none;  
   margin: 5px;
 } 
-
 .nav-link:hover {
   color: #fff;
   border: none;
@@ -178,9 +179,14 @@ width: 60%;
   border-bottom: 2px solid #1a2b3f;
   box-shadow: 2px 3px 7px #534d4d;
 }
-.nav-link {
-  color: #fff;
+.navbar-nav>.nav-link {
+  color: #fff !important;
 }
+.mynav>.dropdown-toggle , .nav-link {
+  color: #fff !important;
+
+}
+
 .logOutbtn {
   position: absolute;
   top: 22%;
@@ -190,6 +196,7 @@ width: 60%;
   font-weight: bolder;
   padding: 7px 20px;
 }
+
 /*------------------------------task page---------------------------*/
 .taskPage {
   display: flex;
