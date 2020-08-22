@@ -2,7 +2,7 @@ import React from 'react'
 import Navbar from '../Components/Navbar'
 import { Form, Button, Row, Col } from 'react-bootstrap'
 
-export default class BenefactorProfile extends React.Component {
+export default class CharityProfile extends React.Component {
   constructor (props) {
     super(props)
     this.state = {
@@ -15,9 +15,8 @@ export default class BenefactorProfile extends React.Component {
         description: '',
         gender: '',
         age: '',
-        experience: '',
-        freeTime: ''
-
+        charityname: '',
+        regnumber: ''
       }
     }
   }
@@ -34,7 +33,7 @@ export default class BenefactorProfile extends React.Component {
       <div>
         <Navbar />
         <div className='bene-container'>
-          <div className='demographic-container' dir='rtl' style={{ margin: 'auto' }}>
+          <div className='demographic-container' dir='rtl' >
             <h2 style={{ alignSelf: 'center', marginTop: '2%' }}> اطلاعات کاربری</h2>
             <Form>
               <Row>
@@ -50,7 +49,9 @@ export default class BenefactorProfile extends React.Component {
                 </Col>
                 <Col>
                   <Form.Label>شماره تماس:</Form.Label>
-                  <Form.Control placeholder='شماره تماس' name='phone' onChange={(event) => this.handleChange(event)} />
+                  <Form.Control placeholder='شماره تماس' name='phone'
+                    onChange={(event) => this.handleChange(event)}
+                  />
                 </Col>
               </Row>
               <Row>
@@ -90,23 +91,38 @@ export default class BenefactorProfile extends React.Component {
               </Row>
               <Row>
                 <Col>
-                  <Form.Label>تجربه نیکوکاری:</Form.Label>
-                  <Form.Control name='experience'
-                    placeholder='تجربه نیکوکاری' onChange={(event) => this.handleChange(event)} />
+                  <Form.Label> نام موسسه خیریه:</Form.Label>
+                  <Form.Control name='charityname'
+                    placeholder='نام موسسه خیریه'
+                    onChange={(event) => this.handleChange(event)}
+                  />
                 </Col>
                 <Col>
-                  <Form.Label>زمان آزاد در هفته:</Form.Label>
-                  <Form.Control name='freeTime'
-                    placeholder='زمان آزاد در هفته' onChange={(event) => this.handleChange(event)} />
+                  <Form.Label>شماره ثبت:</Form.Label>
+                  <Form.Control name='regnumber'
+                    placeholder='شماره ثبت' onChange={(event) => this.handleChange(event)} />
                 </Col>
-
                 <Col >
                   <Button variant='info'>ثبت اطلاعات</Button>
                 </Col>
               </Row>
             </Form>
           </div>
-
+          <div className='demand-container'>
+            <h2 style={{ alignSelf: 'center', marginTop: '2%' }}>پروژه های خیریه</h2>
+            <div className='task-partition' >
+              <h3 className='task-header'>   هااای </h3>
+              <div className='taskbar'>
+                <div className='requirements'>
+                  <p className='req-element'>  یبلیبلیبل </p>
+                  <p className='req-element'>bbb</p>
+                  <p className='req-element'>ddd</p>
+                </div>
+                <Button variant='info' className='applybtn'>
+                  للل                    </Button>
+              </div>
+            </div>
+          </div>
         </div>
       </div>
     )

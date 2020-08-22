@@ -5,7 +5,7 @@ import { Button, Modal } from 'react-bootstrap'
 import { withRouter } from 'react-router'
 
 class SignUp extends React.Component {
-  constructor(props) {
+  constructor (props) {
     super(props)
     this.state = {
       fields: {
@@ -16,37 +16,35 @@ class SignUp extends React.Component {
       },
       isCharity: false,
       isBenefactor: false,
-      show: false,
+      show: false
     }
   }
 
-  checkboxChange(event) {
-    const checked = event.target.checked;
-    const name = event.target.name;
-    console.log(name, event.target.checked);
-
+  checkboxChange (event) {
+    const checked = event.target.checked
+    const name = event.target.name
+    console.log(name, event.target.checked)
     this.setState({
       [name]: checked
-    });
+    })
   }
 
-  handleChange(event) {
+  handleChange (event) {
     const name = event.target.name
     const changeFields = this.state.fields
     changeFields[name] = event.target.value
     this.setState({ fields: changeFields })
-
   }
 
-  handleClose() {
+  handleClose () {
     this.setState({ show: false })
   }
 
-  charityCheckbox(event) {
+  charityCheckbox (event) {
     this.setState({ charity: event.target.value })
   }
 
-  signupRequest() {
+  signupRequest () {
     axios.post('http://localhost:8000/accounts/register/', {
       username: this.state.fields.username,
       password: this.state.fields.password
@@ -60,30 +58,28 @@ class SignUp extends React.Component {
           .then((response) => {
             console.log('signup token', response.data.token)
             window.localStorage.setItem('token', response.data.token)
-
           })
           .catch(function (error) {
             console.log(error)
           })
         this.setState({ show: true })
-
       })
       .catch(function (error) {
         console.log(error)
       })
   }
 
-  sendRegType() {
-    console.log('isChar', this.state.isCharity);
-    console.log(this.state.isBenefactor);
-    let isBenefactor = this.state.isBenefactor
-    let ischarity = this.state.isCharity
+  sendRegType () {
+    console.log('isChar', this.state.isCharity)
+    console.log(this.state.isBenefactor)
+    const isBenefactor = this.state.isBenefactor
+    const ischarity = this.state.isCharity
     var token = window.localStorage.getItem('token')
     if (isBenefactor) {
       axios.post('http://localhost:8000/benefactors/', '', {
         headers: {
           'Authorization': `Token ${token}`
-        },
+        }
       })
         .then((response) => {
           console.log(response.data)
@@ -112,7 +108,7 @@ class SignUp extends React.Component {
     }
   }
 
-  render() {
+  render () {
     console.log('reg', this.state.fields.charityReg)
     return (
       <div className='enter-container'>
@@ -182,4 +178,3 @@ class SignUp extends React.Component {
   }
 }
 export default withRouter(SignUp)
-

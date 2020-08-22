@@ -310,6 +310,8 @@ width: 60%;
   width: 80%;
   height: 100%;
   min-height: 80vh;
+  display: flex;
+  flex-direction: column;
   background-color: rgba(220, 238, 228, 0.377);
   border-radius: 5px;
   margin: 5%;
@@ -319,6 +321,5 @@ width: 60%;
 }
 .col >.btn:not(:disabled):not(.disabled) {
   cursor: pointer;
-  margin-right: 80%;
-  padding: 10px;
-}
+  margin: 10% 40% auto auto;
+} 

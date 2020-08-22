@@ -3,14 +3,13 @@ import { IoMdPerson, IoMdLock } from 'react-icons/io'
 import axios from 'axios'
 import { withRouter } from 'react-router'
 
-
 class Login extends React.Component {
   constructor (props) {
     super(props)
     this.state = {
       fields: {
         username: '',
-        password: '',
+        password: ''
       }
     }
   }
