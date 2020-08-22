@@ -1,9 +1,10 @@
 import React from 'react'
 import Navbar from '../Components/Navbar'
 import { Input } from 'reactstrap'
-import { Button } from 'react-bootstrap'
+import { Button, Form } from 'react-bootstrap'
 import { IoMdSearch } from 'react-icons/io'
 import axios from 'axios'
+
 
 
 export default class Tasks extends React.Component {
@@ -13,9 +14,9 @@ export default class Tasks extends React.Component {
       fields: {
         title: '',
         charityName: '',
-        age:'',
-        gender:'',
-        description:''
+        gender: '',
+        age: '',
+        description: ''
       },
       buttenText: 'اعلام آمادگی',
       buttenVariant: 'warning',
@@ -49,16 +50,45 @@ export default class Tasks extends React.Component {
     this.setState({ fields: changeFields })
   }
 
-  /*filteredSearch() { 
+  filteredSearch() { 
+    const getToken = window.localStorage.getItem('token')
   let a = 'http://localhost:8000/tasks/?title=';
     if (this.state.fields.title) {
-      a +=;
+      a += this.state.fields.title
     }
     a += '&charity='
-    if (ch) {
-      a += ch
+    if (this.state.fields.charityName) {
+      a += this.state.fields.charityName
     }
-  } */
+    a += '&gender='
+    if (this.state.fields.gender) {
+      a += this.state.fields.gender
+    }
+
+    a += '&age='
+    if (this.state.fields.age) {
+      a += this.state.fields.age
+    }
+    a += '&description'
+    if (this.state.fields.description) {
+      a += this.state.fields.description
+    }
+
+    axios.get(a, {
+      headers: {
+        'Authorization': `Token ${getToken}`
+      },
+    })
+      .then((response) => {
+        console.log('taskslist', response.data)
+        this.setState({ taskslist: response.data })
+
+      })
+      .catch(function (error) {
+        console.log(error)
+      })
+  } 
+
   render() {
     console.log('chnge', this.state.fields)
 
@@ -72,17 +102,17 @@ export default class Tasks extends React.Component {
           />
           <Input type='text' name='charityName' placeholder='موسسه خیریه'
             onChange={(event) => this.handleChange(event)} />
-          <Input type='text' name='age' placeholder='سن'
-            onChange={(event) => this.handleChange(event)} />
-
-          <select name='gender' 
-           onChange={(event) => this.handleChange(event)}>
+          <Form.Control as="select" name='gender'
+            onChange={(event) => this.handleChange(event)}>
             <option value='female'>زن</option>
             <option value='male'>مرد</option>
-          </select>
+          </Form.Control>
+          <Input type='text' name='age' placeholder='سن'
+            onChange={(event) => this.handleChange(event)} />
+         
           <Input type='text' name='description' placeholder='توضیحات'
             onChange={(event) => this.handleChange(event)} />
-          <Button variant="warning">
+          <Button variant="warning" onClick={() => this.filteredSearch()}>
             <IoMdSearch size='30%' color='black' />
              جستجو
           </Button>
@@ -97,15 +127,15 @@ export default class Tasks extends React.Component {
                   </h3>
                   <div className='taskbar'>
                     <div className="requirements">
-                        <p className="req-element">
-                          {task.charity.name}
-                        </p>
-                        <p className="req-element">
-                          {task.gender_limit}
-                        </p>
-                        <p className="req-element">
-                          {task.description}
-                        </p>
+                      <p className="req-element">
+                        {task.charity.name}
+                      </p>
+                      <p className="req-element">
+                        {task.gender_limit}
+                      </p>
+                      <p className="req-element">
+                        {task.description}
+                      </p>
                     </div>
                     <Button variant={this.state.buttenVariant} className='applybtn'>
                       {this.state.buttenText}

@@ -1,3 +1,4 @@
+/*--------------------------login and signup-----------------------*/
 .log-body {
   background: #cf3d18;  /* fallback for old browsers */
   background: -webkit-linear-gradient(to bottom, #ff9068, #cf3d18);  /* Chrome 10-25, Safari 5.1-6 */
@@ -46,7 +47,6 @@ background: linear-gradient(to top, #243B55, #141E30); /* W3C, IE 10+/ Edge, Fir
   
 
 }
-
 .nav-tabs .nav-link.active {
   background-color: inherit !important;
   color: #fff !important;
@@ -118,10 +118,11 @@ background: linear-gradient(to top, #243B55, #141E30); /* W3C, IE 10+/ Edge, Fir
   transform: scale(1.1);
   box-shadow: 5px 12px 20px #0e0d0d;
 }
+/*---------------------------------register modal-------------------------*/
 .modal-content {
-  background: #A1FFCE;  /* fallback for old browsers */
-  background: -webkit-linear-gradient(to bottom, #FAFFD1, #A1FFCE);  /* Chrome 10-25, Safari 5.1-6 */
-  background: linear-gradient(to bottom, #FAFFD1, #A1FFCE); /* W3C, IE 10+/ Edge, Firefox 16+, Chrome 26+, Opera 12+, Safari 7+ */
+  background: #A1FFCE;  
+  background: -webkit-linear-gradient(to bottom, #FAFFD1, #A1FFCE);  
+  background: linear-gradient(to bottom, #FAFFD1, #A1FFCE); 
   
 margin-top: 42%;
 }
@@ -167,6 +168,7 @@ width: 60%;
   margin-top: 3%;
   outline: none !important;
 }
+/*-------------------------------navbar---------------------------*/
 .charityNav {
   direction: rtl;
   background: #141E30;  
@@ -188,12 +190,13 @@ width: 60%;
   font-weight: bolder;
   padding: 7px 20px;
 }
+/*------------------------------task page---------------------------*/
 .taskPage {
   display: flex;
   flex-direction: column;
   background-color: #f1eded;
   height: 100%;
-  min-height: 100vh;
+  min-height: 88vh;
   
 }
 .searchBar {
@@ -278,4 +281,44 @@ width: 60%;
   padding: 7px 15px;
   border-radius: 5vh;
   font-weight: bold;
+}
+/*-------------------------------profile---------------------------*/
+.bene-container {
+  direction: rtl;
+  height: 100%;
+  min-height: 100vh;
+  background-image:url(back1.jpg);
+  background-size: cover;
+  display: flex;
+  flex-direction: column;
+  justify-content: center;
+  align-items: center;
+}
+.demographic-container {
+  width: 80%;
+  height: 100%;
+  min-height: 80vh;
+  background-color: rgba(220, 238, 228, 0.541);
+  border-radius: 5px;
+  margin-top: 5%;
+  direction: rtl;
+  text-align: right;
+  display: flex;
+  flex-direction: column;
+}
+.demand-container {
+  width: 80%;
+  height: 100%;
+  min-height: 80vh;
+  background-color: rgba(220, 238, 228, 0.377);
+  border-radius: 5px;
+  margin: 5%;
+}
+.col , .form-group {
+  margin: 2%;
+}
+.col >.btn:not(:disabled):not(.disabled) {
+  cursor: pointer;
+  margin-right: 80%;
+  padding: 10px;
 }
