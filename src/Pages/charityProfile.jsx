@@ -1,9 +1,11 @@
 import React from 'react'
 import Navbar from '../Components/Navbar'
+import axios from 'axios'
 import { Form, Button, Row, Col } from 'react-bootstrap'
+import {IoIosAddCircle } from "react-icons/io";
 
 export default class CharityProfile extends React.Component {
-  constructor (props) {
+  constructor(props) {
     super(props)
     this.state = {
       fields: {
@@ -17,18 +19,43 @@ export default class CharityProfile extends React.Component {
         age: '',
         charityname: '',
         regnumber: ''
-      }
+      },
+      charityName: '',
+      taskslist: []
     }
   }
+  componentDidMount() {
+    let name = window.localStorage.getItem('charityname')
+    console.log('name', name)
+    const getToken = window.localStorage.getItem('token')
+    console.log('tokenlog', getToken)
+    let a = 'http://localhost:8000/tasks/?title=&charity='
+    a += name
+    a += '&gender=&age=&description'
+    console.log('aaa url', a)
+    axios.get(a, {
+      headers: {
+        'Authorization': `Token ${getToken}`
+      }
+    })
+      .then((response) => {
+        console.log('taskslist', response.data)
+        this.setState({ taskslist: response.data })
+      })
+      .catch(function (error) {
+        console.log(error)
+      })
 
-  handleChange (event) {
+  }
+
+  handleChange(event) {
     const name = event.target.name
     const changeFields = this.state.fields
     changeFields[name] = event.target.value
     this.setState({ fields: changeFields })
   }
 
-  render () {
+  render() {
     return (
       <div>
         <Navbar />
@@ -109,19 +136,37 @@ export default class CharityProfile extends React.Component {
             </Form>
           </div>
           <div className='demand-container'>
-            <h2 style={{ alignSelf: 'center', marginTop: '2%' }}>پروژه های خیریه</h2>
-            <div className='task-partition' >
-              <h3 className='task-header'>   هااای </h3>
-              <div className='taskbar'>
-                <div className='requirements'>
-                  <p className='req-element'>  یبلیبلیبل </p>
-                  <p className='req-element'>bbb</p>
-                  <p className='req-element'>ddd</p>
-                </div>
-                <Button variant='info' className='applybtn'>
-                  للل                    </Button>
-              </div>
+            <div className='name-creat'>
+              <h2 >پروژه های خیریه</h2>
+              <Button variant="primary"> پروژه جدید<IoIosAddCircle size='45px' color='white' /></Button>
             </div>
+            {
+              this.state.taskslist.map((task, index) => {
+                return (
+                  <div className='task-partition' key={index}>
+                    <h3 className='task-header'>
+                      {task.title}
+                    </h3>
+                    <div className='taskbar'>
+                      <div className='requirements'>
+                        <p className='req-element'>
+                          {task.charity.name}
+                        </p>
+                        <p className='req-element'>
+                          {task.gender_limit}
+                        </p>
+                        <p className='req-element'>
+                          {task.description}
+                        </p>
+                      </div>
+                      <Button variant={this.state.buttenVariant} className='applybtn'>
+                        {this.state.buttenText}
+                      </Button>
+                    </div>
+                  </div>
+                )
+              })
+            }
           </div>
         </div>
       </div>

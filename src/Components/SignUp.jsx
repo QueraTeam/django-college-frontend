@@ -105,6 +105,8 @@ class SignUp extends React.Component {
           console.log(response.data)
           this.props.history.push('/tasks')
           window.localStorage.setItem('ch', ischarity)
+          window.localStorage.setItem('charityname', response.data.name)
+
 
         })
         .catch(function (error) {

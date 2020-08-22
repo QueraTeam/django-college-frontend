@@ -289,7 +289,7 @@ background: linear-gradient(to top, #243B55, #141E30);
 }
 
 .searchBar > .btn-warning {
-    width: 13%;
+    width: 20%;
     font-weight: bold;
 }
 
@@ -394,12 +394,18 @@ background: linear-gradient(to top, #243B55, #141E30);
     border-radius: 5px;
     margin: 5%;
 }
-
+.name-creat {
+    display: flex;
+    direction: ltr;
+    justify-content: space-between;
+    margin:2%;
+    width: 58%;
+}
 .col, .form-group {
     margin: 2%;
 }
 
 .col > .btn:not(:disabled):not(.disabled) {
     cursor: pointer;
-    margin: 10% 40% auto auto;
+    margin: auto auto auto auto;
 } 
