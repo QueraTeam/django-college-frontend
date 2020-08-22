@@ -138,16 +138,16 @@ class SignUp extends React.Component {
             <div>
               <p dir='rtl' >  لطفا نحوه همکاری خود را انتخاب کنید</p>
               <div className='registerdiv'>
-                <input type='checkbox' name='isCharity'
+                <input id="isCharity" type='checkbox' name='isCharity'
                   onChange={(event) => this.checkboxChange(event)}
                   style={{ width: '20px', height: '20px' }}
                 />
-                <label style={{ marginRight: '10px' }}> موسسه خیریه</label>
-                <input type='checkbox' name='isBenefactor'
+                <label for="isCharity" style={{ marginRight: '10px' }}> موسسه خیریه</label>
+                <input id="isBenefactor" type='checkbox' name='isBenefactor'
                   onChange={(event) => this.checkboxChange(event)}
                   style={{ marginRight: '40px', width: '20px', height: '20px' }}
                 />
-                <label style={{ marginRight: '10px' }}>نیکوکار</label><br />
+                <label for="isBenefactor" style={{ marginRight: '10px' }}>نیکوکار</label><br />
               </div>
               {this.state.isCharity &&
                 <div className='charityreg'>
