@@ -40,12 +40,6 @@ class SignUp extends React.Component {
     this.setState({ show: false })
   }
   
-  handleShow() {
-    this.setState({ show: true })
-  }
-
-
-
   charityCheckbox (event) {
     this.setState({ charity: event.target.value })
   }
@@ -139,7 +133,7 @@ class SignUp extends React.Component {
             onChange={(event) => this.handleChange(event)}
           />
         </div>
-        <button className='logbtn' onClick={() => this.handleShow()} >ثبت نام</button>
+        <button className='logbtn' onClick={() => this.signupRequest ()} >ثبت نام</button>
 
         <Modal show={this.state.show} onHide={() => this.handleClose()} id='signmod'>
           <Modal.Header id='mods' closeButton >

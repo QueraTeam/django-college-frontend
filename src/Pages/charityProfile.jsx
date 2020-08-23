@@ -36,6 +36,7 @@ export default class CharityProfile extends React.Component {
 
   }
   componentDidMount() {
+
     let name = window.localStorage.getItem('charityname')
     console.log('name', name)
     const getToken = window.localStorage.getItem('token')
@@ -84,6 +85,35 @@ export default class CharityProfile extends React.Component {
     const changeNewTaskFields = this.state.newTaskFields
     changeNewTaskFields[name] = event.target.value
     this.setState({ newTaskChange: changeNewTaskFields })
+  }
+
+  newTaskRequest() {
+    let genderSelected = null;
+    if (this.state.gender !== '') {
+      genderSelected = this.state.newTaskFields.gender
+    }
+    var token = window.localStorage.getItem('token')
+    
+    axios.post('http://localhost:8000/tasks/', {
+      title: this.state.newTaskFields.title,
+      description: this.state.newTaskFields.description,
+      age_limit_from: this.state.newTaskFields.ageFrom,
+      age_limit_to: this.state.newTaskFields.ageTo,
+      gender_limit: genderSelected,
+      date: this.state.date
+    }, {
+      headers: {
+        'Authorization': `Token ${token}`
+      }
+    })
+      .then((response) => {
+        console.log(response.data)
+      })
+      .catch(function (error) {
+        console.log(error)
+      })
+
+
   }
 
 
@@ -192,22 +222,21 @@ export default class CharityProfile extends React.Component {
                         <Form.Label>جنسیت:</Form.Label>
                         <Form.Control as='select' name='gender'
                           onChange={(event) => this.newTaskChange(event)} >
-                          <option value='female'>زن</option>
-                          <option value='male'>مرد</option>
+                          <option value='F'>زن</option>
+                          <option value='M'>مرد</option>
                           <option value=''>تفاوتی ندارد</option>
                         </Form.Control>
-
                       </Col>
 
                       <Col sm='2'>
                         <Form.Label> سن از:</Form.Label>
-                        <Form.Control name='ageFrom'
+                        <Form.Control name='ageFrom' type='number'
                           placeholder='از' onChange={(event) => this.newTaskChange(event)} />
                       </Col>
                       <Col sm='2'>
                         <Form.Label> تا:</Form.Label>
 
-                        <Form.Control name='ageFrom'
+                        <Form.Control name='ageTo' type='number'
                           placeholder='تا' onChange={(event) => this.newTaskChange(event)} />
                       </Col>
 
@@ -247,7 +276,7 @@ export default class CharityProfile extends React.Component {
                   </Form>
                 </Modal.Body>
                 <Modal.Footer>
-                  <Button variant='success' onClick={() => this.handleClose()}>
+                  <Button variant="outline-dark" onClick={() => this.newTaskRequest()}>
                     ذخیره
             </Button>
                 </Modal.Footer>
