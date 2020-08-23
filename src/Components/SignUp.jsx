@@ -39,6 +39,12 @@ class SignUp extends React.Component {
   handleClose () {
     this.setState({ show: false })
   }
+  
+  handleShow() {
+    this.setState({ show: true })
+  }
+
+
 
   charityCheckbox (event) {
     this.setState({ charity: event.target.value })
@@ -84,7 +90,6 @@ class SignUp extends React.Component {
         .then((response) => {
           console.log(response.data)
           this.props.history.push('/tasks')
-          
           window.localStorage.setItem('b', isBenefactor)
 
         })
@@ -134,15 +139,15 @@ class SignUp extends React.Component {
             onChange={(event) => this.handleChange(event)}
           />
         </div>
-        <button className='logbtn' onClick={() => this.signupRequest()} >ثبت نام</button>
+        <button className='logbtn' onClick={() => this.handleShow()} >ثبت نام</button>
 
-        <Modal show={this.state.show} onHide={() => this.handleClose()}>
-          <Modal.Header closeButton >
-            <Modal.Title> نحوه همکاری </Modal.Title>
+        <Modal show={this.state.show} onHide={() => this.handleClose()} id='signmod'>
+          <Modal.Header id='mods' closeButton >
+            <Modal.Title id='mods'> نحوه همکاری </Modal.Title>
           </Modal.Header>
-          <Modal.Body dir='rtl'>
+          <Modal.Body id='modbod' dir='rtl'>
             <div>
-              <p dir='rtl' >  لطفا نحوه همکاری خود را انتخاب کنید</p>
+              <p dir='rtl' style={{textAlign: 'right'}}>  لطفا نحوه همکاری خود را انتخاب کنید</p>
               <div className='registerdiv'>
                 <input id="isCharity" type='checkbox' name='isCharity'
                   onChange={(event) => this.checkboxChange(event)}

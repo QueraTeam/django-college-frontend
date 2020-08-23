@@ -1,8 +1,9 @@
 import React from 'react'
 import Navbar from '../Components/Navbar'
 import axios from 'axios'
-import { Form, Button, Row, Col } from 'react-bootstrap'
-import {IoIosAddCircle } from "react-icons/io";
+import { Form, Button, Row, Col, Modal } from 'react-bootstrap'
+import { IoIosAddCircle } from 'react-icons/io';
+import Calender from '../Components/Calender'
 
 export default class CharityProfile extends React.Component {
   constructor(props) {
@@ -21,8 +22,18 @@ export default class CharityProfile extends React.Component {
         regnumber: ''
       },
       charityName: '',
-      taskslist: []
+      taskslist: [],
+      show: false,
+      date: '',
+      newTaskFields: {
+        title: '',
+        description: '',
+        gender: '',
+        ageFrom: '',
+        ageTo: '',
+      }
     }
+
   }
   componentDidMount() {
     let name = window.localStorage.getItem('charityname')
@@ -55,7 +66,29 @@ export default class CharityProfile extends React.Component {
     this.setState({ fields: changeFields })
   }
 
+  handleShow() {
+    this.setState({ show: true })
+  }
+
+  handleClose() {
+    this.setState({ show: false })
+  }
+
+  calenderDateChange(date) {
+    this.setState({ date })
+
+  }
+
+  newTaskChange(event) {
+    const name = event.target.name
+    const changeNewTaskFields = this.state.newTaskFields
+    changeNewTaskFields[name] = event.target.value
+    this.setState({ newTaskChange: changeNewTaskFields })
+  }
+
+
   render() {
+    console.log('date', this.state.newTaskFields)
     return (
       <div>
         <Navbar />
@@ -135,10 +168,90 @@ export default class CharityProfile extends React.Component {
               </Row>
             </Form>
           </div>
+
           <div className='demand-container'>
-            <div className='name-creat'>
+            <div className='name-creat' >
               <h2 >پروژه های خیریه</h2>
-              <Button variant="primary"> پروژه جدید<IoIosAddCircle size='45px' color='white' /></Button>
+              <Button variant='primary' onClick={() => this.handleShow()}>
+                پروژه جدید<IoIosAddCircle size='45px' color='white' />
+              </Button>
+
+              <Modal show={this.state.show} onHide={() => this.handleClose()} size='lg' id='charitymodal'>
+                <Modal.Header id='chmodt' closeButton >
+                  <Modal.Title> ایجاد پروژه جدید </Modal.Title>
+                </Modal.Header>
+                <Modal.Body dir='rtl' style={{ textAlign: 'right' }}>
+                  <Form>
+                    <Row >
+                      <Col sm='4'>
+                        <Form.Label>عنوان:</Form.Label>
+                        <Form.Control name='title'
+                          placeholder='عنوان' onChange={(event) => this.newTaskChange(event)} />
+                      </Col>
+                      <Col sm='3'>
+                        <Form.Label>جنسیت:</Form.Label>
+                        <Form.Control as='select' name='gender'
+                          onChange={(event) => this.newTaskChange(event)} >
+                          <option value='female'>زن</option>
+                          <option value='male'>مرد</option>
+                          <option value=''>تفاوتی ندارد</option>
+                        </Form.Control>
+
+                      </Col>
+
+                      <Col sm='2'>
+                        <Form.Label> سن از:</Form.Label>
+                        <Form.Control name='ageFrom'
+                          placeholder='از' onChange={(event) => this.newTaskChange(event)} />
+                      </Col>
+                      <Col sm='2'>
+                        <Form.Label> تا:</Form.Label>
+
+                        <Form.Control name='ageFrom'
+                          placeholder='تا' onChange={(event) => this.newTaskChange(event)} />
+                      </Col>
+
+
+                    </Row>
+                    <br />
+                    <Row >
+                      <Col sm='2'>
+
+                      </Col>
+                      <Col sm='8'>
+                        <Form.Label>توضیحات:</Form.Label>
+                        <Form.Control name='description'
+                          placeholder='توضیحات' onChange={(event) => this.newTaskChange(event)} />
+                      </Col>
+                      <Col sm='2'>
+
+                      </Col>
+
+                    </Row>
+                    <br></br>
+                    <Row>
+                      <Col sm='3'>
+
+                      </Col>
+                      <Col sm='6'>
+                        <Form.Label>انتخاب تاریخ:</Form.Label>
+                        <Calender name='date'
+                          calenderDateChange={(date) => this.calenderDateChange(date)}
+                        />
+                      </Col>
+                      <Col sm='3'>
+
+                      </Col>
+
+                    </Row>
+                  </Form>
+                </Modal.Body>
+                <Modal.Footer>
+                  <Button variant='success' onClick={() => this.handleClose()}>
+                    ذخیره
+            </Button>
+                </Modal.Footer>
+              </Modal>
             </div>
             {
               this.state.taskslist.map((task, index) => {
