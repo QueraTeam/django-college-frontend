@@ -18,13 +18,19 @@ export default class Tasks extends React.Component {
       },
       buttenText: '',
       buttenVariant: '',
-      taskslist: []
+      taskslist: [],
 
     }
   }
 
   componentDidMount() {
     const getToken = window.localStorage.getItem('token')
+    let b = window.localStorage.getItem('b')
+    console.log('b', b)
+
+    if (b) {
+      this.setState({ buttenText:'اعلام آمادگی', butten:'warning'})
+    }
     console.log('tokenlog', getToken)
     axios.get('http://localhost:8000/tasks/?title=&charity=&gender=&age=&description', {
       headers: {
