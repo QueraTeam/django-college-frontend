@@ -6,7 +6,7 @@ import { IoMdSearch } from 'react-icons/io'
 import axios from 'axios'
 
 export default class Tasks extends React.Component {
-  constructor (props) {
+  constructor(props) {
     super(props)
     this.state = {
       fields: {
@@ -16,14 +16,14 @@ export default class Tasks extends React.Component {
         age: '',
         description: ''
       },
-      buttenText: 'اعلام آمادگی',
-      buttenVariant: 'warning',
+      buttenText: '',
+      buttenVariant: '',
       taskslist: []
 
     }
   }
 
-  componentDidMount () {
+  componentDidMount() {
     const getToken = window.localStorage.getItem('token')
     console.log('tokenlog', getToken)
     axios.get('http://localhost:8000/tasks/?title=&charity=&gender=&age=&description', {
@@ -34,20 +34,25 @@ export default class Tasks extends React.Component {
       .then((response) => {
         console.log('taskslist', response.data)
         this.setState({ taskslist: response.data })
+
       })
       .catch(function (error) {
         console.log(error)
       })
+
+
+
+
   }
 
-  handleChange (event) {
+  handleChange(event) {
     const name = event.target.name
     const changeFields = this.state.fields
     changeFields[name] = event.target.value
     this.setState({ fields: changeFields })
   }
 
-  filteredSearch () {
+  filteredSearch() {
     const getToken = window.localStorage.getItem('token')
     let a = 'http://localhost:8000/tasks/?title='
     if (this.state.fields.title) {
@@ -85,7 +90,28 @@ export default class Tasks extends React.Component {
       })
   }
 
-  render () {
+  taskRequest(taskId) {
+    console.log('id', taskId)
+    const getToken = window.localStorage.getItem('token')
+    let a = 'http://localhost:8000/tasks/'
+      a += taskId
+      a += '/request/'
+  
+    axios.get(a, {
+      headers: {
+        'Authorization': `Token ${getToken}`
+      }
+    })
+      .then((response) => {
+        console.log('taskrequest', response.data)
+      })
+      .catch(function (error) {
+        console.log(error)
+      })
+  }
+
+  
+  render() {
     return (
       <div className='taskPage' dir='rtl'>
         <Navbar />
@@ -112,25 +138,27 @@ export default class Tasks extends React.Component {
         </div>
         <div className='taskContainer' >
           {
-            this.state.taskslist.map((task, index) => {
+            this.state.taskslist.map((task,index) => {
               return (
-                <div className='task-partition' key={index}>
+                <div className='task-partition' key={index} >
                   <h3 className='task-header'>
                     {task.title}
+
                   </h3>
                   <div className='taskbar'>
                     <div className='requirements'>
                       <p className='req-element'>
                         {task.charity.name}
                       </p>
-                      <p className='req-element'>
-                        {task.gender_limit}
-                      </p>
+                      <p className='req-element'> {task.gender_limit} </p>
                       <p className='req-element'>
                         {task.description}
                       </p>
                     </div>
-                    <Button variant={this.state.buttenVariant} className='applybtn'>
+                    <Button variant={this.state.buttenVariant} className='applybtn'
+
+                      onClick={() => this.taskRequest(task.id)}
+                    >
                       {this.state.buttenText}
                     </Button>
                   </div>

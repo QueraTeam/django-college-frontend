@@ -301,9 +301,9 @@ export default class CharityProfile extends React.Component {
                           {task.description}
                         </p>
                       </div>
-                      <Button variant={this.state.buttenVariant} className='applybtn'>
+                      {/* <Button variant={this.state.buttenVariant} className='applybtn'>
                         {this.state.buttenText}
-                      </Button>
+                      </Button> */}
                     </div>
                   </div>
                 )
