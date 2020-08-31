@@ -1,7 +1,7 @@
 import React from 'react'
 import Navbar from '../Components/Navbar'
 import axios from 'axios'
-import { Form, Button, Row, Col, Modal } from 'react-bootstrap'
+import { Form, Button, Row, Col, Modal, Tabs, Tab } from 'react-bootstrap'
 import { IoIosAddCircle } from 'react-icons/io';
 import Calender from '../Components/Calender'
 
@@ -25,6 +25,7 @@ export default class CharityProfile extends React.Component {
       taskslist: [],
       show: false,
       date: '',
+      key: 1,
       buttenText: '',
       buttenVariant: '',
       newTaskFields: {
@@ -35,6 +36,7 @@ export default class CharityProfile extends React.Component {
         ageTo: '',
       }
     }
+    this.handleSelect = this.handleSelect.bind(this)
 
   }
   componentDidMount() {
@@ -75,6 +77,10 @@ export default class CharityProfile extends React.Component {
 
   handleClose() {
     this.setState({ show: false })
+  }
+
+  handleSelect(key) {
+    this.setState({ key })
   }
 
   calenderDateChange(date) {
@@ -167,7 +173,7 @@ export default class CharityProfile extends React.Component {
 
   }
 
-  
+
 
   render() {
     console.log('date', this.state.newTaskFields)
@@ -274,9 +280,9 @@ export default class CharityProfile extends React.Component {
                         <Form.Label>جنسیت:</Form.Label>
                         <Form.Control as='select' name='gender'
                           onChange={(event) => this.newTaskChange(event)} >
-                          <option value='F'>زن</option>
-                          <option value='M'>مرد</option>
                           <option value=''>تفاوتی ندارد</option>
+                          <option value='M'>مرد</option>
+                          <option value='F'>زن</option>
                         </Form.Control>
                       </Col>
 
@@ -334,7 +340,13 @@ export default class CharityProfile extends React.Component {
                 </Modal.Footer>
               </Modal>
             </div>
-            {
+            <Tabs
+              style={{ border: 'none' }}
+              activeKey={this.state.key}
+              onSelect={(eventKey) => this.handleSelect(eventKey)}
+            >
+              <Tab eventKey={1} title='در انتطار پذیرش'>
+              {
               this.state.taskslist.map((task, index) => {
                 if (task.state === 'P') {
                   return (
@@ -361,7 +373,12 @@ export default class CharityProfile extends React.Component {
                       </div>
                     </div>
                   )
-                } if (task.state === 'W') {
+                }})}
+              </Tab>
+              <Tab eventKey={2} title='در انتطار تائید'>
+              {
+              this.state.taskslist.map((task, index) => {
+                 if (task.state === 'W') {
                   return (
                     <div className='task-partition' key={index}>
                       <h3 className='task-header'>
@@ -380,15 +397,15 @@ export default class CharityProfile extends React.Component {
                           </p>
                         </div>
                         <div className='responses'>
-                        <Button variant='success' 
-                          onClick={() => this.acceptedResponse(task.id)}
-                        >
-                          تائید
+                          <Button variant='success'
+                            onClick={() => this.acceptedResponse(task.id)}
+                          >
+                            تائید
                         </Button>
-                        <Button variant='danger' 
-                          onClick={() => this.rejectedResponse(task.id)}
-                        >
-                          رد
+                          <Button variant='danger'
+                            onClick={() => this.rejectedResponse(task.id)}
+                          >
+                            رد
                         </Button>
                         </div>
                       </div>
@@ -397,6 +414,77 @@ export default class CharityProfile extends React.Component {
                 }
               })
             }
+              </Tab>
+              <Tab eventKey={3} title='تائید شده'>
+              {
+              this.state.taskslist.map((task, index) => {
+                 if (task.state === 'A' ) {
+                  return (
+                    <div className='task-partition' key={index}>
+                      <h3 className='task-header'>
+                        {task.title}
+                      </h3>
+                      <div className='taskbar'>
+                        <div className='requirements'>
+                          <p className='req-element'>
+                            {task.charity.name}
+                          </p>
+                          <p className='req-element'>
+                            {task.gender_limit}
+                          </p>
+                          <p className='req-element'>
+                            {task.description}
+                          </p>
+                        </div>
+                        
+                      </div>
+                    </div>
+                  )
+                }
+              })
+            }
+              </Tab>
+              <Tab eventKey={4} title='انجام شده'>
+              {
+              this.state.taskslist.map((task, index) => {
+                 if (task.state === 'A' ) {
+                  return (
+                    <div className='task-partition' key={index}>
+                      <h3 className='task-header'>
+                        {task.title}
+                      </h3>
+                      <div className='taskbar'>
+                        <div className='requirements'>
+                          <p className='req-element'>
+                            {task.charity.name}
+                          </p>
+                          <p className='req-element'>
+                            {task.gender_limit}
+                          </p>
+                          <p className='req-element'>
+                            {task.description}
+                          </p>
+                        </div>
+                        <div className='responses'>
+                          <Button variant='success'
+                            onClick={() => this.acceptedResponse(task.id)}
+                          >
+                            تائید
+                        </Button>
+                          <Button variant='danger'
+                            onClick={() => this.rejectedResponse(task.id)}
+                          >
+                            رد
+                        </Button>
+                        </div>
+                      </div>
+                    </div>
+                  )
+                }
+              })
+            }
+              </Tab>
+            </Tabs>
           </div>
         </div>
       </div>

@@ -1,53 +1,49 @@
 /*--------------------------login and signup-----------------------*/
 .log-body {
-  background: #cf3d18;  /* fallback for old browsers */
-  background: -webkit-linear-gradient(to bottom, #ff9068, #cf3d18);  /* Chrome 10-25, Safari 5.1-6 */
-  background: linear-gradient(to bottom, #ff9068, #cf3d18); 
-  height: 100vh;
-  width: 100%;
-  display: flex;
-  align-items: center;
-  justify-content: center;
-
-}
-.log-container{
-  background-color: transparent;
-  display: flex;
-  justify-content: center;
-  align-items: center;
-  width: 60%;
-  height: 75%;
-  box-shadow: 5px 10px 18px #2c2828;
-  border-radius: 1vh;
-}
-.log-pic{
-  display: flex;
-  align-items: center;
-  justify-content: center;
-  width: 50%;
-  background-color:  #52f5b4;
-  height: 100%;
-  border-radius: 0vh 1vh 1vh 0vh;
-
+    background: #cf3d18;  /* fallback for old browsers */
+    background: -webkit-linear-gradient(to bottom, #ff9068, #cf3d18);  /* Chrome 10-25, Safari 5.1-6 */
+    background: linear-gradient(to bottom, #ff9068, #cf3d18); 
+    height: 100vh;
+    width: 100%;
+    display: flex;
+    align-items: center;
+    justify-content: center;
 }
 
-.login-signup{
-  display: flex;
-  flex-direction: column;
-  align-items: flex-start;
-  justify-content: center;
-  background: #141E30;  
-background: -webkit-linear-gradient(to top, #243B55, #141E30);
-background: linear-gradient(to top, #243B55, #141E30); 
-
-  height: 100%;
-  width: 50%;
-  border-radius: 1vh 0vh 0vh 1vh;
-  padding-right: 3%;
-  
-
+.log-container {
+    background-color: transparent;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    width: 60%;
+    height: 75%;
+    box-shadow: 5px 10px 18px #2c2828;
+    border-radius: 1vh;
 }
 
+.log-pic {
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    width: 50%;
+    background-color:  #52f5b4;
+    height: 100%;
+    border-radius: 0vh 1vh 1vh 0vh;
+}
+
+.login-signup {
+    display: flex;
+    flex-direction: column;
+    align-items: flex-start;
+    justify-content: center;
+    background: #141E30;  
+    background: -webkit-linear-gradient(to top, #243B55, #141E30);
+    background: linear-gradient(to top, #243B55, #141E30); 
+    height: 100%;
+    width: 50%;
+    border-radius: 1vh 0vh 0vh 1vh;
+    padding-right: 3%;
+}
 
 .log-container {
     background-color: transparent;
@@ -68,7 +64,6 @@ background: linear-gradient(to top, #243B55, #141E30);
     background-color: #52f5b4;
     height: 100%;
     border-radius: 0vh 1vh 1vh 0vh;
-
 }
 
 .login-signup {
@@ -76,44 +71,34 @@ background: linear-gradient(to top, #243B55, #141E30);
     flex-direction: column;
     align-items: flex-start;
     justify-content: center;
-    background: #141E30; /* fallback for old browsers */
-    background: -webkit-linear-gradient(to top, #243B55, #141E30); /* Chrome 10-25, Safari 5.1-6 */
-    background: linear-gradient(to top, #243B55, #141E30); /* W3C, IE 10+/ Edge, Firefox 16+, Chrome 26+, Opera 12+, Safari 7+ */
-
+    background: #141E30;
+    background: -webkit-linear-gradient(to top, #243B55, #141E30);
+    background: linear-gradient(to top, #243B55, #141E30); 
     height: 100%;
     width: 50%;
     border-radius: 1vh 0vh 0vh 1vh;
     padding-right: 3%;
+}
 
-
+.nav-tabs {
+    background-color: transparent !important;
 }
 
 .nav-tabs .nav-link.active {
-    background-color: inherit !important;
-    color: #fff !important;
-    font-weight: bold;
-    margin-bottom: 25%;
-}
-.nav-link:hover{   color: rgb(175, 169, 169) !important;
-}
-.nav-link {
-  color: rgb(175, 169, 169) !important;
-  text-decoration: none;
-  background-color: transparent !important;
-  outline: none;
-  font-weight: bold;
-  font-size: large;
-  border: none;  
-  margin: 5px;
-} 
-.nav-link:hover {
-    color: #fff;
-    border: none;
+    color: #f0efef !important;
+    border:none;
+    border-bottom: 2px solid #f4f5f7 !important;
 }
 
-.nav-link.active {
+.nav-tabs .nav-link {
     border: none;
-    border-bottom: 2px solid #fff !important;
+    font-size: x-large;
+    color: #6e6e6e98 !important;
+    background-color: transparent !important;
+    margin: 5px;
+    font-size:1.25em;
+    outline: none;
+    font-weight: bold;
 }
 
 .enter-container {
@@ -122,6 +107,7 @@ background: linear-gradient(to top, #243B55, #141E30);
     width: 100%;
     align-items: center;
     flex-direction: column;
+    margin-top: 20%
 }
 
 .user-icon {
@@ -158,7 +144,6 @@ background: linear-gradient(to top, #243B55, #141E30);
     padding: 2%;
     font-weight: bold;
     box-shadow: 2px 5px 13px #181515;
-
 }
 
 .logbtn:hover, .logbtn:focus {
@@ -232,7 +217,9 @@ background: linear-gradient(to top, #243B55, #141E30);
     border: none;
     border-bottom: 2px solid #1a2b3f;
     box-shadow: 2px 3px 7px #534d4d;
+    font-size:large !important;
 }
+
 .navbar-nav>.nav-link {
   color: #fff !important;
 }
@@ -240,13 +227,9 @@ background: linear-gradient(to top, #243B55, #141E30);
   color: #fff !important;
 }
 
-.nav-link {
-    color: #fff;
-}
-
 .logOutbtn {
     position: absolute;
-    top: 22%;
+    top: 17%;
     left: 5%;
 }
 
@@ -399,6 +382,7 @@ background: linear-gradient(to top, #243B55, #141E30);
     border-radius: 5px;
     margin: 5%;
 }
+
 .name-creat {
     display: flex;
     direction: ltr;
@@ -406,6 +390,7 @@ background: linear-gradient(to top, #243B55, #141E30);
     margin:2%;
     width: 58%;
 }
+
 .col, .form-group {
     margin: 2%;
 }
@@ -440,11 +425,37 @@ background: linear-gradient(to top, #243B55, #141E30);
     direction: rtl;
     border: none
 }
+
 .react-calendar > .react-calendar__navigation {
     border: none;
     border-bottom: 2px solid #111111;
 }
+
 abbr[title] {
     text-decoration: none;
 
 } 
+
+/*----------------------task tabs on charity profile---------------------*/
+
+.demand-container >.nav-tabs {
+display: flex;
+justify-content: space-around;
+align-items: center;
+background-color: rgba(223, 91, 39, 0.986) !important;
+margin: 5% 10%;
+border-radius: 2vh;
+}
+
+.demand-container >.nav-tabs .nav-link.active {
+ color: #09306b !important;
+ font-size: x-large;
+ border:none !important;
+}
+
+.demand-container >.nav-tabs .nav-link {
+   border: none;
+    font-size: x-large;
+    color: #160b527a !important;
+}
+

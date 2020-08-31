@@ -28,11 +28,13 @@ export default class Authentication extends React.Component {
               style={{ border: 'none' }}
               activeKey={this.state.key}
               onSelect={(eventKey) => this.handleSelect(eventKey)}
+              id='logtab'
             >
-              <Tab eventKey={1} title='ورود'>
+              <Tab eventKey={1} title='ورود'  id='logtab'
+>
                 <Login />
               </Tab>
-              <Tab eventKey={2} title='ثبت نام'>
+              <Tab eventKey={2} title='ثبت نام' id='logtab'>
                 <SignUp />
               </Tab>
             </Tabs>
