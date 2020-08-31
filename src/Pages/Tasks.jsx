@@ -29,7 +29,7 @@ export default class Tasks extends React.Component {
     console.log('b', b)
 
     if (b) {
-      this.setState({ buttenText:'اعلام آمادگی', butten:'warning'})
+      this.setState({ buttenText:'اعلام آمادگی', buttenVariant:'warning'})
     }
     console.log('tokenlog', getToken)
     axios.get('http://localhost:8000/tasks/?title=&charity=&gender=&age=&description', {
@@ -89,6 +89,7 @@ export default class Tasks extends React.Component {
     })
       .then((response) => {
         console.log('taskslist', response.data)
+        
         this.setState({ taskslist: response.data })
       })
       .catch(function (error) {
@@ -110,6 +111,7 @@ export default class Tasks extends React.Component {
     })
       .then((response) => {
         console.log('taskrequest', response.data)
+        window.location.reload(false);
       })
       .catch(function (error) {
         console.log(error)
@@ -145,6 +147,7 @@ export default class Tasks extends React.Component {
         <div className='taskContainer' >
           {
             this.state.taskslist.map((task,index) => {
+              if (task.state === 'P') {
               return (
                 <div className='task-partition' key={index} >
                   <h3 className='task-header'>
@@ -169,7 +172,7 @@ export default class Tasks extends React.Component {
                     </Button>
                   </div>
                 </div>
-              )
+              ) }
             })
           }
         </div>

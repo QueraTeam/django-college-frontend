@@ -25,6 +25,8 @@ export default class CharityProfile extends React.Component {
       taskslist: [],
       show: false,
       date: '',
+      buttenText: '',
+      buttenVariant: '',
       newTaskFields: {
         title: '',
         description: '',
@@ -93,7 +95,7 @@ export default class CharityProfile extends React.Component {
       genderSelected = this.state.newTaskFields.gender
     }
     var token = window.localStorage.getItem('token')
-    
+
     axios.post('http://localhost:8000/tasks/', {
       title: this.state.newTaskFields.title,
       description: this.state.newTaskFields.description,
@@ -108,6 +110,7 @@ export default class CharityProfile extends React.Component {
     })
       .then((response) => {
         console.log(response.data)
+        window.location.reload(false);
       })
       .catch(function (error) {
         console.log(error)
@@ -284,29 +287,62 @@ export default class CharityProfile extends React.Component {
             </div>
             {
               this.state.taskslist.map((task, index) => {
-                return (
-                  <div className='task-partition' key={index}>
-                    <h3 className='task-header'>
-                      {task.title}
-                    </h3>
-                    <div className='taskbar'>
-                      <div className='requirements'>
-                        <p className='req-element'>
-                          {task.charity.name}
-                        </p>
-                        <p className='req-element'>
-                          {task.gender_limit}
-                        </p>
-                        <p className='req-element'>
-                          {task.description}
-                        </p>
+                if (task.state === 'P') {
+                  return (
+                    <div className='task-partition' key={index}>
+                      <h3 className='task-header'>
+                        {task.title}
+                      </h3>
+                      <div className='taskbar'>
+                        <div className='requirements'>
+                          <p className='req-element'>
+                            {task.charity.name}
+                          </p>
+                          <p className='req-element'>
+                            {task.gender_limit}
+                          </p>
+                          <p className='req-element'>
+                            {task.description}
+                          </p>
+                        </div>
+                        <Button variant='danger' className='applybtn' 
+                          onClick={() => this.taskRequest(task.id)}
+                          disabled
+                        >
+                          در انتظار پذیرش
+                        </Button>
+                        
                       </div>
-                      {/* <Button variant={this.state.buttenVariant} className='applybtn'>
-                        {this.state.buttenText}
-                      </Button> */}
                     </div>
-                  </div>
-                )
+                  )
+                } if (task.state === 'W') {
+                  return (
+                    <div className='task-partition' key={index}>
+                      <h3 className='task-header'>
+                        {task.title}
+                      </h3>
+                      <div className='taskbar'>
+                        <div className='requirements'>
+                          <p className='req-element'>
+                            {task.charity.name}
+                          </p>
+                          <p className='req-element'>
+                            {task.gender_limit}
+                          </p>
+                          <p className='req-element'>
+                            {task.description}
+                          </p>
+                        </div>
+                        <Button variant='dark' className='applybtn'
+
+                          onClick={() => this.taskRequest(task.id)}
+                        >
+                          در انتظار تائید
+                        </Button>
+                      </div>
+                    </div>
+                  )
+                }
               })
             }
           </div>
