@@ -29,7 +29,7 @@ export default class Tasks extends React.Component {
     console.log('b', b)
 
     if (b) {
-      this.setState({ buttenText:'اعلام آمادگی', buttenVariant:'warning'})
+      this.setState({ buttenText: 'اعلام آمادگی', buttenVariant: 'warning' })
     }
     console.log('tokenlog', getToken)
     axios.get('http://localhost:8000/tasks/?title=&charity=&gender=&age=&description', {
@@ -89,7 +89,7 @@ export default class Tasks extends React.Component {
     })
       .then((response) => {
         console.log('taskslist', response.data)
-        
+
         this.setState({ taskslist: response.data })
       })
       .catch(function (error) {
@@ -101,9 +101,9 @@ export default class Tasks extends React.Component {
     console.log('id', taskId)
     const getToken = window.localStorage.getItem('token')
     let a = 'http://localhost:8000/tasks/'
-      a += taskId
-      a += '/request/'
-  
+    a += taskId
+    a += '/request/'
+
     axios.get(a, {
       headers: {
         'Authorization': `Token ${getToken}`
@@ -118,7 +118,7 @@ export default class Tasks extends React.Component {
       })
   }
 
-  
+
   render() {
     return (
       <div className='taskPage' dir='rtl'>
@@ -146,33 +146,34 @@ export default class Tasks extends React.Component {
         </div>
         <div className='taskContainer' >
           {
-            this.state.taskslist.map((task,index) => {
+            this.state.taskslist.map((task, index) => {
               if (task.state === 'P') {
-              return (
-                <div className='task-partition' key={index} >
-                  <h3 className='task-header'>
-                    {task.title}
+                return (
+                  <div className='task-partition' key={index} >
+                    <h3 className='task-header'>
+                      {task.title}
 
-                  </h3>
-                  <div className='taskbar'>
-                    <div className='requirements'>
-                      <p className='req-element'>
-                        {task.charity.name}
-                      </p>
-                      <p className='req-element'> {task.gender_limit} </p>
-                      <p className='req-element'>
-                        {task.description}
-                      </p>
+                    </h3>
+                    <div className='taskbar'>
+                      <div className='requirements'>
+                        <p className='req-element'>
+                          {task.charity.name}
+                        </p>
+                        <p className='req-element'> {task.gender_limit} </p>
+                        <p className='req-element'>
+                          {task.description}
+                        </p>
+                      </div>
+                      <Button variant={this.state.buttenVariant} className='applybtn'
+
+                        onClick={() => this.taskRequest(task.id)}
+                      >
+                        {this.state.buttenText}
+                      </Button>
                     </div>
-                    <Button variant={this.state.buttenVariant} className='applybtn'
-
-                      onClick={() => this.taskRequest(task.id)}
-                    >
-                      {this.state.buttenText}
-                    </Button>
                   </div>
-                </div>
-              ) }
+                )
+              } else return null
             })
           }
         </div>

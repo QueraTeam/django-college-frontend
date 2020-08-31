@@ -119,6 +119,55 @@ export default class CharityProfile extends React.Component {
 
   }
 
+  acceptedResponse(taskId) {
+    var token = window.localStorage.getItem('token')
+    var acc = 'A'
+    let a = 'http://localhost:8000/tasks/'
+    a += taskId
+    a += '/response/'
+    axios.post(a, {
+      response: acc
+    }, {
+      headers: {
+        'Authorization': `Token ${token}`
+      }
+    })
+      .then((response) => {
+        console.log(response.data)
+        window.location.reload(false);
+      })
+      .catch(function (error) {
+        console.log(error)
+      })
+
+
+  }
+
+  rejectedResponse(taskId) {
+    var token = window.localStorage.getItem('token')
+    var rej = 'R'
+    let a = 'http://localhost:8000/tasks/'
+    a += taskId
+    a += '/response/'
+    axios.post(a, {
+      response: rej
+    }, {
+      headers: {
+        'Authorization': `Token ${token}`
+      }
+    })
+      .then((response) => {
+        console.log(response.data)
+        window.location.reload(false);
+      })
+      .catch(function (error) {
+        console.log(error)
+      })
+
+
+  }
+
+  
 
   render() {
     console.log('date', this.state.newTaskFields)
@@ -305,13 +354,10 @@ export default class CharityProfile extends React.Component {
                             {task.description}
                           </p>
                         </div>
-                        <Button variant='danger' className='applybtn' 
-                          onClick={() => this.taskRequest(task.id)}
-                          disabled
-                        >
+                        <Button variant='light' className='applybtn' disabled
+                          onClick={() => this.taskRequest(task.id)}>
                           در انتظار پذیرش
                         </Button>
-                        
                       </div>
                     </div>
                   )
@@ -333,12 +379,18 @@ export default class CharityProfile extends React.Component {
                             {task.description}
                           </p>
                         </div>
-                        <Button variant='dark' className='applybtn'
-
-                          onClick={() => this.taskRequest(task.id)}
+                        <div className='responses'>
+                        <Button variant='success' 
+                          onClick={() => this.acceptedResponse(task.id)}
                         >
-                          در انتظار تائید
+                          تائید
                         </Button>
+                        <Button variant='danger' 
+                          onClick={() => this.rejectedResponse(task.id)}
+                        >
+                          رد
+                        </Button>
+                        </div>
                       </div>
                     </div>
                   )

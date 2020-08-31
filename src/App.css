@@ -349,7 +349,12 @@ background: linear-gradient(to top, #243B55, #141E30);
     text-align: right;
     padding: 10px;
 }
-
+.responses {
+    align-self: center;
+    display: flex;
+    justify-content: space-around;
+    width: 20%;
+}
 .applybtn {
     border: none;
     align-self: center;
