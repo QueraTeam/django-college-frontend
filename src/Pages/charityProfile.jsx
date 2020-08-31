@@ -173,6 +173,25 @@ export default class CharityProfile extends React.Component {
 
   }
 
+  taskDone(id) {
+    const getToken = window.localStorage.getItem('token')
+    let a = 'http://localhost:8000/tasks/'
+    a += id
+    a += '/done/'
+
+    axios.post(a, '', {
+      headers: {
+        'Authorization': `Token ${getToken}`
+      }
+    })
+      .then((response) => {
+        console.log('taskrequest', response.data)
+        //window.location.reload(false);
+      })
+      .catch(function (error) {
+        console.log(error)
+      })
+  }
 
 
   render() {
@@ -346,143 +365,143 @@ export default class CharityProfile extends React.Component {
               onSelect={(eventKey) => this.handleSelect(eventKey)}
             >
               <Tab eventKey={1} title='در انتطار پذیرش'>
-              {
-              this.state.taskslist.map((task, index) => {
-                if (task.state === 'P') {
-                  return (
-                    <div className='task-partition' key={index}>
-                      <h3 className='task-header'>
-                        {task.title}
-                      </h3>
-                      <div className='taskbar'>
-                        <div className='requirements'>
-                          <p className='req-element'>
-                            {task.charity.name}
-                          </p>
-                          <p className='req-element'>
-                            {task.gender_limit}
-                          </p>
-                          <p className='req-element'>
-                            {task.description}
-                          </p>
+                {
+                  this.state.taskslist.map((task, index) => {
+                    if (task.state === 'P') {
+                      return (
+                        <div className='task-partition' key={index}>
+                          <h3 className='task-header'>
+                            {task.title}
+                          </h3>
+                          <div className='taskbar'>
+                            <div className='requirements'>
+                              <p className='req-element'>
+                                {task.charity.name}
+                              </p>
+                              <p className='req-element'>
+                                {task.gender_limit}
+                              </p>
+                              <p className='req-element'>
+                                {task.description}
+                              </p>
+                            </div>
+                            <Button variant='light' className='applybtn' disabled
+                            >
+                              در انتظار پذیرش
+                             </Button>
+                          </div>
                         </div>
-                        <Button variant='light' className='applybtn' disabled
-                          onClick={() => this.taskRequest(task.id)}>
-                          در انتظار پذیرش
-                        </Button>
-                      </div>
-                    </div>
-                  )
-                }})}
+                      )
+                    }
+                  })}
               </Tab>
               <Tab eventKey={2} title='در انتطار تائید'>
-              {
-              this.state.taskslist.map((task, index) => {
-                 if (task.state === 'W') {
-                  return (
-                    <div className='task-partition' key={index}>
-                      <h3 className='task-header'>
-                        {task.title}
-                      </h3>
-                      <div className='taskbar'>
-                        <div className='requirements'>
-                          <p className='req-element'>
-                            {task.charity.name}
-                          </p>
-                          <p className='req-element'>
-                            {task.gender_limit}
-                          </p>
-                          <p className='req-element'>
-                            {task.description}
-                          </p>
-                        </div>
-                        <div className='responses'>
-                          <Button variant='success'
-                            onClick={() => this.acceptedResponse(task.id)}
-                          >
-                            تائید
+                {
+                  this.state.taskslist.map((task, index) => {
+                    if (task.state === 'W') {
+                      return (
+                        <div className='task-partition' key={index}>
+                          <h3 className='task-header'>
+                            {task.title}
+                          </h3>
+                          <div className='taskbar'>
+                            <div className='requirements'>
+                              <p className='req-element'>
+                                {task.charity.name}
+                              </p>
+                              <p className='req-element'>
+                                {task.gender_limit}
+                              </p>
+                              <p className='req-element'>
+                                {task.description}
+                              </p>
+                            </div>
+                            <div className='responses'>
+                              <Button variant='success'
+                                onClick={() => this.acceptedResponse(task.id)}
+                              >
+                                تائید
                         </Button>
-                          <Button variant='danger'
-                            onClick={() => this.rejectedResponse(task.id)}
-                          >
-                            رد
+                              <Button variant='danger'
+                                onClick={() => this.rejectedResponse(task.id)}
+                              >
+                                رد
                         </Button>
+                            </div>
+                          </div>
                         </div>
-                      </div>
-                    </div>
-                  )
+                      )
+                    }
+                  })
                 }
-              })
-            }
               </Tab>
               <Tab eventKey={3} title='تائید شده'>
-              {
-              this.state.taskslist.map((task, index) => {
-                 if (task.state === 'A' ) {
-                  return (
-                    <div className='task-partition' key={index}>
-                      <h3 className='task-header'>
-                        {task.title}
-                      </h3>
-                      <div className='taskbar'>
-                        <div className='requirements'>
-                          <p className='req-element'>
-                            {task.charity.name}
-                          </p>
-                          <p className='req-element'>
-                            {task.gender_limit}
-                          </p>
-                          <p className='req-element'>
-                            {task.description}
-                          </p>
+                {
+                  this.state.taskslist.map((task, index) => {
+                    if (task.state === 'A') {
+                      return (
+                        <div className='task-partition' key={index}>
+                          <h3 className='task-header'>
+                            {task.title}
+                          </h3>
+                          <div className='taskbar'>
+                            <div className='requirements'>
+                              <p className='req-element'>
+                                {task.charity.name}
+                              </p>
+                              <p className='req-element'>
+                                {task.gender_limit}
+                              </p>
+                              <p className='req-element'>
+                                {task.description}
+                              </p>
+                            </div>
+                            <div className='responses'>
+                              <Button variant='success' size='lg'
+                                onClick={() => this.taskDone(task.id)}
+
+                              >
+                                اتمام پروژه
+                        </Button>
+                            </div>
+                          </div>
                         </div>
-                        
-                      </div>
-                    </div>
-                  )
+                      )
+                    }
+                  })
                 }
-              })
-            }
               </Tab>
               <Tab eventKey={4} title='انجام شده'>
-              {
-              this.state.taskslist.map((task, index) => {
-                 if (task.state === 'A' ) {
-                  return (
-                    <div className='task-partition' key={index}>
-                      <h3 className='task-header'>
-                        {task.title}
-                      </h3>
-                      <div className='taskbar'>
-                        <div className='requirements'>
-                          <p className='req-element'>
-                            {task.charity.name}
-                          </p>
-                          <p className='req-element'>
-                            {task.gender_limit}
-                          </p>
-                          <p className='req-element'>
-                            {task.description}
-                          </p>
+                {
+                  this.state.taskslist.map((task, index) => {
+                    if (task.state === 'D') {
+                      return (
+                        <div className='task-partition' key={index}>
+                          <h3 className='task-header'>
+                            {task.title}
+                          </h3>
+                          <div className='taskbar'>
+                            <div className='requirements'>
+                              <p className='req-element'>
+                                {task.charity.name}
+                              </p>
+                              <p className='req-element'>
+                                {task.gender_limit}
+                              </p>
+                              <p className='req-element'>
+                                {task.description}
+                              </p>
+                            </div>
+                            <Button variant='light' className='applybtn' disabled
+                            >
+                              به پایان رسیده
+                             </Button>
+                          </div>
                         </div>
-                        <div className='responses'>
-                          <Button variant='success'
-                            onClick={() => this.acceptedResponse(task.id)}
-                          >
-                            تائید
-                        </Button>
-                          <Button variant='danger'
-                            onClick={() => this.rejectedResponse(task.id)}
-                          >
-                            رد
-                        </Button>
-                        </div>
-                      </div>
-                    </div>
-                  )
+                      )
+                    }
+                  })
                 }
-              })
-            }
               </Tab>
             </Tabs>
           </div>

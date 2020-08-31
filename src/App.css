@@ -1,7 +1,7 @@
 /*--------------------------login and signup-----------------------*/
 .log-body {
-    background: #cf3d18;  /* fallback for old browsers */
-    background: -webkit-linear-gradient(to bottom, #ff9068, #cf3d18);  /* Chrome 10-25, Safari 5.1-6 */
+    background: #cf3d18;
+    background: -webkit-linear-gradient(to bottom, #ff9068, #cf3d18);
     background: linear-gradient(to bottom, #ff9068, #cf3d18); 
     height: 100vh;
     width: 100%;
@@ -442,20 +442,21 @@ abbr[title] {
 display: flex;
 justify-content: space-around;
 align-items: center;
-background-color: rgba(223, 91, 39, 0.986) !important;
+background: #cf3d18;
+background: -webkit-linear-gradient(to top, #fd7b4c, #cf3d18);
+background: linear-gradient(to top, #fd7b4c, #cf3d18); 
 margin: 5% 10%;
 border-radius: 2vh;
 }
 
 .demand-container >.nav-tabs .nav-link.active {
  color: #09306b !important;
- font-size: x-large;
  border:none !important;
 }
 
 .demand-container >.nav-tabs .nav-link {
    border: none;
-    font-size: x-large;
+    font-size: large;
     color: #160b527a !important;
 }
 

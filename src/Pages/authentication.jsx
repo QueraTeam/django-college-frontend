@@ -4,7 +4,7 @@ import Login from '../Components/Login'
 import SignUp from '../Components/SignUp'
 
 export default class Authentication extends React.Component {
-  constructor (props) {
+  constructor(props) {
     super(props)
     this.state = {
       key: 1
@@ -12,11 +12,11 @@ export default class Authentication extends React.Component {
     this.handleSelect = this.handleSelect.bind(this)
   }
 
-  handleSelect (key) {
+  handleSelect(key) {
     this.setState({ key })
   }
 
-  render () {
+  render() {
     return (
       <div className='log-body' dir='rtl' >
         <div className='log-container'>
@@ -28,13 +28,12 @@ export default class Authentication extends React.Component {
               style={{ border: 'none' }}
               activeKey={this.state.key}
               onSelect={(eventKey) => this.handleSelect(eventKey)}
-              id='logtab'
             >
-              <Tab eventKey={1} title='ورود'  id='logtab'
->
+              <Tab eventKey={1} title='ورود'
+              >
                 <Login />
               </Tab>
-              <Tab eventKey={2} title='ثبت نام' id='logtab'>
+              <Tab eventKey={2} title='ثبت نام'>
                 <SignUp />
               </Tab>
             </Tabs>
