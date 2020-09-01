@@ -15,9 +15,6 @@ class Navbar extends React.Component {
   componentDidMount() {
     let b = window.localStorage.getItem('b')
     let ch = window.localStorage.getItem('ch')
-    console.log('b', b)
-    console.log('cc', ch)
-
     if (b) {
       this.setState({ isBenefactor: true })
     }
@@ -26,15 +23,6 @@ class Navbar extends React.Component {
     }
     console.log('hii', this.state)
   }
-
-
-
-
-
-
-
-
-
 
   logOut() {
     const token = window.localStorage.getItem('token')
@@ -64,14 +52,14 @@ class Navbar extends React.Component {
                 <NavDropdown title="پروفایل" >
                   {
                     (this.state.isBenefactor &&
-                    <NavDropdown.Item href='/benefactor'>نیکوکار</NavDropdown.Item>)||
+                      <NavDropdown.Item href='/benefactor'>نیکوکار</NavDropdown.Item>) ||
                     <NavDropdown.Item href='/benefactor' disabled>نیکوکار</NavDropdown.Item>
                   }
 
-                 {
+                  {
                     (this.state.isCharity &&
-                      <NavDropdown.Item  href='/charity'>موسسه خیریه</NavDropdown.Item>)||
-                      <NavDropdown.Item href='/charity' disabled>موسسه خیریه</NavDropdown.Item>
+                      <NavDropdown.Item href='/charity'>موسسه خیریه</NavDropdown.Item>) ||
+                    <NavDropdown.Item href='/charity' disabled>موسسه خیریه</NavDropdown.Item>
                   }
                 </NavDropdown>
               </li>

@@ -6,7 +6,7 @@ import { IoMdSearch } from 'react-icons/io'
 import axios from 'axios'
 
 export default class Tasks extends React.Component {
-  constructor (props) {
+  constructor(props) {
     super(props)
     this.state = {
       fields: {
@@ -16,23 +16,31 @@ export default class Tasks extends React.Component {
         age: '',
         description: ''
       },
-      buttenText: 'اعلام آمادگی',
-      buttenVariant: 'warning',
-      taskslist: []
-
+      buttenText: '',
+      buttenVariant: '',
+      taskslist: [],
     }
   }
 
-  componentDidMount () {
+  componentDidMount() {
     const getToken = window.localStorage.getItem('token')
-    console.log('tokenlog', getToken)
+    let b = window.localStorage.getItem('b')
+    if (b) {
+      this.setState({ buttenText: 'اعلام آمادگی', buttenVariant: 'warning' })
+    }
     axios.get('http://localhost:8000/tasks/?title=&charity=&gender=&age=&description', {
       headers: {
         'Authorization': `Token ${getToken}`
       }
     })
       .then((response) => {
-        console.log('taskslist', response.data)
+        response.data.map((task) => {
+          if (task.gender_limit == 'F') {
+            task.genderName = 'زن'
+          } else if (task.gender_limit == 'M') {
+            task.genderName = 'مرد'
+          }
+        })
         this.setState({ taskslist: response.data })
       })
       .catch(function (error) {
@@ -40,14 +48,14 @@ export default class Tasks extends React.Component {
       })
   }
 
-  handleChange (event) {
+  handleChange(event) {
     const name = event.target.name
     const changeFields = this.state.fields
     changeFields[name] = event.target.value
     this.setState({ fields: changeFields })
   }
 
-  filteredSearch () {
+  filteredSearch() {
     const getToken = window.localStorage.getItem('token')
     let a = 'http://localhost:8000/tasks/?title='
     if (this.state.fields.title) {
@@ -61,7 +69,6 @@ export default class Tasks extends React.Component {
     if (this.state.fields.gender) {
       a += this.state.fields.gender
     }
-
     a += '&age='
     if (this.state.fields.age) {
       a += this.state.fields.age
@@ -85,7 +92,27 @@ export default class Tasks extends React.Component {
       })
   }
 
-  render () {
+  taskRequest(taskId) {
+    const getToken = window.localStorage.getItem('token')
+    let a = 'http://localhost:8000/tasks/'
+    a += taskId
+    a += '/request/'
+
+    axios.get(a, {
+      headers: {
+        'Authorization': `Token ${getToken}`
+      }
+    })
+      .then((response) => {
+        console.log('taskrequest', response.data)
+        window.location.reload(false)
+      })
+      .catch(function (error) {
+        console.log(error)
+      })
+  }
+
+  render() {
     return (
       <div className='taskPage' dir='rtl'>
         <Navbar />
@@ -97,6 +124,7 @@ export default class Tasks extends React.Component {
             onChange={(event) => this.handleChange(event)} />
           <Form.Control as='select' name='gender'
             onChange={(event) => this.handleChange(event)}>
+            <option value=''>جنسیت</option>
             <option value='female'>زن</option>
             <option value='male'>مرد</option>
           </Form.Control>
@@ -113,29 +141,24 @@ export default class Tasks extends React.Component {
         <div className='taskContainer' >
           {
             this.state.taskslist.map((task, index) => {
-              return (
-                <div className='task-partition' key={index}>
-                  <h3 className='task-header'>
-                    {task.title}
-                  </h3>
-                  <div className='taskbar'>
-                    <div className='requirements'>
-                      <p className='req-element'>
-                        {task.charity.name}
-                      </p>
-                      <p className='req-element'>
-                        {task.gender_limit}
-                      </p>
-                      <p className='req-element'>
-                        {task.description}
-                      </p>
+              if (task.state === 'P') {
+                return (
+                  <div className='task-partition' key={index} >
+                    <h3 className='task-header'> {task.title} </h3>
+                    <div className='taskbar'>
+                      <div className='requirements'>
+                        <p className='req-element'> {task.charity.name} </p>
+                        <p className='req-element'> {task.genderName} </p>
+                        <p className='req-element'> {task.description} </p>
+                      </div>
+                      <Button variant={this.state.buttenVariant} className='applybtn'
+                        onClick={() => this.taskRequest(task.id)}>
+                        {this.state.buttenText}
+                      </Button>
                     </div>
-                    <Button variant={this.state.buttenVariant} className='applybtn'>
-                      {this.state.buttenText}
-                    </Button>
                   </div>
-                </div>
-              )
+                )
+              } else return null
             })
           }
         </div>
