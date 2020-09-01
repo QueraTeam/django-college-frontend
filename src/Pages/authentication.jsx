@@ -29,8 +29,7 @@ export default class Authentication extends React.Component {
               activeKey={this.state.key}
               onSelect={(eventKey) => this.handleSelect(eventKey)}
             >
-              <Tab eventKey={1} title='ورود'
-              >
+              <Tab eventKey={1} title='ورود'>
                 <Login />
               </Tab>
               <Tab eventKey={2} title='ثبت نام'>

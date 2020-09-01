@@ -8,9 +8,7 @@ import BenefactorProfile from './Pages/BenefactorProfile'
 import CharityProfile from './Pages/charityProfile'
 
 export default class App extends React.Component {
-   
   render() {
-    
     return (
       <div >
         <Route exact path='/' component={Authentication} />

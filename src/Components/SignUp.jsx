@@ -105,8 +105,6 @@ class SignUp extends React.Component {
           this.props.history.push('/tasks')
           window.localStorage.setItem('ch', ischarity)
           window.localStorage.setItem('charityname', response.data.name)
-
-
         })
         .catch(function (error) {
           console.log(error)
@@ -134,7 +132,6 @@ class SignUp extends React.Component {
           />
         </div>
         <button className='logbtn' onClick={() => this.signupRequest ()} >ثبت نام</button>
-
         <Modal show={this.state.show} onHide={() => this.handleClose()} id='signmod'>
           <Modal.Header id='mods' closeButton >
             <Modal.Title id='mods'> نحوه همکاری </Modal.Title>
@@ -143,16 +140,16 @@ class SignUp extends React.Component {
             <div>
               <p dir='rtl' style={{textAlign: 'right'}}>  لطفا نحوه همکاری خود را انتخاب کنید</p>
               <div className='registerdiv'>
-                <input id="isCharity" type='checkbox' name='isCharity'
+                <input id='isCharity' type='checkbox' name='isCharity'
                   onChange={(event) => this.checkboxChange(event)}
                   style={{ width: '20px', height: '20px' }}
                 />
-                <label for="isCharity" style={{ marginRight: '10px' }}> موسسه خیریه</label>
-                <input id="isBenefactor" type='checkbox' name='isBenefactor'
+                <label for='isCharity' style={{ marginRight: '10px' }}> موسسه خیریه</label>
+                <input id='isBenefactor' type='checkbox' name='isBenefactor'
                   onChange={(event) => this.checkboxChange(event)}
                   style={{ marginRight: '40px', width: '20px', height: '20px' }}
                 />
-                <label for="isBenefactor" style={{ marginRight: '10px' }}>نیکوکار</label><br />
+                <label for='isBenefactor' style={{ marginRight: '10px' }}>نیکوکار</label><br />
               </div>
               {this.state.isCharity &&
                 <div className='charityreg'>

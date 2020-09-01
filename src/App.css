@@ -312,8 +312,6 @@
     border: none;
     border-bottom: 1px solid rgb(138, 136, 136);
     padding: 10px;
-
-
 }
 
 .taskbar {
@@ -433,30 +431,39 @@
 
 abbr[title] {
     text-decoration: none;
-
 } 
 
 /*----------------------task tabs on charity profile---------------------*/
 
 .demand-container >.nav-tabs {
-display: flex;
-justify-content: space-around;
-align-items: center;
-background: #cf3d18;
-background: -webkit-linear-gradient(to top, #fd7b4c, #cf3d18);
-background: linear-gradient(to top, #fd7b4c, #cf3d18); 
-margin: 5% 10%;
-border-radius: 2vh;
+    display: flex;
+    justify-content: space-around;
+    align-items: center;
+    background: #cf3d18;
+    background: -webkit-linear-gradient(to top, #fd7b4c, #cf3d18);
+    background: linear-gradient(to top, #fd7b4c, #cf3d18); 
+    margin: 5% 10%;
+    border-radius: 2vh;
 }
 
 .demand-container >.nav-tabs .nav-link.active {
- color: #09306b !important;
- border:none !important;
+    color: rgb(63, 32, 134) !important;
+    border:none !important;
+    font-size: 1.25em;
 }
 
 .demand-container >.nav-tabs .nav-link {
-   border: none;
+    border: none;
     font-size: large;
     color: #160b527a !important;
 }
 
+/*--------------------------spinner layout-------------------*/
+
+.spinnerdiv {
+    display: flex;
+    width: 100%;
+    height: 100vh;
+    justify-content: center;
+    align-items: center;
+}

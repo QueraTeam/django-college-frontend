@@ -4,7 +4,7 @@ import axios from 'axios'
 import { withRouter } from 'react-router'
 
 class Login extends React.Component {
-  constructor (props) {
+  constructor(props) {
     super(props)
     this.state = {
       fields: {
@@ -14,14 +14,14 @@ class Login extends React.Component {
     }
   }
 
-  handleChange (event) {
+  handleChange(event) {
     const name = event.target.name
     const changeFields = this.state.fields
     changeFields[name] = event.target.value
     this.setState({ fields: changeFields })
   }
 
-  handleRequest () {
+  handleRequest() {
     axios.post('http://localhost:8000/accounts/login/', {
       username: this.state.fields.username,
       password: this.state.fields.password
@@ -36,8 +36,7 @@ class Login extends React.Component {
       })
   }
 
-  render () {
-    console.log('chnge', this.state.fields)
+  render() {
     return (
       <div className='enter-container'>
         <div className='user-icon'>

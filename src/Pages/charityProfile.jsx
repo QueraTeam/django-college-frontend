@@ -2,7 +2,7 @@ import React from 'react'
 import Navbar from '../Components/Navbar'
 import axios from 'axios'
 import { Form, Button, Row, Col, Modal, Tabs, Tab } from 'react-bootstrap'
-import { IoIosAddCircle } from 'react-icons/io';
+import { IoIosAddCircle } from 'react-icons/io'
 import Calender from '../Components/Calender'
 
 export default class CharityProfile extends React.Component {
@@ -37,18 +37,14 @@ export default class CharityProfile extends React.Component {
       }
     }
     this.handleSelect = this.handleSelect.bind(this)
-
   }
-  componentDidMount() {
 
+  componentDidMount() {
     let name = window.localStorage.getItem('charityname')
-    console.log('name', name)
     const getToken = window.localStorage.getItem('token')
-    console.log('tokenlog', getToken)
     let a = 'http://localhost:8000/tasks/?title=&charity='
     a += name
     a += '&gender=&age=&description'
-    console.log('aaa url', a)
     axios.get(a, {
       headers: {
         'Authorization': `Token ${getToken}`
@@ -56,12 +52,18 @@ export default class CharityProfile extends React.Component {
     })
       .then((response) => {
         console.log('taskslist', response.data)
+        response.data.map((task) => {
+          if (task.gender_limit == 'F') {
+            task.genderName = 'زن'
+          } else if (task.gender_limit == 'M') {
+            task.genderName = 'مرد'
+          }
+        })
         this.setState({ taskslist: response.data })
       })
       .catch(function (error) {
         console.log(error)
       })
-
   }
 
   handleChange(event) {
@@ -85,7 +87,6 @@ export default class CharityProfile extends React.Component {
 
   calenderDateChange(date) {
     this.setState({ date })
-
   }
 
   newTaskChange(event) {
@@ -96,12 +97,11 @@ export default class CharityProfile extends React.Component {
   }
 
   newTaskRequest() {
-    let genderSelected = null;
+    let genderSelected = null
     if (this.state.gender !== '') {
       genderSelected = this.state.newTaskFields.gender
     }
     var token = window.localStorage.getItem('token')
-
     axios.post('http://localhost:8000/tasks/', {
       title: this.state.newTaskFields.title,
       description: this.state.newTaskFields.description,
@@ -116,13 +116,11 @@ export default class CharityProfile extends React.Component {
     })
       .then((response) => {
         console.log(response.data)
-        window.location.reload(false);
+        window.location.reload(false)
       })
       .catch(function (error) {
         console.log(error)
       })
-
-
   }
 
   acceptedResponse(taskId) {
@@ -140,13 +138,11 @@ export default class CharityProfile extends React.Component {
     })
       .then((response) => {
         console.log(response.data)
-        window.location.reload(false);
+        window.location.reload(false)
       })
       .catch(function (error) {
         console.log(error)
       })
-
-
   }
 
   rejectedResponse(taskId) {
@@ -164,19 +160,17 @@ export default class CharityProfile extends React.Component {
     })
       .then((response) => {
         console.log(response.data)
-        window.location.reload(false);
+        window.location.reload(false)
       })
       .catch(function (error) {
         console.log(error)
       })
-
-
   }
 
-  taskDone(id) {
+  taskDone(taskId) {
     const getToken = window.localStorage.getItem('token')
     let a = 'http://localhost:8000/tasks/'
-    a += id
+    a += taskId
     a += '/done/'
 
     axios.post(a, '', {
@@ -186,16 +180,14 @@ export default class CharityProfile extends React.Component {
     })
       .then((response) => {
         console.log('taskrequest', response.data)
-        //window.location.reload(false);
+        window.location.reload(false)
       })
       .catch(function (error) {
         console.log(error)
       })
   }
 
-
   render() {
-    console.log('date', this.state.newTaskFields)
     return (
       <div>
         <Navbar />
@@ -224,13 +216,15 @@ export default class CharityProfile extends React.Component {
               <Row>
                 <Col>
                   <Form.Label>ایمیل:</Form.Label>
-                  <Form.Control name='email'
-                    placeholder='ایمیل' onChange={(event) => this.handleChange(event)} />
+                  <Form.Control name='email' placeholder='ایمیل'
+                    onChange={(event) => this.handleChange(event)}
+                  />
                 </Col>
                 <Col>
                   <Form.Label>آدرس:</Form.Label>
-                  <Form.Control name='address'
-                    placeholder='آدرس' onChange={(event) => this.handleChange(event)} />
+                  <Form.Control name='address' placeholder='آدرس'
+                    onChange={(event) => this.handleChange(event)}
+                  />
                 </Col>
               </Row>
               <Row>
@@ -242,18 +236,20 @@ export default class CharityProfile extends React.Component {
                     />
                   </Form.Group>
                 </Col>
-                <Col>
+                <Col >
                   <Form.Label>جنسیت:</Form.Label>
                   <Form.Control as='select' name='gender'
                     onChange={(event) => this.handleChange(event)} >
+                    <option value=''></option>
                     <option value='female'>زن</option>
                     <option value='male'>مرد</option>
                   </Form.Control>
                 </Col>
                 <Col>
                   <Form.Label>سن:</Form.Label>
-                  <Form.Control type='number' name='age'
-                    placeholder='سن' onChange={(event) => this.handleChange(event)} />
+                  <Form.Control type='number' name='age' placeholder='سن'
+                    onChange={(event) => this.handleChange(event)}
+                  />
                 </Col>
               </Row>
               <Row>
@@ -266,23 +262,22 @@ export default class CharityProfile extends React.Component {
                 </Col>
                 <Col>
                   <Form.Label>شماره ثبت:</Form.Label>
-                  <Form.Control name='regnumber'
-                    placeholder='شماره ثبت' onChange={(event) => this.handleChange(event)} />
+                  <Form.Control name='regnumber' placeholder='شماره ثبت'
+                    onChange={(event) => this.handleChange(event)}
+                  />
                 </Col>
                 <Col >
-                  <Button variant='info'>ثبت اطلاعات</Button>
+                  <Button variant='info'> ثبت اطلاعات </Button>
                 </Col>
               </Row>
             </Form>
           </div>
-
           <div className='demand-container'>
             <div className='name-creat' >
               <h2 >پروژه های خیریه</h2>
               <Button variant='primary' onClick={() => this.handleShow()}>
-                پروژه جدید<IoIosAddCircle size='45px' color='white' />
+                پروژه جدید <IoIosAddCircle size='45px' color='white' />
               </Button>
-
               <Modal show={this.state.show} onHide={() => this.handleClose()} size='lg' id='charitymodal'>
                 <Modal.Header id='chmodt' closeButton >
                   <Modal.Title> ایجاد پروژه جدید </Modal.Title>
@@ -291,12 +286,12 @@ export default class CharityProfile extends React.Component {
                   <Form>
                     <Row >
                       <Col sm='4'>
-                        <Form.Label>عنوان:</Form.Label>
+                        <Form.Label> عنوان: </Form.Label>
                         <Form.Control name='title'
                           placeholder='عنوان' onChange={(event) => this.newTaskChange(event)} />
                       </Col>
                       <Col sm='3'>
-                        <Form.Label>جنسیت:</Form.Label>
+                        <Form.Label> جنسیت: </Form.Label>
                         <Form.Control as='select' name='gender'
                           onChange={(event) => this.newTaskChange(event)} >
                           <option value=''>تفاوتی ندارد</option>
@@ -304,58 +299,47 @@ export default class CharityProfile extends React.Component {
                           <option value='F'>زن</option>
                         </Form.Control>
                       </Col>
-
                       <Col sm='2'>
-                        <Form.Label> سن از:</Form.Label>
-                        <Form.Control name='ageFrom' type='number'
-                          placeholder='از' onChange={(event) => this.newTaskChange(event)} />
+                        <Form.Label> سن از: </Form.Label>
+                        <Form.Control name='ageFrom' type='number' placeholder='از'
+                          onChange={(event) => this.newTaskChange(event)}
+                        />
                       </Col>
                       <Col sm='2'>
-                        <Form.Label> تا:</Form.Label>
-
-                        <Form.Control name='ageTo' type='number'
-                          placeholder='تا' onChange={(event) => this.newTaskChange(event)} />
+                        <Form.Label> تا: </Form.Label>
+                        <Form.Control name='ageTo' type='number' placeholder='تا'
+                          onChange={(event) => this.newTaskChange(event)}
+                        />
                       </Col>
-
-
                     </Row>
                     <br />
                     <Row >
-                      <Col sm='2'>
-
-                      </Col>
+                      <Col sm='2'> </Col>
                       <Col sm='8'>
                         <Form.Label>توضیحات:</Form.Label>
-                        <Form.Control name='description'
-                          placeholder='توضیحات' onChange={(event) => this.newTaskChange(event)} />
+                        <Form.Control name='description' placeholder='توضیحات'
+                          onChange={(event) => this.newTaskChange(event)}
+                        />
                       </Col>
-                      <Col sm='2'>
-
-                      </Col>
-
+                      <Col sm='2'> </Col>
                     </Row>
-                    <br></br>
+                    <br />
                     <Row>
-                      <Col sm='3'>
-
-                      </Col>
+                      <Col sm='3'> </Col>
                       <Col sm='6'>
-                        <Form.Label>انتخاب تاریخ:</Form.Label>
+                        <Form.Label> انتخاب تاریخ: </Form.Label>
                         <Calender name='date'
                           calenderDateChange={(date) => this.calenderDateChange(date)}
                         />
                       </Col>
-                      <Col sm='3'>
-
-                      </Col>
-
+                      <Col sm='3'> </Col>
                     </Row>
                   </Form>
                 </Modal.Body>
                 <Modal.Footer>
-                  <Button variant="outline-dark" onClick={() => this.newTaskRequest()}>
+                  <Button variant='outline-dark' onClick={() => this.newTaskRequest()}>
                     ذخیره
-            </Button>
+                  </Button>
                 </Modal.Footer>
               </Modal>
             </div>
@@ -370,25 +354,16 @@ export default class CharityProfile extends React.Component {
                     if (task.state === 'P') {
                       return (
                         <div className='task-partition' key={index}>
-                          <h3 className='task-header'>
-                            {task.title}
-                          </h3>
+                          <h3 className='task-header'> {task.title} </h3>
                           <div className='taskbar'>
                             <div className='requirements'>
-                              <p className='req-element'>
-                                {task.charity.name}
-                              </p>
-                              <p className='req-element'>
-                                {task.gender_limit}
-                              </p>
-                              <p className='req-element'>
-                                {task.description}
-                              </p>
+                              <p className='req-element'> {task.charity.name} </p>
+                              <p className='req-element'> {task.genderName} </p>
+                              <p className='req-element'> {task.description} </p>
                             </div>
-                            <Button variant='light' className='applybtn' disabled
-                            >
+                            <Button variant='light' className='applybtn' disabled >
                               در انتظار پذیرش
-                             </Button>
+                            </Button>
                           </div>
                         </div>
                       )
@@ -401,32 +376,22 @@ export default class CharityProfile extends React.Component {
                     if (task.state === 'W') {
                       return (
                         <div className='task-partition' key={index}>
-                          <h3 className='task-header'>
-                            {task.title}
-                          </h3>
+                          <h3 className='task-header'> {task.title} </h3>
                           <div className='taskbar'>
                             <div className='requirements'>
-                              <p className='req-element'>
-                                {task.charity.name}
-                              </p>
-                              <p className='req-element'>
-                                {task.gender_limit}
-                              </p>
-                              <p className='req-element'>
-                                {task.description}
-                              </p>
+                              <p className='req-element'> {task.charity.name} </p>
+                              <p className='req-element'> {task.genderName}  </p>
+                              <p className='req-element'> {task.description} </p>
                             </div>
                             <div className='responses'>
                               <Button variant='success'
-                                onClick={() => this.acceptedResponse(task.id)}
-                              >
+                                onClick={() => this.acceptedResponse(task.id)}>
                                 تائید
-                        </Button>
+                              </Button>
                               <Button variant='danger'
-                                onClick={() => this.rejectedResponse(task.id)}
-                              >
+                                onClick={() => this.rejectedResponse(task.id)}>
                                 رد
-                        </Button>
+                              </Button>
                             </div>
                           </div>
                         </div>
@@ -446,23 +411,15 @@ export default class CharityProfile extends React.Component {
                           </h3>
                           <div className='taskbar'>
                             <div className='requirements'>
-                              <p className='req-element'>
-                                {task.charity.name}
-                              </p>
-                              <p className='req-element'>
-                                {task.gender_limit}
-                              </p>
-                              <p className='req-element'>
-                                {task.description}
-                              </p>
+                              <p className='req-element'> {task.charity.name} </p>
+                              <p className='req-element'> {task.genderName} </p>
+                              <p className='req-element'> {task.description} </p>
                             </div>
                             <div className='responses'>
                               <Button variant='success' size='lg'
-                                onClick={() => this.taskDone(task.id)}
-
-                              >
+                                onClick={() => this.taskDone(task.id)} >
                                 اتمام پروژه
-                        </Button>
+                              </Button>
                             </div>
                           </div>
                         </div>
@@ -477,25 +434,16 @@ export default class CharityProfile extends React.Component {
                     if (task.state === 'D') {
                       return (
                         <div className='task-partition' key={index}>
-                          <h3 className='task-header'>
-                            {task.title}
-                          </h3>
+                          <h3 className='task-header'> {task.title} </h3>
                           <div className='taskbar'>
                             <div className='requirements'>
-                              <p className='req-element'>
-                                {task.charity.name}
-                              </p>
-                              <p className='req-element'>
-                                {task.gender_limit}
-                              </p>
-                              <p className='req-element'>
-                                {task.description}
-                              </p>
+                              <p className='req-element'> {task.charity.name} </p>
+                              <p className='req-element'> {task.genderName} </p>
+                              <p className='req-element'> {task.description} </p>
                             </div>
-                            <Button variant='light' className='applybtn' disabled
-                            >
+                            <Button variant='light' className='applybtn' disabled >
                               به پایان رسیده
-                             </Button>
+                            </Button>
                           </div>
                         </div>
                       )

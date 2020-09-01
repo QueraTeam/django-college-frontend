@@ -3,7 +3,7 @@ import Navbar from '../Components/Navbar'
 import { Form, Button, Row, Col } from 'react-bootstrap'
 
 export default class BenefactorProfile extends React.Component {
-  constructor (props) {
+  constructor(props) {
     super(props)
     this.state = {
       fields: {
@@ -17,19 +17,18 @@ export default class BenefactorProfile extends React.Component {
         age: '',
         experience: '',
         freeTime: ''
-
       }
     }
   }
 
-  handleChange (event) {
+  handleChange(event) {
     const name = event.target.name
     const changeFields = this.state.fields
     changeFields[name] = event.target.value
     this.setState({ fields: changeFields })
   }
 
-  render () {
+  render() {
     return (
       <div>
         <Navbar />
@@ -39,74 +38,82 @@ export default class BenefactorProfile extends React.Component {
             <Form>
               <Row>
                 <Col>
-                  <Form.Label>نام:</Form.Label>
-                  <Form.Control name='firstname'
-                    placeholder='نام' onChange={(event) => this.handleChange(event)} />
+                  <Form.Label> نام: </Form.Label>
+                  <Form.Control name='firstname' placeholder='نام'
+                    onChange={(event) => this.handleChange(event)}
+                  />
                 </Col>
                 <Col>
-                  <Form.Label>نام خانوادگی:</Form.Label>
-                  <Form.Control name='lastname'
-                    placeholder='نام خانوادگی' onChange={(event) => this.handleChange(event)} />
+                  <Form.Label> نام خانوادگی: </Form.Label>
+                  <Form.Control name='lastname' placeholder='نام خانوادگی'
+                    onChange={(event) => this.handleChange(event)}
+                  />
                 </Col>
                 <Col>
-                  <Form.Label>شماره تماس:</Form.Label>
-                  <Form.Control placeholder='شماره تماس' name='phone' onChange={(event) => this.handleChange(event)} />
+                  <Form.Label> شماره تماس: </Form.Label>
+                  <Form.Control placeholder='شماره تماس' name='phone'
+                    onChange={(event) => this.handleChange(event)}
+                  />
                 </Col>
               </Row>
               <Row>
                 <Col>
-                  <Form.Label>ایمیل:</Form.Label>
-                  <Form.Control name='email'
-                    placeholder='ایمیل' onChange={(event) => this.handleChange(event)} />
+                  <Form.Label> ایمیل: </Form.Label>
+                  <Form.Control name='email' placeholder='ایمیل'
+                    onChange={(event) => this.handleChange(event)}
+                  />
                 </Col>
                 <Col>
-                  <Form.Label>آدرس:</Form.Label>
-                  <Form.Control name='address'
-                    placeholder='آدرس' onChange={(event) => this.handleChange(event)} />
+                  <Form.Label> آدرس: </Form.Label>
+                  <Form.Control name='address' placeholder='آدرس'
+                    onChange={(event) => this.handleChange(event)}
+                  />
                 </Col>
               </Row>
               <Row>
                 <Col sm='8' >
                   <Form.Group controlId='exampleForm.ControlTextarea1'>
-                    <Form.Label>توضیحات:</Form.Label>
+                    <Form.Label> توضیحات: </Form.Label>
                     <Form.Control as='textarea' rows='3' name='description'
                       onChange={(event) => this.handleChange(event)}
                     />
                   </Form.Group>
                 </Col>
                 <Col>
-                  <Form.Label>جنسیت:</Form.Label>
+                  <Form.Label> جنسیت: </Form.Label>
                   <Form.Control as='select' name='gender'
                     onChange={(event) => this.handleChange(event)} >
+                     <option value=''></option>
                     <option value='female'>زن</option>
                     <option value='male'>مرد</option>
                   </Form.Control>
                 </Col>
                 <Col>
-                  <Form.Label>سن:</Form.Label>
-                  <Form.Control type='number' name='age'
-                    placeholder='سن' onChange={(event) => this.handleChange(event)} />
+                  <Form.Label> سن: </Form.Label>
+                  <Form.Control type='number' name='age' placeholder='سن'
+                    onChange={(event) => this.handleChange(event)}
+                  />
                 </Col>
               </Row>
               <Row>
                 <Col>
-                  <Form.Label>تجربه نیکوکاری:</Form.Label>
-                  <Form.Control name='experience'
-                    placeholder='تجربه نیکوکاری' onChange={(event) => this.handleChange(event)} />
+                  <Form.Label> تجربه نیکوکاری: </Form.Label>
+                  <Form.Control name='experience' placeholder='تجربه نیکوکاری'
+                    onChange={(event) => this.handleChange(event)}
+                  />
                 </Col>
                 <Col>
-                  <Form.Label>زمان آزاد در هفته:</Form.Label>
-                  <Form.Control name='freeTime'
-                    placeholder='زمان آزاد در هفته' onChange={(event) => this.handleChange(event)} />
+                  <Form.Label> زمان آزاد در هفته: </Form.Label>
+                  <Form.Control name='freeTime' placeholder='زمان آزاد در هفته'
+                    onChange={(event) => this.handleChange(event)}
+                  />
                 </Col>
-
                 <Col >
-                  <Button variant='info'>ثبت اطلاعات</Button>
+                  <Button variant='info'> ثبت اطلاعات </Button>
                 </Col>
               </Row>
             </Form>
           </div>
-
         </div>
       </div>
     )
