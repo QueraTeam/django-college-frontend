@@ -116,18 +116,18 @@ class SignUp extends React.Component {
     return (
       <div className='enter-container'>
         <div className='user-icon'>
-          <IoMdPerson className='icon' size='8%' color='white' />
+          <IoMdPerson className='icon' size='5%' color='white' />
           <input type='text' placeholder='نام کاربری'
             name='username'
-            className='username'
+            className='custom-input'
             onChange={(event) => this.handleChange(event)}
           />
         </div>
         <div className='user-icon'>
-          <IoMdLock className='icon' size='8%' color='white' />
+          <IoMdLock className='icon' size='5%' color='white' />
           <input type='password' placeholder='رمز عبور'
             name='password'
-            className='username'
+            className='custom-input'
             onChange={(event) => this.handleChange(event)}
           />
         </div>

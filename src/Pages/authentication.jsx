@@ -21,7 +21,7 @@ export default class Authentication extends React.Component {
       <div className='log-body' dir='rtl' >
         <div className='log-container'>
           <div className='log-pic'>
-            <img src={'/Images/tree.png'} alt='charity' width='80%' height='73%' />
+            {/* <img src={'/Images/tree.png'} alt='charity' width='80%' height='73%' /> */}
           </div>
           <div className='login-signup'>
             <Tabs
