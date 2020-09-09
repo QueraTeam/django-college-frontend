@@ -127,6 +127,7 @@ body {
     border: none;
     border-bottom: 1px solid #ffffff38;
     padding: 5px;
+    padding-right: 20px;
     outline: none;
     text-align: center;
 }
