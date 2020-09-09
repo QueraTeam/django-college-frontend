@@ -131,7 +131,7 @@ class SignUp extends React.Component {
             onChange={(event) => this.handleChange(event)}
           />
         </div>
-        <button className='logbtn' onClick={() => this.signupRequest ()} >ثبت نام</button>
+        <button className='logbtn' onClick={() => this.signupRequest ()} >ثبت‌نام</button>
         <Modal show={this.state.show} onHide={() => this.handleClose()} id='signmod'>
           <Modal.Header id='mods' closeButton >
             <Modal.Title id='mods'> نحوه همکاری </Modal.Title>
