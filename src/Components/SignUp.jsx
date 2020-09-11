@@ -1,11 +1,11 @@
 import React from 'react'
 import { IoMdPerson, IoMdLock } from 'react-icons/io'
 import axios from 'axios'
-import { Button, Modal } from 'react-bootstrap'
+import { Button, Modal, Row, Col } from 'react-bootstrap'
 import { withRouter } from 'react-router'
 
 class SignUp extends React.Component {
-  constructor (props) {
+  constructor(props) {
     super(props)
     this.state = {
       fields: {
@@ -20,7 +20,7 @@ class SignUp extends React.Component {
     }
   }
 
-  checkboxChange (event) {
+  checkboxChange(event) {
     const checked = event.target.checked
     const name = event.target.name
     console.log(name, event.target.checked)
@@ -29,22 +29,27 @@ class SignUp extends React.Component {
     })
   }
 
-  handleChange (event) {
+  handleChange(event) {
     const name = event.target.name
     const changeFields = this.state.fields
     changeFields[name] = event.target.value
     this.setState({ fields: changeFields })
   }
 
-  handleClose () {
+  handleClose() {
     this.setState({ show: false })
   }
-  
-  charityCheckbox (event) {
+
+  handleShow() {
+    this.setState({ show: true })
+  }
+
+
+  charityCheckbox(event) {
     this.setState({ charity: event.target.value })
   }
 
-  signupRequest () {
+  signupRequest() {
     axios.post('http://localhost:8000/accounts/register/', {
       username: this.state.fields.username,
       password: this.state.fields.password
@@ -69,9 +74,9 @@ class SignUp extends React.Component {
       })
   }
 
-  sendRegType () {
+  sendRegType() {
     console.log('isChar', this.state.isCharity)
-    console.log('isben',this.state.isBenefactor)
+    console.log('isben', this.state.isBenefactor)
     const isBenefactor = this.state.isBenefactor
     const ischarity = this.state.isCharity
     var token = window.localStorage.getItem('token')
@@ -112,7 +117,7 @@ class SignUp extends React.Component {
     }
   }
 
-  render () {
+  render() {
     return (
       <div className='enter-container'>
         <div className='user-icon'>
@@ -131,14 +136,14 @@ class SignUp extends React.Component {
             onChange={(event) => this.handleChange(event)}
           />
         </div>
-        <button className='logbtn' onClick={() => this.signupRequest ()} >ثبت‌نام</button>
+        <button className='logbtn' onClick={() => this.signupRequest()} >ثبت‌نام</button>
         <Modal show={this.state.show} onHide={() => this.handleClose()} id='signmod'>
           <Modal.Header id='mods' closeButton >
             <Modal.Title id='mods'> نحوه همکاری </Modal.Title>
           </Modal.Header>
           <Modal.Body id='modbod' dir='rtl'>
             <div>
-              <p dir='rtl' style={{textAlign: 'right'}}>  لطفا نحوه همکاری خود را انتخاب کنید</p>
+              <p dir='rtl' style={{ textAlign: 'right' }}>  لطفا نحوه همکاری خود را انتخاب کنید</p>
               <div className='registerdiv'>
                 <input id='isCharity' type='checkbox' name='isCharity'
                   onChange={(event) => this.checkboxChange(event)}
@@ -153,18 +158,26 @@ class SignUp extends React.Component {
               </div>
               {this.state.isCharity &&
                 <div className='charityreg'>
-                  <div className='reg'>
-                    <label style={{ fontSize: 'larger' }}> نام خیریه:</label>
-                    <input type='text' name='charityName'
-                      onChange={(event) => this.handleChange(event)}
-                    />
-                  </div>
-                  <div className='reg'>
-                    <label style={{ fontSize: 'larger' }} > شماره ثبت:</label>
-                    <input type='text' name='charityReg'
-                      onChange={(event) => this.handleChange(event)}
-                    />
-                  </div>
+                  <Row>
+                    <Col sm='3'>
+                      <label style={{ fontSize: 'larger' }}> نام خیریه:</label>
+                    </Col>
+                    <Col sm='4'>
+                      <input type='text' name='charityName'
+                        onChange={(event) => this.handleChange(event)}
+                      />
+                    </Col>
+                  </Row>
+                  <Row style={{ marginTop: '1%' }}>
+                    <Col sm='3'>
+                      <label style={{ fontSize: 'larger' }} > شماره ثبت:</label>
+                    </Col>
+                    <Col sm='4'>
+                      <input type='text' name='charityReg'
+                        onChange={(event) => this.handleChange(event)}
+                      />
+                    </Col>
+                  </Row>
                 </div>
               }
             </div>

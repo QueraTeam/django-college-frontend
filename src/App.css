@@ -195,26 +195,17 @@ body {
 }
 
 .charityreg {
-    width: 473px;
-    display: flex;
-    flex-direction: column;
-    justify-content: flex-start;
-    align-items: flex-start;
-    direction: rtl;
-    margin-top: 12%;
+    margin-top: 10%;
+    text-align: right;
 }
 
-.reg {
-    width: 60%;
-}
-
-.reg input {
-    margin-right: 1%;
+.charityreg input {
     border-radius: 5vh;
-    padding: 3px;
-    margin-top: 3%;
+    padding: 5px 12px;
     outline: none !important;
+    border: none;
 }
+
 
 /*-------------------------------navbar---------------------------*/
 .charityNav {
@@ -253,7 +244,7 @@ body {
     flex-direction: column;
     background-color: #f1eded;
     height: 100%;
-    min-height: 88vh;
+    min-height: 100vh;
 
 }
 
