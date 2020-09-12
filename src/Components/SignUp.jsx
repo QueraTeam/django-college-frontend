@@ -1,7 +1,8 @@
 import React from 'react'
 import { IoMdPerson, IoMdLock } from 'react-icons/io'
+import { MdError } from 'react-icons/md'
 import axios from 'axios'
-import { Button, Modal, Row, Col } from 'react-bootstrap'
+import { Button, Modal, Row, Col, Alert} from 'react-bootstrap'
 import { withRouter } from 'react-router'
 
 class SignUp extends React.Component {
@@ -16,7 +17,8 @@ class SignUp extends React.Component {
       },
       isCharity: false,
       isBenefactor: false,
-      show: false
+      show: false,
+      alartShow:false
     }
   }
 
@@ -49,6 +51,10 @@ class SignUp extends React.Component {
     this.setState({ charity: event.target.value })
   }
 
+  alertclose() {
+    this.setState({ alartShow:false})
+  }
+
   signupRequest() {
     axios.post('http://localhost:8000/accounts/register/', {
       username: this.state.fields.username,
@@ -63,14 +69,18 @@ class SignUp extends React.Component {
           .then((response) => {
             console.log('signup token', response.data.token)
             window.localStorage.setItem('token', response.data.token)
+            this.setState({show: true})
+           
           })
-          .catch(function (error) {
+          .catch( (error) => {
             console.log(error)
+            this.setState({ alartShow: true })
           })
-        this.setState({ show: true })
+        
       })
-      .catch(function (error) {
+      .catch((error) => {
         console.log(error)
+        this.setState({ alartShow: true })
       })
   }
 
@@ -137,6 +147,9 @@ class SignUp extends React.Component {
           />
         </div>
         <button className='logbtn' onClick={() => this.signupRequest()} >ثبت‌نام</button>
+        <Alert show={this.state.alartShow} variant='danger' onClose={() => this.alertclose()} dismissible >
+          <MdError size='25px' />        خطا
+        </Alert>
         <Modal show={this.state.show} onHide={() => this.handleClose()} id='signmod'>
           <Modal.Header id='mods' closeButton >
             <Modal.Title id='mods'> نحوه همکاری </Modal.Title>

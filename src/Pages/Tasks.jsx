@@ -1,7 +1,7 @@
 import React from 'react'
 import Navbar from '../Components/Navbar'
 import { Input } from 'reactstrap'
-import { Button, Form } from 'react-bootstrap'
+import { Button, Form, Card, Badge } from 'react-bootstrap'
 import { IoMdSearch } from 'react-icons/io'
 import axios from 'axios'
 
@@ -25,15 +25,14 @@ export default class Tasks extends React.Component {
   componentDidMount() {
     const getToken = window.localStorage.getItem('token')
     let b = window.localStorage.getItem('b')
-    if (b) {
-      this.setState({ buttenText: 'اعلام آمادگی', buttenVariant: 'warning' })
-    }
+
     axios.get('http://localhost:8000/tasks/?title=&charity=&gender=&age=&description', {
       headers: {
         'Authorization': `Token ${getToken}`
       }
     })
       .then((response) => {
+        console.log('hhhh', response.data)
         response.data.map((task) => {
           if (task.gender_limit == 'F') {
             task.genderName = 'زن'
@@ -41,11 +40,18 @@ export default class Tasks extends React.Component {
             task.genderName = 'مرد'
           }
         })
+
         this.setState({ taskslist: response.data })
+        
       })
       .catch(function (error) {
         console.log(error)
       })
+
+
+
+
+
   }
 
   handleChange(event) {
@@ -73,7 +79,7 @@ export default class Tasks extends React.Component {
     if (this.state.fields.age) {
       a += this.state.fields.age
     }
-    a += '&'
+    a += '&description='
     if (this.state.fields.description) {
       a += this.state.fields.description
     }
@@ -104,7 +110,7 @@ export default class Tasks extends React.Component {
     })
       .then((response) => {
         console.log('taskrequest', response.data)
-        window.location.reload(false)
+        window.location.reload()
       })
       .catch(function (error) {
         console.log(error)
@@ -112,35 +118,37 @@ export default class Tasks extends React.Component {
   }
 
   render() {
+    console.log('geb', this.state.fields.gender)
     return (
       <div className='taskPage' dir='rtl'>
         <Navbar />
         <div className='searchBar form-row'>
-          <div className="col-2">
+          <div className='col-2'>
             <Input type='text' name='title' placeholder='موضوع'
               onChange={(event) => this.handleChange(event)}
             />
           </div>
-          <div className="col-2">
+          <div className='col-2'>
             <Input type='text' name='charityName' placeholder='موسسه خیریه'
               onChange={(event) => this.handleChange(event)} />
           </div>
-          <div className="col-2">
+          <div className='col-2'>
             <Form.Control as='select' name='gender'
               onChange={(event) => this.handleChange(event)}>
-              <option value='female'>زن</option>
-              <option value='male'>مرد</option>
+              <option value=''>جنسیت</option>
+              <option value='F'>زن</option>
+              <option value='M'>مرد</option>
             </Form.Control>
           </div>
-          <div className="col-1">
-            <Input type='text' name='age' placeholder='سن'
+          <div className='col-1'>
+            <Input type='number' min='1' name='age' placeholder='سن'
               onChange={(event) => this.handleChange(event)} />
           </div>
-          <div className="col-4">
+          <div className='col-4'>
             <Input type='text' name='description' placeholder='توضیحات'
               onChange={(event) => this.handleChange(event)} />
           </div>
-          <div className="col-1">
+          <div className='col-1'>
             <Button variant='warning' onClick={() => this.filteredSearch()}>
               <IoMdSearch color='black' />
             </Button>
@@ -149,24 +157,26 @@ export default class Tasks extends React.Component {
         <div className='taskContainer' >
           {
             this.state.taskslist.map((task, index) => {
-              if (task.state === 'P') {
-                return (
-                  <div className='task-partition' key={index} >
-                    <h3 className='task-header'> {task.title} </h3>
-                    <div className='taskbar'>
-                      <div className='requirements'>
-                        <p className='req-element'> {task.charity.name} </p>
-                        <p className='req-element'> {task.genderName} </p>
-                        <p className='req-element'> {task.description} </p>
+              return (
+                <div key={index}>
+                  <Card className="text-right" style={{ margin: '2%' }}>
+                    <Card.Header as="h4">{task.title} <Badge variant="secondary">Secondary</Badge></Card.Header>
+                    <Card.Body>
+                      <Card.Title> موسسه خیریه: {task.charity.name}</Card.Title>
+                      <p > {task.genderName} </p>
+                      <p > {task.description} </p>
+                      <div className='applyed'>
+                        {
+                          (task.state == 'P' && <Button variant='primary' className='applybtn'
+                            onClick={() => this.taskRequest(task.id)}>
+                           اعلام آمادگی
+                          </Button>)
+                        }
                       </div>
-                      <Button variant={this.state.buttenVariant} className='applybtn'
-                        onClick={() => this.taskRequest(task.id)}>
-                        {this.state.buttenText}
-                      </Button>
-                    </div>
-                  </div>
-                )
-              } else return null
+                    </Card.Body>
+                  </Card>
+                </div>
+              )
             })
           }
         </div>

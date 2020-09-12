@@ -116,10 +116,11 @@ export default class CharityProfile extends React.Component {
     })
       .then((response) => {
         console.log(response.data)
-        window.location.reload(false)
+        window.location.reload()
       })
       .catch(function (error) {
         console.log(error)
+        
       })
   }
 
@@ -138,7 +139,7 @@ export default class CharityProfile extends React.Component {
     })
       .then((response) => {
         console.log(response.data)
-        window.location.reload(false)
+        window.location.reload()
       })
       .catch(function (error) {
         console.log(error)
@@ -160,7 +161,7 @@ export default class CharityProfile extends React.Component {
     })
       .then((response) => {
         console.log(response.data)
-        window.location.reload(false)
+        window.location.reload()
       })
       .catch(function (error) {
         console.log(error)
@@ -180,7 +181,7 @@ export default class CharityProfile extends React.Component {
     })
       .then((response) => {
         console.log('taskrequest', response.data)
-        window.location.reload(false)
+        window.location.reload()
       })
       .catch(function (error) {
         console.log(error)
@@ -351,7 +352,7 @@ export default class CharityProfile extends React.Component {
               <Tab eventKey={1} title='در انتطار پذیرش'>
                 {
                   this.state.taskslist.map((task, index) => {
-                    if (task.state === 'P') {
+                    if (task.state == 'P') {
                       return (
                         <div className='task-partition' key={index}>
                           <h3 className='task-header'> {task.title} </h3>
@@ -373,7 +374,7 @@ export default class CharityProfile extends React.Component {
               <Tab eventKey={2} title='در انتطار تائید'>
                 {
                   this.state.taskslist.map((task, index) => {
-                    if (task.state === 'W') {
+                    if (task.state == 'W') {
                       return (
                         <div className='task-partition' key={index}>
                           <h3 className='task-header'> {task.title} </h3>
@@ -403,7 +404,7 @@ export default class CharityProfile extends React.Component {
               <Tab eventKey={3} title='تائید شده'>
                 {
                   this.state.taskslist.map((task, index) => {
-                    if (task.state === 'A') {
+                    if (task.state == 'A') {
                       return (
                         <div className='task-partition' key={index}>
                           <h3 className='task-header'>
@@ -431,7 +432,7 @@ export default class CharityProfile extends React.Component {
               <Tab eventKey={4} title='انجام شده'>
                 {
                   this.state.taskslist.map((task, index) => {
-                    if (task.state === 'D') {
+                    if (task.state == 'D') {
                       return (
                         <div className='task-partition' key={index}>
                           <h3 className='task-header'> {task.title} </h3>

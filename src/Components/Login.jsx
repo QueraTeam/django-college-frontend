@@ -1,7 +1,9 @@
 import React from 'react'
 import { IoMdPerson, IoMdLock } from 'react-icons/io'
+import { MdError } from 'react-icons/md'
 import axios from 'axios'
 import { withRouter } from 'react-router'
+import { Alert } from 'react-bootstrap'
 
 class Login extends React.Component {
   constructor(props) {
@@ -10,7 +12,8 @@ class Login extends React.Component {
       fields: {
         username: '',
         password: ''
-      }
+      },
+      show: false
     }
   }
 
@@ -31,9 +34,14 @@ class Login extends React.Component {
         window.localStorage.setItem('token', response.data.token)
         this.props.history.push('/tasks')
       })
-      .catch(function (error) {
+      .catch((error) => {
         console.log(error)
+        this.setState({ show: true })
       })
+  }
+
+  handleClose() {
+    this.setState({ show: false })
   }
 
   render() {
@@ -56,6 +64,9 @@ class Login extends React.Component {
           />
         </div>
         <button className='logbtn' onClick={() => this.handleRequest()} >ورود</button>
+        <Alert show={this.state.show} variant='danger' onClose={() => this.handleClose()} dismissible >
+          <MdError size='25px' />        خطا
+        </Alert>
       </div>
     )
   }
