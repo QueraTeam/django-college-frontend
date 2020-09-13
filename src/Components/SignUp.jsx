@@ -198,7 +198,7 @@ class SignUp extends React.Component {
               }
             </div>
           </Modal.Body>
-          <Modal.Footer>
+          <Modal.Footer id='modfo'>
             <Alert show={this.state.alartShow} variant='danger' onClose={() => this.alertclose()} dismissible >
               <MdError size='25px' />
               <span style={{ marginLeft: '10%', fontWeight: 'bold' }}> خطا</span>

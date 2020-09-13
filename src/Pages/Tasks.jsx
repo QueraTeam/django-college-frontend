@@ -148,7 +148,7 @@ export default class Tasks extends React.Component {
           </div>
           <div className='col-1'>
             <Input
-              type="text" name="age" placeholder="سن"
+              type='text' name='age' placeholder='سن'
               value={this.state.age}
               onChange={(e) => this.ageChange(e)}
             />
@@ -168,8 +168,21 @@ export default class Tasks extends React.Component {
             this.state.taskslist.map((task, index) => {
               return (
                 <div key={index}>
-                  <Card className="text-right" style={{ margin: '2%' }}>
-                    <Card.Header as="h4">{task.title} <Badge variant="secondary">Secondary</Badge></Card.Header>
+                  <Card className='text-right' style={{ margin: '2%' }}>
+                    <Card.Header as='h4'>{task.title}
+                      {
+                        (task.state == 'W' && <Badge variant='warning'>در حال بررسی</Badge>)
+                      }
+                      {
+                        (task.state == 'P' && <Badge variant='info'>قابل انتخاب</Badge>)
+                      }
+                      {
+                        (task.state == 'A' && <Badge variant='success' >تائید شده</Badge>)
+                      }
+                      {
+                        (task.state == 'D' && <Badge variant='dark' >انجام شده</Badge>)
+                      }
+                    </Card.Header>
                     <Card.Body>
                       <Card.Title> موسسه خیریه: {task.charity.name}</Card.Title>
                       <p > {task.genderName} </p>

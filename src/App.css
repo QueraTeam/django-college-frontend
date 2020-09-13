@@ -180,7 +180,7 @@ body {
     margin-left: 45%;
 }
 
-.modal-footer {
+#modfo {
     direction: rtl;
     border: none;
     display: contents ;
@@ -467,7 +467,7 @@ abbr[title] {
 .demand-container >.nav-tabs .nav-link.active {
     color: rgb(63, 32, 134) !important;
     border:none !important;
-    font-size: 1.25em;
+    transform: scale(1.2); 
 }
 
 .demand-container >.nav-tabs .nav-link {
