@@ -5,6 +5,7 @@ import { Button, Form, Card, Badge } from 'react-bootstrap'
 import { IoMdSearch } from 'react-icons/io'
 import axios from 'axios'
 
+
 export default class Tasks extends React.Component {
   constructor(props) {
     super(props)
@@ -19,7 +20,10 @@ export default class Tasks extends React.Component {
       buttenText: '',
       buttenVariant: '',
       taskslist: [],
+      age: '',
+      regexp: /^[1-9\b]+$/
     }
+
   }
 
   componentDidMount() {
@@ -42,16 +46,11 @@ export default class Tasks extends React.Component {
         })
 
         this.setState({ taskslist: response.data })
-        
+
       })
       .catch(function (error) {
         console.log(error)
       })
-
-
-
-
-
   }
 
   handleChange(event) {
@@ -59,6 +58,13 @@ export default class Tasks extends React.Component {
     const changeFields = this.state.fields
     changeFields[name] = event.target.value
     this.setState({ fields: changeFields })
+  }
+
+  ageChange(e) {
+    let age = e.target.value
+    if (age === '' || this.state.regexp.test(age)) {
+      this.setState({ [e.target.name]: age })
+    }
   }
 
   filteredSearch() {
@@ -76,8 +82,8 @@ export default class Tasks extends React.Component {
       a += this.state.fields.gender
     }
     a += '&age='
-    if (this.state.fields.age) {
-      a += this.state.fields.age
+    if (this.state.age) {
+      a += this.state.age
     }
     a += '&description='
     if (this.state.fields.description) {
@@ -141,8 +147,11 @@ export default class Tasks extends React.Component {
             </Form.Control>
           </div>
           <div className='col-1'>
-            <Input type='number' min='1' name='age' placeholder='سن'
-              onChange={(event) => this.handleChange(event)} />
+            <Input
+              type="text" name="age" placeholder="سن"
+              value={this.state.age}
+              onChange={(e) => this.ageChange(e)}
+            />
           </div>
           <div className='col-4'>
             <Input type='text' name='description' placeholder='توضیحات'
@@ -169,7 +178,7 @@ export default class Tasks extends React.Component {
                         {
                           (task.state == 'P' && <Button variant='primary' className='applybtn'
                             onClick={() => this.taskRequest(task.id)}>
-                           اعلام آمادگی
+                            اعلام آمادگی
                           </Button>)
                         }
                       </div>

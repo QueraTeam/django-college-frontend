@@ -32,11 +32,11 @@ export default class CharityProfile extends React.Component {
         title: '',
         description: '',
         gender: '',
-        ageFrom: '',
-        ageTo: '',
-      }
+      },
+      ageFrom: '',
+      ageTo: '',
+      regexp: /^[1-9\b]+$/
     }
-    this.handleSelect = this.handleSelect.bind(this)
   }
 
   componentDidMount() {
@@ -96,6 +96,23 @@ export default class CharityProfile extends React.Component {
     this.setState({ newTaskChange: changeNewTaskFields })
   }
 
+  agefChange(e) {
+    let ageFrom = e.target.value
+    if (ageFrom === '' || this.state.regexp.test(ageFrom)) {
+      this.setState({ [e.target.name]: ageFrom })
+    }
+  }
+
+  agetChange(e) {
+    let ageTo = e.target.value
+    if (ageTo === '' || this.state.regexp.test(ageTo)) {
+      this.setState({ [e.target.name]: ageTo })
+    }
+  }
+
+
+
+
   newTaskRequest() {
     let genderSelected = null
     if (this.state.gender !== '') {
@@ -105,8 +122,8 @@ export default class CharityProfile extends React.Component {
     axios.post('http://localhost:8000/tasks/', {
       title: this.state.newTaskFields.title,
       description: this.state.newTaskFields.description,
-      age_limit_from: this.state.newTaskFields.ageFrom,
-      age_limit_to: this.state.newTaskFields.ageTo,
+      age_limit_from: this.state.ageFrom,
+      age_limit_to: this.state.ageTo,
       gender_limit: genderSelected,
       date: this.state.date
     }, {
@@ -120,7 +137,7 @@ export default class CharityProfile extends React.Component {
       })
       .catch(function (error) {
         console.log(error)
-        
+
       })
   }
 
@@ -302,14 +319,17 @@ export default class CharityProfile extends React.Component {
                       </Col>
                       <Col sm='2'>
                         <Form.Label> سن از: </Form.Label>
-                        <Form.Control name='ageFrom' type='number' placeholder='از'
-                          onChange={(event) => this.newTaskChange(event)}
+                        <Form.Control name='ageFrom' type='text' placeholder='از'
+                          value={this.state.ageFrom}
+                          onChange={(e) => this.agefChange(e)}
                         />
                       </Col>
                       <Col sm='2'>
                         <Form.Label> تا: </Form.Label>
-                        <Form.Control name='ageTo' type='number' placeholder='تا'
-                          onChange={(event) => this.newTaskChange(event)}
+                        <Form.Control
+                          type="text" name="ageTo" placeholder="سن"
+                          value={this.state.ageTo}
+                          onChange={(e) => this.agetChange(e)}
                         />
                       </Col>
                     </Row>
