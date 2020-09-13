@@ -182,7 +182,16 @@ body {
 
 .modal-footer {
     direction: rtl;
-    border: none
+    border: none;
+    display: contents ;
+    justify-content: space-between;
+    width: 68%;
+}
+
+.alert{
+display: flex;
+    justify-content: center;
+    align-items: center;
 }
 
 .registerdiv {
@@ -331,17 +340,20 @@ body {
     text-align: right;
     padding: 10px;
 }
+
 .responses {
     align-self: center;
     display: flex;
     justify-content: space-around;
     width: 20%;
 }
+
 .applyed {
     display: flex;
     justify-content: flex-end;
     width: 90%;
 }
+
 .applybtn {
     border: none;
     align-self: flex-end;

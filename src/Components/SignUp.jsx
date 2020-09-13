@@ -2,7 +2,7 @@ import React from 'react'
 import { IoMdPerson, IoMdLock } from 'react-icons/io'
 import { MdError } from 'react-icons/md'
 import axios from 'axios'
-import { Button, Modal, Row, Col, Alert} from 'react-bootstrap'
+import { Button, Modal, Row, Col, Alert } from 'react-bootstrap'
 import { withRouter } from 'react-router'
 
 class SignUp extends React.Component {
@@ -18,7 +18,7 @@ class SignUp extends React.Component {
       isCharity: false,
       isBenefactor: false,
       show: false,
-      alartShow:false
+      alartShow: false
     }
   }
 
@@ -52,7 +52,7 @@ class SignUp extends React.Component {
   }
 
   alertclose() {
-    this.setState({ alartShow:false})
+    this.setState({ alartShow: false })
   }
 
   signupRequest() {
@@ -69,14 +69,14 @@ class SignUp extends React.Component {
           .then((response) => {
             console.log('signup token', response.data.token)
             window.localStorage.setItem('token', response.data.token)
-            this.setState({show: true})
-           
+            this.setState({ show: true })
+
           })
-          .catch( (error) => {
+          .catch((error) => {
             console.log(error)
             this.setState({ alartShow: true })
           })
-        
+
       })
       .catch((error) => {
         console.log(error)
@@ -102,8 +102,9 @@ class SignUp extends React.Component {
           window.localStorage.setItem('b', isBenefactor)
 
         })
-        .catch(function (error) {
+        .catch((error) => {
           console.log(error)
+          this.setState({ alartShow: true })
         })
     }
     if (ischarity) {
@@ -121,8 +122,9 @@ class SignUp extends React.Component {
           window.localStorage.setItem('ch', ischarity)
           window.localStorage.setItem('charityname', response.data.name)
         })
-        .catch(function (error) {
+        .catch((error) => {
           console.log(error)
+          this.setState({ alartShow: true })
         })
     }
   }
@@ -148,7 +150,8 @@ class SignUp extends React.Component {
         </div>
         <button className='logbtn' onClick={() => this.signupRequest()} >ثبت‌نام</button>
         <Alert show={this.state.alartShow} variant='danger' onClose={() => this.alertclose()} dismissible >
-          <MdError size='25px' />        خطا
+          <MdError size='25px' />
+          <span style={{ margin: '2%', fontWeight: 'bold' }}> خطا</span>
         </Alert>
         <Modal show={this.state.show} onHide={() => this.handleClose()} id='signmod'>
           <Modal.Header id='mods' closeButton >
@@ -196,6 +199,10 @@ class SignUp extends React.Component {
             </div>
           </Modal.Body>
           <Modal.Footer>
+            <Alert show={this.state.alartShow} variant='danger' onClose={() => this.alertclose()} dismissible >
+              <MdError size='25px' />
+              <span style={{ marginLeft: '10%', fontWeight: 'bold' }}> خطا</span>
+            </Alert>
             <Button variant='success' onClick={() => this.sendRegType()}>
               ثبت
             </Button>
