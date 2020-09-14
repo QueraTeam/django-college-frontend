@@ -1,8 +1,10 @@
 import React from 'react'
 import Navbar from '../Components/Navbar'
 import { Input } from 'reactstrap'
-import { Button, Form, Card, Badge } from 'react-bootstrap'
+import { Button, Form, Card, Badge, Modal } from 'react-bootstrap'
 import { IoMdSearch } from 'react-icons/io'
+import { MdError } from 'react-icons/md'
+
 import axios from 'axios'
 
 
@@ -21,7 +23,8 @@ export default class Tasks extends React.Component {
       buttenVariant: '',
       taskslist: [],
       age: '',
-      regexp: /^[1-9\b]+$/
+      regexp: /^[1-9\b]+$/,
+      show: false
     }
 
   }
@@ -48,8 +51,9 @@ export default class Tasks extends React.Component {
         this.setState({ taskslist: response.data })
 
       })
-      .catch(function (error) {
+      .catch((error) => {
         console.log(error)
+        this.setState({ show: true })
       })
   }
 
@@ -69,37 +73,24 @@ export default class Tasks extends React.Component {
 
   filteredSearch() {
     const getToken = window.localStorage.getItem('token')
-    let a = 'http://localhost:8000/tasks/?title='
-    if (this.state.fields.title) {
-      a += this.state.fields.title
-    }
-    a += '&charity='
-    if (this.state.fields.charityName) {
-      a += this.state.fields.charityName
-    }
-    a += '&gender='
-    if (this.state.fields.gender) {
-      a += this.state.fields.gender
-    }
-    a += '&age='
-    if (this.state.age) {
-      a += this.state.age
-    }
-    a += '&description='
-    if (this.state.fields.description) {
-      a += this.state.fields.description
-    }
-
-    axios.get(a, {
-      headers: {
-        'Authorization': `Token ${getToken}`
+    let config = {
+      headers: { 'Authorization': `Token ${getToken}` },
+      params: {
+        title: this.state.fields.title,
+        charity: this.state.fields.charityName,
+        gender: this.state.fields.gender,
+        age: this.state.age,
+        description: this.state.fields.description
       }
-    })
+    }
+    axios.get('http://localhost:8000/tasks/?', config)
       .then((response) => {
         this.setState({ taskslist: response.data })
+
       })
-      .catch(function (error) {
+      .catch((error) => {
         console.log(error)
+        this.setState({ show: true })
       })
   }
 
@@ -118,9 +109,15 @@ export default class Tasks extends React.Component {
         console.log('taskrequest', response.data)
         window.location.reload()
       })
-      .catch(function (error) {
+      .catch((error) => {
         console.log(error)
+        this.setState({ show: true })
       })
+  }
+
+
+  handleClose() {
+    this.setState({ show: false })
   }
 
   render() {
@@ -197,11 +194,19 @@ export default class Tasks extends React.Component {
                       </div>
                     </Card.Body>
                   </Card>
+
                 </div>
               )
             })
           }
         </div>
+        <Modal show={this.state.show} onHide={() => this.handleClose()} size='sm' id='taskError'>
+          <Modal.Header closeButton id='taskerrorHead' >
+            <Modal.Body id='taskerrorBody' >
+              <span style={{ fontWeight: 'bold' }} > خطا</span> <MdError size='25px' />
+            </Modal.Body >
+          </Modal.Header>
+        </Modal>
       </div >
     )
   }

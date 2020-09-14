@@ -114,23 +114,25 @@ export default class CharityProfile extends React.Component {
 
 
   newTaskRequest() {
+    var token = window.localStorage.getItem('token')
     let genderSelected = null
     if (this.state.gender !== '') {
       genderSelected = this.state.newTaskFields.gender
     }
-    var token = window.localStorage.getItem('token')
-    axios.post('http://localhost:8000/tasks/', {
+    let data = {
       title: this.state.newTaskFields.title,
       description: this.state.newTaskFields.description,
       age_limit_from: this.state.ageFrom,
       age_limit_to: this.state.ageTo,
       gender_limit: genderSelected,
-      date: this.state.date
-    }, {
-      headers: {
-        'Authorization': `Token ${token}`
-      }
-    })
+     
+    }
+    let config = {
+      headers: { 'Authorization': `Token ${token}` },
+      params: { date: this.state.date}
+
+    }
+    axios.post('http://localhost:8000/tasks/', data, config)
       .then((response) => {
         console.log(response.data)
         window.location.reload()
