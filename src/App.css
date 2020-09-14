@@ -306,47 +306,23 @@ display: flex;
     display: flex;
     flex-direction: column;
 }
+
 .card-header {
     display: flex;
     justify-content: space-between;
 }
 
- .job-header {
-    font-size: x-large;
-}
-
-.task-partition {
-    width: 70%;
-    align-self: center;
-    margin: auto auto 5% auto;
-    border: none;
-    border-bottom: 1px solid rgb(138, 136, 136);
-    padding: 10px;
-} 
-
- .taskbar {
-    display: flex;
-    justify-content: space-between;
-    align-self: center;
-}
-
-.requirements p {
-    text-align: right;
-    padding: 2px;
-    font-size: medium;
-}
-
-.task-header {
-    text-align: right;
-    padding: 10px;
-}
-
 .responses {
     align-self: center;
     display: flex;
-    justify-content: space-around;
-    width: 20%;
+    justify-content: flex-end;
+    width: 90%;
 }
+
+.responses button {
+    margin: 1%;
+}
+
 
 .applyed {
     display: flex;
@@ -462,6 +438,15 @@ display: flex;
     border: none
 }
 
+#newtaskFooter{
+    display: flex;
+    flex-direction: column;
+}
+
+#newtaskClose {
+    align-self: flex-end;
+}
+
 .react-calendar > .react-calendar__navigation {
     border: none;
     border-bottom: 2px solid #111111;
@@ -477,11 +462,10 @@ abbr[title] {
     display: flex;
     justify-content: space-around;
     align-items: center;
-    background: #cf3d18;
-    background: -webkit-linear-gradient(to top, #fd7b4c, #cf3d18);
-    background: linear-gradient(to top, #fd7b4c, #cf3d18); 
-    margin: 5% 10%;
+    background-color: #fff;
+    margin: 5% 2%;
     border-radius: 2vh;
+    border: 1px solid #7d8a99 !important
 }
 
 .demand-container >.nav-tabs .nav-link.active {

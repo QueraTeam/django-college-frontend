@@ -1,9 +1,11 @@
 import React from 'react'
 import Navbar from '../Components/Navbar'
 import axios from 'axios'
-import { Form, Button, Row, Col, Modal, Tabs, Tab } from 'react-bootstrap'
+import { Form, Button, Row, Col, Modal, Tabs, Tab, Alert, Card, Badge } from 'react-bootstrap'
 import { IoIosAddCircle } from 'react-icons/io'
 import Calender from '../Components/Calender'
+import { MdError } from 'react-icons/md'
+
 
 export default class CharityProfile extends React.Component {
   constructor(props) {
@@ -35,7 +37,8 @@ export default class CharityProfile extends React.Component {
       },
       ageFrom: '',
       ageTo: '',
-      regexp: /^[1-9\b]+$/
+      regexp: /^[1-9\b]+$/,
+      alartShow: false
     }
   }
 
@@ -110,9 +113,6 @@ export default class CharityProfile extends React.Component {
     }
   }
 
-
-
-
   newTaskRequest() {
     var token = window.localStorage.getItem('token')
     let genderSelected = null
@@ -125,11 +125,11 @@ export default class CharityProfile extends React.Component {
       age_limit_from: this.state.ageFrom,
       age_limit_to: this.state.ageTo,
       gender_limit: genderSelected,
-     
+
     }
     let config = {
       headers: { 'Authorization': `Token ${token}` },
-      params: { date: this.state.date}
+      params: { date: this.state.date }
 
     }
     axios.post('http://localhost:8000/tasks/', data, config)
@@ -137,9 +137,9 @@ export default class CharityProfile extends React.Component {
         console.log(response.data)
         window.location.reload()
       })
-      .catch(function (error) {
+      .catch((error) => {
         console.log(error)
-
+        this.setState({ alartShow: true })
       })
   }
 
@@ -205,6 +205,10 @@ export default class CharityProfile extends React.Component {
       .catch(function (error) {
         console.log(error)
       })
+  }
+
+  alertclose() {
+    this.setState({ alartShow: false })
   }
 
   render() {
@@ -359,8 +363,12 @@ export default class CharityProfile extends React.Component {
                     </Row>
                   </Form>
                 </Modal.Body>
-                <Modal.Footer>
-                  <Button variant='outline-dark' onClick={() => this.newTaskRequest()}>
+                <Modal.Footer id='newtaskFooter'>
+                  <Alert show={this.state.alartShow} variant='danger'
+                    onClose={() => this.alertclose()} dismissible >
+                    <MdError size='25px' /> <span style={{ margin: '2%', fontWeight: 'bold' }}> خطا</span>
+                  </Alert>
+                  <Button id='newtaskClose' variant='outline-dark' onClick={() => this.newTaskRequest()}>
                     ذخیره
                   </Button>
                 </Modal.Footer>
@@ -376,18 +384,18 @@ export default class CharityProfile extends React.Component {
                   this.state.taskslist.map((task, index) => {
                     if (task.state == 'P') {
                       return (
-                        <div className='task-partition' key={index}>
-                          <h3 className='task-header'> {task.title} </h3>
-                          <div className='taskbar'>
-                            <div className='requirements'>
-                              <p className='req-element'> {task.charity.name} </p>
-                              <p className='req-element'> {task.genderName} </p>
-                              <p className='req-element'> {task.description} </p>
-                            </div>
-                            <Button variant='light' className='applybtn' disabled >
-                              در انتظار پذیرش
-                            </Button>
-                          </div>
+                        <div key={index}>
+                          <Card className='text-right' style={{ margin: '2%' }}>
+                            <Card.Header as='h4'>{task.title}
+                              <Badge variant='info'>قابل انتخاب</Badge>
+                            </Card.Header>
+                            <Card.Body>
+                              <Card.Title> موسسه خیریه: {task.charity.name}</Card.Title>
+                              <p > {task.genderName} </p>
+                              <p > {task.description} </p>
+                            </Card.Body>
+                          </Card>
+
                         </div>
                       )
                     }
@@ -398,25 +406,27 @@ export default class CharityProfile extends React.Component {
                   this.state.taskslist.map((task, index) => {
                     if (task.state == 'W') {
                       return (
-                        <div className='task-partition' key={index}>
-                          <h3 className='task-header'> {task.title} </h3>
-                          <div className='taskbar'>
-                            <div className='requirements'>
-                              <p className='req-element'> {task.charity.name} </p>
-                              <p className='req-element'> {task.genderName}  </p>
-                              <p className='req-element'> {task.description} </p>
-                            </div>
-                            <div className='responses'>
-                              <Button variant='success'
-                                onClick={() => this.acceptedResponse(task.id)}>
-                                تائید
-                              </Button>
-                              <Button variant='danger'
-                                onClick={() => this.rejectedResponse(task.id)}>
-                                رد
-                              </Button>
-                            </div>
-                          </div>
+                        <div key={index}>
+                          <Card className='text-right' style={{ margin: '2%' }}>
+                            <Card.Header as='h4'>{task.title}
+                              <Badge variant='warning'>در حال بررسی</Badge>
+                            </Card.Header>
+                            <Card.Body>
+                              <Card.Title> موسسه خیریه: {task.charity.name}</Card.Title>
+                              <p > {task.genderName} </p>
+                              <p > {task.description} </p>
+                              <div className='responses'>
+                                <Button variant='success'
+                                  onClick={() => this.acceptedResponse(task.id)}>
+                                  تائید
+                                </Button>
+                                <Button variant='danger'
+                                  onClick={() => this.rejectedResponse(task.id)}>
+                                  رد
+                                </Button>
+                              </div>
+                            </Card.Body>
+                          </Card>
                         </div>
                       )
                     }
@@ -428,23 +438,23 @@ export default class CharityProfile extends React.Component {
                   this.state.taskslist.map((task, index) => {
                     if (task.state == 'A') {
                       return (
-                        <div className='task-partition' key={index}>
-                          <h3 className='task-header'>
-                            {task.title}
-                          </h3>
-                          <div className='taskbar'>
-                            <div className='requirements'>
-                              <p className='req-element'> {task.charity.name} </p>
-                              <p className='req-element'> {task.genderName} </p>
-                              <p className='req-element'> {task.description} </p>
-                            </div>
-                            <div className='responses'>
-                              <Button variant='success' size='lg'
-                                onClick={() => this.taskDone(task.id)} >
-                                اتمام پروژه
-                              </Button>
-                            </div>
-                          </div>
+                        <div key={index}>
+                          <Card className='text-right' style={{ margin: '2%' }}>
+                            <Card.Header as='h4'>{task.title}
+                              <Badge variant='success' >تائید شده</Badge>
+                            </Card.Header>
+                            <Card.Body>
+                              <Card.Title> موسسه خیریه: {task.charity.name}</Card.Title>
+                              <p > {task.genderName} </p>
+                              <p > {task.description} </p>
+                              <div className='responses'>
+                                <Button variant='success' size='lg'
+                                  onClick={() => this.taskDone(task.id)} >
+                                  اتمام پروژه
+                                </Button>
+                              </div>
+                            </Card.Body>
+                          </Card>
                         </div>
                       )
                     }
@@ -456,18 +466,17 @@ export default class CharityProfile extends React.Component {
                   this.state.taskslist.map((task, index) => {
                     if (task.state == 'D') {
                       return (
-                        <div className='task-partition' key={index}>
-                          <h3 className='task-header'> {task.title} </h3>
-                          <div className='taskbar'>
-                            <div className='requirements'>
-                              <p className='req-element'> {task.charity.name} </p>
-                              <p className='req-element'> {task.genderName} </p>
-                              <p className='req-element'> {task.description} </p>
-                            </div>
-                            <Button variant='light' className='applybtn' disabled >
-                              به پایان رسیده
-                            </Button>
-                          </div>
+                        <div key={index}>
+                          <Card className='text-right' style={{ margin: '2%' }}>
+                            <Card.Header as='h4'>{task.title}
+                              <Badge variant='dark' >انجام شده</Badge>
+                            </Card.Header>
+                            <Card.Body>
+                              <Card.Title> موسسه خیریه: {task.charity.name}</Card.Title>
+                              <p > {task.genderName} </p>
+                              <p > {task.description} </p>
+                            </Card.Body>
+                          </Card>
                         </div>
                       )
                     }
