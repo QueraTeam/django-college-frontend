@@ -34,6 +34,7 @@ export default class CharityProfile extends React.Component {
       charityName: '',
       show: false,
       alartShow: false,
+      errorModalShow: false,
       key: 1,
       regexp: /^[0-9\b]+$/
     }
@@ -62,8 +63,9 @@ export default class CharityProfile extends React.Component {
         })
         this.setState({ taskslist: response.data })
       })
-      .catch(function (error) {
+      .catch((error) => {
         console.log(error)
+        this.setState({ errorModalShow: true })
       })
   }
 
@@ -155,8 +157,9 @@ export default class CharityProfile extends React.Component {
         console.log(response.data)
         window.location.reload()
       })
-      .catch(function (error) {
+      .catch((error) => {
         console.log(error)
+        this.setState({ errorModalShow: true })
       })
   }
 
@@ -177,8 +180,9 @@ export default class CharityProfile extends React.Component {
         console.log(response.data)
         window.location.reload()
       })
-      .catch(function (error) {
+      .catch((error) => {
         console.log(error)
+        this.setState({ errorModalShow: true })
       })
   }
 
@@ -196,12 +200,18 @@ export default class CharityProfile extends React.Component {
         console.log('taskrequest', response.data)
         window.location.reload()
       })
-      .catch(function (error) {
+      .catch((error) => {
         console.log(error)
+        this.setState({ errorModalShow: true })
       })
   }
+
   alertclose() {
     this.setState({ alartShow: false })
+  }
+
+  errorTaskClose() {
+    this.setState({ errorModalShow: false })
   }
 
   render() {
@@ -481,6 +491,14 @@ export default class CharityProfile extends React.Component {
             </Tabs>
           </div>
         </div>
+        <Modal show={this.state.errorModalShow} onHide={() => this.errorTaskClose()} size='sm' id='taskError'>
+          <Modal.Header closeButton id='taskerrorHead' >
+            <Modal.Body id='taskerrorBody' >
+              <span style={{ fontWeight: 'bold' }} > خطا </span>
+              <MdError size='25px' />
+            </Modal.Body >
+          </Modal.Header>
+        </Modal>
       </div>
     )
   }
