@@ -138,7 +138,6 @@ body {
 }
 
 .logbtn {
-    /* background-color: #52f5b4; */
     outline: none !important;
     border: none;
     margin: 40px 0;
@@ -154,7 +153,6 @@ body {
 }
 
 .logbtn:hover, .logbtn:focus {
-    /* transform: scale(1.02); */
     background-color: #52f5b4;
     border-radius: 5px;
 }
@@ -188,7 +186,7 @@ body {
     width: 68%;
 }
 
-.alert{
+.alert {
 display: flex;
     justify-content: center;
     align-items: center;
@@ -275,7 +273,6 @@ display: flex;
 
 .searchBar input {
     margin: auto 5px;
-    width: 100%;
 }
 
 .searchBar > .btn-warning {
@@ -307,6 +304,10 @@ display: flex;
     flex-direction: column;
 }
 
+#taskCard {
+    margin:2%;
+}
+
 .card-header {
     display: flex;
     justify-content: space-between;
@@ -323,7 +324,6 @@ display: flex;
     margin: 1%;
 }
 
-
 .applyed {
     display: flex;
     justify-content: flex-end;
@@ -338,16 +338,15 @@ display: flex;
     font-weight: bold;
 } 
 
- #taskError {
+#taskError {
     margin-top: 20%;
     color: #721c24;
     border: 1px solid #721c25c5;
     border-radius: 5px;
-    
 } 
- #taskError >.modal-content {
+
+#taskError >.modal-content {
     background-color: #f8d7da !important;
-   
 }
 
 #taskerrorBody {
@@ -355,8 +354,6 @@ display: flex;
     justify-content: center;
     align-items: center;
 }
-
-
 
 /*-------------------------------profile---------------------------*/
 .bene-container {
@@ -457,7 +454,6 @@ abbr[title] {
 } 
 
 /*----------------------task tabs on charity profile---------------------*/
-
 .demand-container >.nav-tabs {
     display: flex;
     justify-content: space-around;
@@ -481,7 +477,6 @@ abbr[title] {
 }
 
 /*--------------------------spinner layout-------------------*/
-
 .spinnerdiv {
     display: flex;
     width: 100%;

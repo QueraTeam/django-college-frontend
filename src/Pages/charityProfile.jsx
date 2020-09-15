@@ -6,7 +6,6 @@ import { IoIosAddCircle } from 'react-icons/io'
 import Calender from '../Components/Calender'
 import { MdError } from 'react-icons/md'
 
-
 export default class CharityProfile extends React.Component {
   constructor(props) {
     super(props)
@@ -23,31 +22,28 @@ export default class CharityProfile extends React.Component {
         charityname: '',
         regnumber: ''
       },
-      charityName: '',
-      taskslist: [],
-      show: false,
-      date: '',
-      key: 1,
-      buttenText: '',
-      buttenVariant: '',
       newTaskFields: {
         title: '',
         description: '',
-        gender: '',
+        age_limit_from: '',
+        age_limit_to: '',
+        gender_limit: '',
+        date: ''
       },
-      ageFrom: '',
-      ageTo: '',
-      regexp: /^[1-9\b]+$/,
-      alartShow: false
+      taskslist: [],
+      charityName: '',
+      show: false,
+      alartShow: false,
+      key: 1,
+      regexp: /^[0-9\b]+$/
     }
   }
 
   componentDidMount() {
     let name = window.localStorage.getItem('charityname')
     const getToken = window.localStorage.getItem('token')
-    let a = 'http://localhost:8000/tasks/?title=&charity='
+    let a = 'http://localhost:8000/tasks?charity='
     a += name
-    a += '&gender=&age=&description'
     axios.get(a, {
       headers: {
         'Authorization': `Token ${getToken}`
@@ -57,9 +53,11 @@ export default class CharityProfile extends React.Component {
         console.log('taskslist', response.data)
         response.data.map((task) => {
           if (task.gender_limit == 'F') {
-            task.genderName = 'زن'
-          } else if (task.gender_limit == 'M') {
-            task.genderName = 'مرد'
+            task.genderName = 'جنسیت: زن'
+          } if (task.gender_limit == 'M') {
+            task.genderName = 'جنسیت: مرد'
+          } if (task.gender_limit == 'MF') {
+            task.genderName = 'جنسیت: هردو'
           }
         })
         this.setState({ taskslist: response.data })
@@ -76,20 +74,20 @@ export default class CharityProfile extends React.Component {
     this.setState({ fields: changeFields })
   }
 
-  handleShow() {
+  modalShow() {
     this.setState({ show: true })
   }
 
-  handleClose() {
+  modalClose() {
     this.setState({ show: false })
   }
 
-  handleSelect(key) {
+  tabSelect(key) {
     this.setState({ key })
   }
 
   calenderDateChange(date) {
-    this.setState({ date })
+    this.setState({ ...this.state, newTaskFields: { ...this.state.newTaskFields, date: date } })
   }
 
   newTaskChange(event) {
@@ -100,37 +98,34 @@ export default class CharityProfile extends React.Component {
   }
 
   agefChange(e) {
-    let ageFrom = e.target.value
-    if (ageFrom === '' || this.state.regexp.test(ageFrom)) {
-      this.setState({ [e.target.name]: ageFrom })
+    let age_limit_from = e.target.value
+    if (age_limit_from == '' || this.state.regexp.test(age_limit_from)) {
+      this.setState({ ...this.state, newTaskFields: { ...this.state.newTaskFields, age_limit_from: age_limit_from } })
     }
   }
 
   agetChange(e) {
-    let ageTo = e.target.value
-    if (ageTo === '' || this.state.regexp.test(ageTo)) {
-      this.setState({ [e.target.name]: ageTo })
+    let age_limit_to = e.target.value
+    if (age_limit_to == '' || this.state.regexp.test(age_limit_to)) {
+      this.setState({ ...this.state, newTaskFields: { ...this.state.newTaskFields, age_limit_to: age_limit_to } })
     }
   }
 
   newTaskRequest() {
     var token = window.localStorage.getItem('token')
-    let genderSelected = null
-    if (this.state.gender !== '') {
-      genderSelected = this.state.newTaskFields.gender
-    }
     let data = {
       title: this.state.newTaskFields.title,
-      description: this.state.newTaskFields.description,
-      age_limit_from: this.state.ageFrom,
-      age_limit_to: this.state.ageTo,
-      gender_limit: genderSelected,
-
     }
-    let config = {
-      headers: { 'Authorization': `Token ${token}` },
-      params: { date: this.state.date }
+    let a = ['description', 'age_limit_from', 'age_limit_to', 'gender_limit', 'date']
+    for (let i = 0; i < a.length; i++) {
 
+      if (this.state.newTaskFields[a[i]]) {
+        data[a[i]] = this.state.newTaskFields[a[i]];
+      }
+    }
+
+    let config = {
+      headers: { 'Authorization': `Token ${token}` }
     }
     axios.post('http://localhost:8000/tasks/', data, config)
       .then((response) => {
@@ -192,7 +187,6 @@ export default class CharityProfile extends React.Component {
     let a = 'http://localhost:8000/tasks/'
     a += taskId
     a += '/done/'
-
     axios.post(a, '', {
       headers: {
         'Authorization': `Token ${getToken}`
@@ -206,7 +200,6 @@ export default class CharityProfile extends React.Component {
         console.log(error)
       })
   }
-
   alertclose() {
     this.setState({ alartShow: false })
   }
@@ -297,18 +290,18 @@ export default class CharityProfile extends React.Component {
             </Form>
           </div>
           <div className='demand-container'>
-            <div className='name-creat' >
-              <h2 >پروژه های خیریه</h2>
-              <Button variant='primary' onClick={() => this.handleShow()}>
+            <div className='name-creat'>
+              <h2>پروژه های خیریه</h2>
+              <Button variant='primary' onClick={() => this.modalShow()}>
                 پروژه جدید <IoIosAddCircle size='45px' color='white' />
               </Button>
-              <Modal show={this.state.show} onHide={() => this.handleClose()} size='lg' id='charitymodal'>
-                <Modal.Header id='chmodt' closeButton >
+              <Modal show={this.state.show} onHide={() => this.modalClose()} size='lg' id='charitymodal'>
+                <Modal.Header id='chmodt' closeButton>
                   <Modal.Title> ایجاد پروژه جدید </Modal.Title>
                 </Modal.Header>
                 <Modal.Body dir='rtl' style={{ textAlign: 'right' }}>
                   <Form>
-                    <Row >
+                    <Row>
                       <Col sm='4'>
                         <Form.Label> عنوان: </Form.Label>
                         <Form.Control name='title'
@@ -316,25 +309,25 @@ export default class CharityProfile extends React.Component {
                       </Col>
                       <Col sm='3'>
                         <Form.Label> جنسیت: </Form.Label>
-                        <Form.Control as='select' name='gender'
+                        <Form.Control as='select' name='gender_limit'
                           onChange={(event) => this.newTaskChange(event)} >
-                          <option value=''>تفاوتی ندارد</option>
+                          <option value='MF'>تفاوتی ندارد</option>
                           <option value='M'>مرد</option>
                           <option value='F'>زن</option>
                         </Form.Control>
                       </Col>
                       <Col sm='2'>
                         <Form.Label> سن از: </Form.Label>
-                        <Form.Control name='ageFrom' type='text' placeholder='از'
-                          value={this.state.ageFrom}
+                        <Form.Control name='age_limit_from' type='text' placeholder='از'
+                          value={this.state.newTaskFields.age_limit_from}
                           onChange={(e) => this.agefChange(e)}
                         />
                       </Col>
                       <Col sm='2'>
                         <Form.Label> تا: </Form.Label>
                         <Form.Control
-                          type="text" name="ageTo" placeholder="سن"
-                          value={this.state.ageTo}
+                          type='text' name='age_limit_to' placeholder='سن'
+                          value={this.state.newTaskFields.age_limit_to}
                           onChange={(e) => this.agetChange(e)}
                         />
                       </Col>
@@ -366,9 +359,11 @@ export default class CharityProfile extends React.Component {
                 <Modal.Footer id='newtaskFooter'>
                   <Alert show={this.state.alartShow} variant='danger'
                     onClose={() => this.alertclose()} dismissible >
-                    <MdError size='25px' /> <span style={{ margin: '2%', fontWeight: 'bold' }}> خطا</span>
+                    <MdError size='25px' />
+                    <span style={{ margin: '2%', fontWeight: 'bold' }}>خطا</span>
                   </Alert>
-                  <Button id='newtaskClose' variant='outline-dark' onClick={() => this.newTaskRequest()}>
+                  <Button id='newtaskClose' variant='outline-dark'
+                    onClick={() => this.newTaskRequest()}>
                     ذخیره
                   </Button>
                 </Modal.Footer>
@@ -377,7 +372,7 @@ export default class CharityProfile extends React.Component {
             <Tabs
               style={{ border: 'none' }}
               activeKey={this.state.key}
-              onSelect={(eventKey) => this.handleSelect(eventKey)}
+              onSelect={(eventKey) => this.tabSelect(eventKey)}
             >
               <Tab eventKey={1} title='در انتطار پذیرش'>
                 {
@@ -385,14 +380,14 @@ export default class CharityProfile extends React.Component {
                     if (task.state == 'P') {
                       return (
                         <div key={index}>
-                          <Card className='text-right' style={{ margin: '2%' }}>
+                          <Card className='text-right' id='taskCard'>
                             <Card.Header as='h4'>{task.title}
                               <Badge variant='info'>قابل انتخاب</Badge>
                             </Card.Header>
                             <Card.Body>
                               <Card.Title> موسسه خیریه: {task.charity.name}</Card.Title>
-                              <p > {task.genderName} </p>
-                              <p > {task.description} </p>
+                              <p> {task.genderName} </p>
+                              <p> {task.description} </p>
                             </Card.Body>
                           </Card>
 
@@ -407,14 +402,14 @@ export default class CharityProfile extends React.Component {
                     if (task.state == 'W') {
                       return (
                         <div key={index}>
-                          <Card className='text-right' style={{ margin: '2%' }}>
+                          <Card className='text-right' id='taskCard'>
                             <Card.Header as='h4'>{task.title}
                               <Badge variant='warning'>در حال بررسی</Badge>
                             </Card.Header>
                             <Card.Body>
                               <Card.Title> موسسه خیریه: {task.charity.name}</Card.Title>
-                              <p > {task.genderName} </p>
-                              <p > {task.description} </p>
+                              <p> {task.genderName} </p>
+                              <p> {task.description} </p>
                               <div className='responses'>
                                 <Button variant='success'
                                   onClick={() => this.acceptedResponse(task.id)}>
@@ -439,14 +434,14 @@ export default class CharityProfile extends React.Component {
                     if (task.state == 'A') {
                       return (
                         <div key={index}>
-                          <Card className='text-right' style={{ margin: '2%' }}>
+                          <Card className='text-right' id='taskCard'>
                             <Card.Header as='h4'>{task.title}
                               <Badge variant='success' >تائید شده</Badge>
                             </Card.Header>
                             <Card.Body>
                               <Card.Title> موسسه خیریه: {task.charity.name}</Card.Title>
-                              <p > {task.genderName} </p>
-                              <p > {task.description} </p>
+                              <p> {task.genderName} </p>
+                              <p> {task.description} </p>
                               <div className='responses'>
                                 <Button variant='success' size='lg'
                                   onClick={() => this.taskDone(task.id)} >
@@ -467,14 +462,14 @@ export default class CharityProfile extends React.Component {
                     if (task.state == 'D') {
                       return (
                         <div key={index}>
-                          <Card className='text-right' style={{ margin: '2%' }}>
+                          <Card className='text-right' id='taskCard'>
                             <Card.Header as='h4'>{task.title}
                               <Badge variant='dark' >انجام شده</Badge>
                             </Card.Header>
                             <Card.Body>
                               <Card.Title> موسسه خیریه: {task.charity.name}</Card.Title>
-                              <p > {task.genderName} </p>
-                              <p > {task.description} </p>
+                              <p> {task.genderName} </p>
+                              <p> {task.description} </p>
                             </Card.Body>
                           </Card>
                         </div>

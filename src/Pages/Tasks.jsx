@@ -4,9 +4,7 @@ import { Input } from 'reactstrap'
 import { Button, Form, Card, Badge, Modal } from 'react-bootstrap'
 import { IoMdSearch } from 'react-icons/io'
 import { MdError } from 'react-icons/md'
-
 import axios from 'axios'
-
 
 export default class Tasks extends React.Component {
   constructor(props) {
@@ -22,34 +20,44 @@ export default class Tasks extends React.Component {
       buttenText: '',
       buttenVariant: '',
       taskslist: [],
-      age: '',
-      regexp: /^[1-9\b]+$/,
+      regexp: /^[0-9\b]+$/,
       show: false
     }
-
   }
 
   componentDidMount() {
     const getToken = window.localStorage.getItem('token')
-    let b = window.localStorage.getItem('b')
-
-    axios.get('http://localhost:8000/tasks/?title=&charity=&gender=&age=&description', {
-      headers: {
-        'Authorization': `Token ${getToken}`
+    console.log('search', this.props.location.search)
+    const params = new URLSearchParams(this.props.location.search)
+    params.get('title')
+    params.get('charity')
+    params.get('gender')
+    params.get('age')
+    params.get('description')
+    let config = {
+      headers: { 'Authorization': `Token ${getToken}` },
+      params: {
+        title: params.get('title'),
+        charity: params.get('charity'),
+        gender: params.get('gender'),
+        age: params.get('age'),
+        description: params.get('description')
       }
-    })
+    }
+
+    axios.get('http://localhost:8000/tasks?', config)
       .then((response) => {
         console.log('hhhh', response.data)
         response.data.map((task) => {
           if (task.gender_limit == 'F') {
-            task.genderName = 'زن'
-          } else if (task.gender_limit == 'M') {
-            task.genderName = 'مرد'
+            task.genderName = 'جنسیت: زن'
+          } if (task.gender_limit == 'M') {
+            task.genderName = 'جنسیت: مرد'
+          } if (task.gender_limit == 'MF') {
+            task.genderName = 'جنسیت: هردو'
           }
         })
-
         this.setState({ taskslist: response.data })
-
       })
       .catch((error) => {
         console.log(error)
@@ -66,27 +74,51 @@ export default class Tasks extends React.Component {
 
   ageChange(e) {
     let age = e.target.value
-    if (age === '' || this.state.regexp.test(age)) {
-      this.setState({ [e.target.name]: age })
+    if (age == '' || this.state.regexp.test(age)) {
+      this.setState({ ...this.state, fields: { ...this.state.fields, age: age } })
     }
   }
 
   filteredSearch() {
     const getToken = window.localStorage.getItem('token')
-    let config = {
-      headers: { 'Authorization': `Token ${getToken}` },
-      params: {
-        title: this.state.fields.title,
-        charity: this.state.fields.charityName,
-        gender: this.state.fields.gender,
-        age: this.state.age,
-        description: this.state.fields.description
-      }
+    let a = 'http://localhost:8000/tasks?title='
+    if (this.state.fields.title) {
+      a += this.state.fields.title
     }
-    axios.get('http://localhost:8000/tasks/?', config)
+    a += '&charity='
+    if (this.state.fields.charityName) {
+      a += this.state.fields.charityName
+    }
+    a += '&gender='
+    if (this.state.fields.gender) {
+      a += this.state.fields.gender
+    }
+    a += '&age='
+    if (this.state.fields.age) {
+      a += this.state.fields.age
+    }
+    a += '&description='
+    if (this.state.fields.description) {
+      a += this.state.fields.description
+    }
+    let b = a.slice(21)
+    axios.get(a, {
+      headers: {
+        'Authorization': `Token ${getToken}`
+      }
+    })
       .then((response) => {
+        this.props.history.push(b)
+        response.data.map((task) => {
+          if (task.gender_limit == 'F') {
+            task.genderName = 'جنسیت: زن'
+          } if (task.gender_limit == 'M') {
+            task.genderName = 'جنسیت: مرد'
+          } if (task.gender_limit == 'MF') {
+            task.genderName = 'جنسیت: هردو'
+          }
+        })
         this.setState({ taskslist: response.data })
-
       })
       .catch((error) => {
         console.log(error)
@@ -115,13 +147,11 @@ export default class Tasks extends React.Component {
       })
   }
 
-
   handleClose() {
     this.setState({ show: false })
   }
 
   render() {
-    console.log('geb', this.state.fields.gender)
     return (
       <div className='taskPage' dir='rtl'>
         <Navbar />
@@ -138,7 +168,7 @@ export default class Tasks extends React.Component {
           <div className='col-2'>
             <Form.Control as='select' name='gender'
               onChange={(event) => this.handleChange(event)}>
-              <option value=''>جنسیت</option>
+              <option value='MF'>جنسیت</option>
               <option value='F'>زن</option>
               <option value='M'>مرد</option>
             </Form.Control>
@@ -146,7 +176,7 @@ export default class Tasks extends React.Component {
           <div className='col-1'>
             <Input
               type='text' name='age' placeholder='سن'
-              value={this.state.age}
+              value={this.state.fields.age}
               onChange={(e) => this.ageChange(e)}
             />
           </div>
@@ -165,7 +195,7 @@ export default class Tasks extends React.Component {
             this.state.taskslist.map((task, index) => {
               return (
                 <div key={index}>
-                  <Card className='text-right' style={{ margin: '2%' }}>
+                  <Card className='text-right' id='taskCard'>
                     <Card.Header as='h4'>{task.title}
                       {
                         (task.state == 'W' && <Badge variant='warning'>در حال بررسی</Badge>)
@@ -182,8 +212,8 @@ export default class Tasks extends React.Component {
                     </Card.Header>
                     <Card.Body>
                       <Card.Title> موسسه خیریه: {task.charity.name}</Card.Title>
-                      <p > {task.genderName} </p>
-                      <p > {task.description} </p>
+                      <p> {task.genderName} </p>
+                      <p> {task.description} </p>
                       <div className='applyed'>
                         {
                           (task.state == 'P' && <Button variant='primary' className='applybtn'
@@ -194,7 +224,6 @@ export default class Tasks extends React.Component {
                       </div>
                     </Card.Body>
                   </Card>
-
                 </div>
               )
             })
@@ -203,7 +232,8 @@ export default class Tasks extends React.Component {
         <Modal show={this.state.show} onHide={() => this.handleClose()} size='sm' id='taskError'>
           <Modal.Header closeButton id='taskerrorHead' >
             <Modal.Body id='taskerrorBody' >
-              <span style={{ fontWeight: 'bold' }} > خطا</span> <MdError size='25px' />
+              <span style={{ fontWeight: 'bold' }} > خطا </span>
+              <MdError size='25px' />
             </Modal.Body >
           </Modal.Header>
         </Modal>
