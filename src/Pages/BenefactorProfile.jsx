@@ -3,21 +3,18 @@ import Navbar from '../Components/Navbar'
 import { Form, Button, Row, Col } from 'react-bootstrap'
 
 export default class BenefactorProfile extends React.Component {
-  constructor(props) {
-    super(props)
-    this.state = {
-      fields: {
-        firstname: '',
-        lastname: '',
-        phone: '',
-        email: '',
-        address: '',
-        description: '',
-        gender: '',
-        age: '',
-        experience: '',
-        freeTime: ''
-      }
+  state = {
+    fields: {
+      firstname: '',
+      lastname: '',
+      phone: '',
+      email: '',
+      address: '',
+      description: '',
+      gender: '',
+      age: '',
+      experience: '',
+      freeTime: ''
     }
   }
 
@@ -83,7 +80,7 @@ export default class BenefactorProfile extends React.Component {
                   <Form.Label> جنسیت: </Form.Label>
                   <Form.Control as='select' name='gender'
                     onChange={(event) => this.handleChange(event)} >
-                     <option value=''></option>
+                    <option value=''></option>
                     <option value='female'>زن</option>
                     <option value='male'>مرد</option>
                   </Form.Control>

@@ -7,22 +7,19 @@ import { MdError } from 'react-icons/md'
 import axios from 'axios'
 
 export default class Tasks extends React.Component {
-  constructor(props) {
-    super(props)
-    this.state = {
-      fields: {
-        title: '',
-        charityName: '',
-        gender: '',
-        age: '',
-        description: ''
-      },
-      buttenText: '',
-      buttenVariant: '',
-      taskslist: [],
-      regexp: /^[0-9\b]+$/,
-      show: false
-    }
+  state = {
+    fields: {
+      title: '',
+      charityName: '',
+      gender: '',
+      age: '',
+      description: ''
+    },
+    buttenText: '',
+    buttenVariant: '',
+    taskslist: [],
+    regexp: /^[0-9\b]+$/,
+    show: false
   }
 
   componentDidMount() {

@@ -4,12 +4,9 @@ import axios from 'axios'
 import { withRouter } from 'react-router'
 
 class Navbar extends React.Component {
-  constructor(props) {
-    super(props)
-    this.state = {
-      isBenefactor: false,
-      isCharity: false
-    }
+  state = {
+    isBenefactor: false,
+    isCharity: false
   }
 
   componentDidMount() {

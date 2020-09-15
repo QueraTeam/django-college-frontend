@@ -6,20 +6,17 @@ import { Button, Modal, Row, Col, Alert } from 'react-bootstrap'
 import { withRouter } from 'react-router'
 
 class SignUp extends React.Component {
-  constructor(props) {
-    super(props)
-    this.state = {
-      fields: {
-        username: '',
-        password: '',
-        charityName: '',
-        charityReg: ''
-      },
-      isCharity: false,
-      isBenefactor: false,
-      show: false,
-      alartShow: false
-    }
+  state = {
+    fields: {
+      username: '',
+      password: '',
+      charityName: '',
+      charityReg: ''
+    },
+    isCharity: false,
+    isBenefactor: false,
+    show: false,
+    alartShow: false
   }
 
   checkboxChange(event) {
