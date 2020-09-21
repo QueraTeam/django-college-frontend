@@ -51,11 +51,11 @@ componentDidMount() {
     .then((response) => {
       console.log('taskslist', response.data)
       response.data.map((task) => {
-        if (task.gender_limit == 'F') {
+        if (task.gender_limit === 'F') {
           task.genderName = 'جنسیت: زن'
-        } if (task.gender_limit == 'M') {
+        } if (task.gender_limit === 'M') {
           task.genderName = 'جنسیت: مرد'
-        } if (task.gender_limit == 'MF') {
+        } if (task.gender_limit === 'MF') {
           task.genderName = 'جنسیت: هردو'
         }
       })
@@ -99,14 +99,14 @@ newTaskChange(event) {
 
 agefChange(e) {
   let age_limit_from = e.target.value
-  if (age_limit_from == '' || this.state.regexp.test(age_limit_from)) {
+  if (age_limit_from === '' || this.state.regexp.test(age_limit_from)) {
     this.setState({ ...this.state, newTaskFields: { ...this.state.newTaskFields, age_limit_from: age_limit_from } })
   }
 }
 
 agetChange(e) {
   let age_limit_to = e.target.value
-  if (age_limit_to == '' || this.state.regexp.test(age_limit_to)) {
+  if (age_limit_to === '' || this.state.regexp.test(age_limit_to)) {
     this.setState({ ...this.state, newTaskFields: { ...this.state.newTaskFields, age_limit_to: age_limit_to } })
   }
 }
@@ -385,7 +385,7 @@ render() {
             <Tab eventKey={1} title='در انتطار پذیرش'>
               {
                 this.state.taskslist.map((task, index) => {
-                  if (task.state == 'P') {
+                  if (task.state === 'P') {
                     return (
                       <div key={index}>
                         <Card className='text-right' id='taskCard'>
@@ -407,7 +407,7 @@ render() {
             <Tab eventKey={2} title='در انتطار تائید'>
               {
                 this.state.taskslist.map((task, index) => {
-                  if (task.state == 'W') {
+                  if (task.state === 'W') {
                     return (
                       <div key={index}>
                         <Card className='text-right' id='taskCard'>
@@ -439,7 +439,7 @@ render() {
             <Tab eventKey={3} title='تائید شده'>
               {
                 this.state.taskslist.map((task, index) => {
-                  if (task.state == 'A') {
+                  if (task.state === 'A') {
                     return (
                       <div key={index}>
                         <Card className='text-right' id='taskCard'>
@@ -467,7 +467,7 @@ render() {
             <Tab eventKey={4} title='انجام شده'>
               {
                 this.state.taskslist.map((task, index) => {
-                  if (task.state == 'D') {
+                  if (task.state === 'D') {
                     return (
                       <div key={index}>
                         <Card className='text-right' id='taskCard'>

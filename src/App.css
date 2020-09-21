@@ -192,6 +192,11 @@ display: flex;
     align-items: center;
 }
 
+#authenalert {
+    position: fixed;
+    bottom: 12%;
+}
+
 .registerdiv {
     width: 473px;
     display: flex;
@@ -255,62 +260,54 @@ display: flex;
 
 }
 
-.searchBar {
-    background: #11998e;
-    background: -webkit-linear-gradient(to left, #6bd393, #11998e);
-    background: linear-gradient(to left, #6bd393, #11998e);
-    align-self: center;
-    width: 80%;
-    margin-top: 5%;
-    border-radius: 3px;
-    padding: 10px;
-    -webkit-box-shadow: 0 0 10px rgb(175, 170, 170);
-    box-shadow: 0 0 10px rgb(175, 170, 170);
+.search-task {
     display: flex;
-    justify-content: center;
-    align-items: center;
-}
-
-.searchBar input {
-    margin: auto 5px;
-}
-
-.searchBar > .btn-warning {
-    width: 20%;
-    font-weight: bold;
-}
-
-.searchBar select {
-    margin: auto 5px;
-    width: 100%;
-    border: none;
-    border-radius: 3px;
-    outline: none;
+    flex-direction: row;
+    justify-content: space-between;
+    height: 100%;
+    margin: 5% ;
+   
 }
 
 .taskContainer {
-    align-self: center;
-    height: 100%;
-    min-height: 48vh;
-    margin-bottom: 5%;
-    width: 80%;
-    margin-top: 2%;
-    background-color: #fff;
+    width: 65%;
     border-radius: 5px;
-    padding: 10px;
-    -webkit-box-shadow: 0 0 10px rgb(175, 170, 170);
-    box-shadow: 0 0 10px rgb(175, 170, 170);
-    display: flex;
+    display: flex; 
     flex-direction: column;
 }
 
-#taskCard {
-    margin:2%;
+.searchBar {
+    width: 32%;
+    border-radius: 5px;
+    display: flex; 
+    flex-direction: column;
+    
 }
 
-.card-header {
+.searchBar> .card {
+    -webkit-box-shadow: 0 0 10px rgb(175, 170, 170);
+    box-shadow: 0 0 10px rgb(175, 170, 170);
+}
+
+#searchHead {
+    display: flex;
+    justify-content: center;
+    background: #11998e;
+    background: -webkit-linear-gradient(to left, #6bd393, #11998e);
+    background: linear-gradient(to left, #6bd393, #11998e);
+    color: #fff;
+}
+
+#taskCard {
+    margin-bottom: 4%;
+    -webkit-box-shadow: 0 0 10px rgb(175, 170, 170);
+    box-shadow: 0 0 10px rgb(175, 170, 170);
+}
+
+.card-header>.row {
     display: flex;
     justify-content: space-between;
+    margin: auto;
 }
 
 .responses {

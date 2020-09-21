@@ -146,7 +146,7 @@ class SignUp extends React.Component {
           />
         </div>
         <button className='logbtn' onClick={() => this.signupRequest()} >ثبت‌نام</button>
-        <Alert show={this.state.alartShow} variant='danger' onClose={() => this.alertclose()} dismissible >
+        <Alert id='authenalert' show={this.state.alartShow} variant='danger' onClose={() => this.alertclose()} dismissible >
           <MdError size='25px' />
           <span style={{ margin: '2%', fontWeight: 'bold' }}> خطا</span>
         </Alert>
