@@ -187,7 +187,7 @@ body {
 }
 
 .alert {
-display: flex;
+    display: flex;
     justify-content: center;
     align-items: center;
 }
@@ -357,7 +357,7 @@ display: flex;
     direction: rtl;
     height: 100%;
     min-height: 100vh;
-    background-image: url(back1.jpg);
+    background-color: #f1eded;
     background-size: cover;
     display: flex;
     flex-direction: column;
@@ -366,12 +366,12 @@ display: flex;
 }
 
 .demographic-container {
-    width: 80%;
+    width: 65%;
     height: 100%;
     min-height: 80vh;
-    background-color: rgba(220, 238, 228, 0.541);
+    background-color: #adebd74b;
     border-radius: 5px;
-    margin-top: 5%;
+    margin: 5%;
     direction: rtl;
     text-align: right;
     display: flex;
@@ -379,14 +379,20 @@ display: flex;
 }
 
 .demand-container {
-    width: 80%;
+    width: 65%;
     height: 100%;
     min-height: 80vh;
     display: flex;
     flex-direction: column;
-    background-color: rgba(220, 238, 228, 0.377);
+    background-color: #adebd74b;
     border-radius: 5px;
     margin: 5%;
+}
+
+#charityCard {
+    margin: 4%;
+    -webkit-box-shadow: 0 0 10px rgb(175, 170, 170);
+    box-shadow: 0 0 10px rgb(175, 170, 170);
 }
 
 .name-creat {

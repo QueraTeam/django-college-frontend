@@ -30,85 +30,93 @@ export default class BenefactorProfile extends React.Component {
       <div>
         <Navbar />
         <div className='bene-container'>
-          <div className='demographic-container' dir='rtl' style={{ margin: 'auto' }}>
+          <div className='demographic-container' dir='rtl' >
             <h2 style={{ alignSelf: 'center', marginTop: '2%' }}> اطلاعات کاربری</h2>
             <Form>
-              <Row>
+              <Form.Row>
                 <Col>
-                  <Form.Label> نام: </Form.Label>
-                  <Form.Control name='firstname' placeholder='نام'
+                  <Form.Label>نام</Form.Label>
+                  <Form.Control name='firstname'
+                    placeholder='نام خود را وارد نمایید' onChange={(event) => this.handleChange(event)} />
+                </Col>
+                <Col>
+                  <Form.Label>نام خانوادگی</Form.Label>
+                  <Form.Control name='lastname'
+                    placeholder='نام خانوادگی خود را وارد نمایید' onChange={(event) => this.handleChange(event)} />
+                </Col>
+              </Form.Row>
+              <Form.Row>
+                <Col>
+                  <Form.Label> جنسیت </Form.Label>
+                  <Form.Control as='select' name='gender'
+                    onChange={(event) => this.handleChange(event)} >
+                    <option value=''></option>
+                    <option value='F'>زن</option>
+                    <option value='M'>مرد</option>
+                  </Form.Control>
+                </Col>
+                <Col>
+                  <Form.Label> سن </Form.Label>
+                  <Form.Control type='number' name='age' placeholder='سن خود را وارد نمایید'
+                    onChange={(event) => this.handleChange(event)}
+                  />
+                </Col>
+              </Form.Row>
+              <Form.Row>
+                <Col>
+                  <Form.Label>ایمیل</Form.Label>
+                  <Form.Control name='email' placeholder='ایمیل خود را وارد نمایید'
                     onChange={(event) => this.handleChange(event)}
                   />
                 </Col>
                 <Col>
-                  <Form.Label> نام خانوادگی: </Form.Label>
-                  <Form.Control name='lastname' placeholder='نام خانوادگی'
+                  <Form.Label> شماره تماس </Form.Label>
+                  <Form.Control placeholder=' شماره تماس خود را وارد نمایید' name='phone'
+                    onChange={(event) => this.handleChange(event)}
+                  />
+                </Col>
+              </Form.Row>
+              <Form.Row>
+                <Col>
+                  <Form.Label> آدرس </Form.Label>
+                  <Form.Control name='address' placeholder='آدرس خود را وارد نمایید'
+                    onChange={(event) => this.handleChange(event)}
+                  />
+                </Col>
+              </Form.Row>
+              <Form.Row>
+                <Col>
+                  <Form.Label> تجربه نیکوکاری </Form.Label>
+                  <Form.Control name='experience' placeholder=' مثال: نگهداری از سالمندان و کودکان'
+
                     onChange={(event) => this.handleChange(event)}
                   />
                 </Col>
                 <Col>
-                  <Form.Label> شماره تماس: </Form.Label>
-                  <Form.Control placeholder='شماره تماس' name='phone'
+                  <Form.Label> زمان آزاد در هفته </Form.Label>
+                  <Form.Control name='freeTime' placeholder='مثال: 10 ساعت در هفته'
                     onChange={(event) => this.handleChange(event)}
                   />
                 </Col>
-              </Row>
-              <Row>
-                <Col>
-                  <Form.Label> ایمیل: </Form.Label>
-                  <Form.Control name='email' placeholder='ایمیل'
-                    onChange={(event) => this.handleChange(event)}
-                  />
-                </Col>
-                <Col>
-                  <Form.Label> آدرس: </Form.Label>
-                  <Form.Control name='address' placeholder='آدرس'
-                    onChange={(event) => this.handleChange(event)}
-                  />
-                </Col>
-              </Row>
-              <Row>
-                <Col sm='8' >
+
+              </Form.Row>
+              <Form.Row>
+                <Col sm='12' >
                   <Form.Group controlId='exampleForm.ControlTextarea1'>
-                    <Form.Label> توضیحات: </Form.Label>
+                    <Form.Label>توضیحات</Form.Label>
                     <Form.Control as='textarea' rows='3' name='description'
                       onChange={(event) => this.handleChange(event)}
                     />
                   </Form.Group>
                 </Col>
-                <Col>
-                  <Form.Label> جنسیت: </Form.Label>
-                  <Form.Control as='select' name='gender'
-                    onChange={(event) => this.handleChange(event)} >
-                    <option value=''></option>
-                    <option value='female'>زن</option>
-                    <option value='male'>مرد</option>
-                  </Form.Control>
-                </Col>
-                <Col>
-                  <Form.Label> سن: </Form.Label>
-                  <Form.Control type='number' name='age' placeholder='سن'
-                    onChange={(event) => this.handleChange(event)}
-                  />
-                </Col>
-              </Row>
-              <Row>
-                <Col>
-                  <Form.Label> تجربه نیکوکاری: </Form.Label>
-                  <Form.Control name='experience' placeholder='تجربه نیکوکاری'
-                    onChange={(event) => this.handleChange(event)}
-                  />
-                </Col>
-                <Col>
-                  <Form.Label> زمان آزاد در هفته: </Form.Label>
-                  <Form.Control name='freeTime' placeholder='زمان آزاد در هفته'
-                    onChange={(event) => this.handleChange(event)}
-                  />
-                </Col>
-                <Col >
+              </Form.Row>
+              <Form.Row>
+                <Col sm='5'></Col>
+                <Col  >
                   <Button variant='info'> ثبت اطلاعات </Button>
                 </Col>
-              </Row>
+                <Col sm='8'></Col>
+              </Form.Row>
             </Form>
           </div>
         </div>
