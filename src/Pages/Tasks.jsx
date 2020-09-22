@@ -205,9 +205,8 @@ export default class Tasks extends React.Component {
                     </Col>
                   </Row>
                   <Row>
-                    <Col sm='3'></Col>
-                    <Col >
-                      <Button style={{ fontWeight: 'bold' }} variant="outline-success"
+                    <Col style={{ display: 'flex', justifyContent: 'center' }} >
+                      <Button style={{ fontWeight: 'bold' }} variant='outline-success'
                         onClick={() => this.filteredSearch()}>
                         <IoMdSearch /> جستجو کن
                       </Button>

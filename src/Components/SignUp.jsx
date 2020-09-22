@@ -157,18 +157,22 @@ class SignUp extends React.Component {
           <Modal.Body id='modbod' dir='rtl'>
             <div>
               <p dir='rtl' style={{ textAlign: 'right' }}>  لطفا نحوه همکاری خود را انتخاب کنید</p>
-              <div className='registerdiv'>
-                <input id='isCharity' type='checkbox' name='isCharity'
-                  onChange={(event) => this.checkboxChange(event)}
-                  style={{ width: '20px', height: '20px' }}
-                />
-                <label for='isCharity' style={{ marginRight: '10px' }}> موسسه خیریه</label>
-                <input id='isBenefactor' type='checkbox' name='isBenefactor'
-                  onChange={(event) => this.checkboxChange(event)}
-                  style={{ marginRight: '40px', width: '20px', height: '20px' }}
-                />
-                <label for='isBenefactor' style={{ marginRight: '10px' }}>نیکوکار</label><br />
-              </div>
+              <Row>
+                <Col sm='2'></Col>
+                <Col sm='7' style={{ display: 'flex', justifyContent: 'center' }}>
+                  <input id='isCharity' type='checkbox' name='isCharity'
+                    onChange={(event) => this.checkboxChange(event)}
+                    style={{ width: '20px', height: '20px' }}
+                  />
+                  <label for='isCharity' style={{ marginRight: '10px' }}> موسسه خیریه</label>
+                  <input id='isBenefactor' type='checkbox' name='isBenefactor'
+                    onChange={(event) => this.checkboxChange(event)}
+                    style={{ marginRight: '40px', width: '20px', height: '20px' }}
+                  />
+                  <label for='isBenefactor' style={{ marginRight: '10px' }}>نیکوکار</label><br />
+                </Col>
+                <Col sm='3'></Col>
+              </Row>
               {this.state.isCharity &&
                 <div className='charityreg'>
                   <Row>

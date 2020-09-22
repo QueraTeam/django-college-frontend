@@ -3,9 +3,7 @@ import Navbar from '../Components/Navbar'
 import axios from 'axios'
 import { Form, Button, Row, Col, Modal, Tabs, Tab, Alert, Card, Badge } from 'react-bootstrap'
 import { IoIosAddCircle } from 'react-icons/io'
-import Calender from '../Components/Calender'
 import { MdError } from 'react-icons/md'
-import moment from 'moment'
 
 
 export default class CharityProfile extends React.Component {
@@ -86,10 +84,6 @@ export default class CharityProfile extends React.Component {
 
   tabSelect(key) {
     this.setState({ key })
-  }
-
-  calenderDateChange(date) {
-    this.setState({ ...this.state, newTaskFields: { ...this.state.newTaskFields, date: date } })
   }
 
   newTaskChange(event) {
@@ -217,21 +211,15 @@ export default class CharityProfile extends React.Component {
     this.setState({ errorModalShow: false })
   }
 
-  handdd() {
-    this.setState({ ...this.state, newTaskFields: { ...this.state.newTaskFields, date: '' } })
-      (console.log('darr', this.state.newTaskFields.date))
-
-  }
-
-  focousOut(value) {
-    if (!moment(value).isValid()) {
-      this.setState({ ...this.state, newTaskFields: { ...this.state.newTaskFields, date: '' } })
-    }
+  removeDate() {
+    var newTaskFields = { ...this.state.newTaskFields }
+    newTaskFields.date = ''
+    this.setState({ newTaskFields })
   }
 
 
   render() {
-    console.log('d', this.state.newTaskFields)
+    console.log('d', this.state.newTaskFields.date)
     return (
       <div>
         <Navbar />
@@ -330,69 +318,70 @@ export default class CharityProfile extends React.Component {
               <Button variant='primary' onClick={() => this.modalShow()}>
                 پروژه جدید <IoIosAddCircle size='45px' color='white' />
               </Button>
-              <Modal show={this.state.show} onHide={() => this.modalClose()} size='lg' id='charitymodal'>
+              <Modal show={this.state.show} onHide={() => this.modalClose()} size='lg' id='charitymodal' >
                 <Modal.Header id='chmodt' closeButton>
                   <Modal.Title> ایجاد پروژه جدید </Modal.Title>
                 </Modal.Header>
                 <Modal.Body dir='rtl' style={{ textAlign: 'right' }}>
-                  <Form>
-                    <Row>
-                      <Col sm='4'>
-                        <Form.Label> عنوان: </Form.Label>
-                        <Form.Control name='title'
-                          placeholder='عنوان' onChange={(event) => this.newTaskChange(event)} />
-                      </Col>
-                      <Col sm='3'>
-                        <Form.Label> جنسیت: </Form.Label>
-                        <Form.Control as='select' name='gender_limit'
-                          onChange={(event) => this.newTaskChange(event)} >
-                          <option value='MF'>تفاوتی ندارد</option>
-                          <option value='M'>مرد</option>
-                          <option value='F'>زن</option>
-                        </Form.Control>
-                      </Col>
-                      <Col sm='2'>
-                        <Form.Label> سن از: </Form.Label>
-                        <Form.Control name='age_limit_from' type='text' placeholder='از'
-                          value={this.state.newTaskFields.age_limit_from}
-                          onChange={(e) => this.agefChange(e)}
-                        />
-                      </Col>
-                      <Col sm='2'>
-                        <Form.Label> تا: </Form.Label>
-                        <Form.Control
-                          type='text' name='age_limit_to' placeholder='سن'
-                          value={this.state.newTaskFields.age_limit_to}
-                          onChange={(e) => this.agetChange(e)}
-                        />
-                      </Col>
-                    </Row>
-                    <br />
-                    <Row >
-                      <Col sm='2'> </Col>
-                      <Col sm='8'>
-                        <Form.Label>توضیحات:</Form.Label>
-                        <Form.Control name='description' placeholder='توضیحات'
-                          onChange={(event) => this.newTaskChange(event)}
-                        />
-                      </Col>
-                      <Col sm='2'> </Col>
-                    </Row>
-                    <br />
-                    <Row>
-                      <Col sm='3'> </Col>
-                      <Col sm='6'>
-                        <Row> <Form.Label> انتخاب تاریخ: </Form.Label> <button onClick={(value) => this.focousOut(value)} >ffff</button></Row>
-
-                        <Calender name='date'
-                          calenderDateChange={(date) => this.calenderDateChange(date)}
-                        />
-                      </Col>
-                      <Col sm='3'> </Col>
-                    </Row>
-                  </Form>
+                  <Row>
+                    <Col sm='4'>
+                      <Form.Label> عنوان: </Form.Label>
+                      <Form.Control name='title'
+                        placeholder='عنوان' onChange={(event) => this.newTaskChange(event)} />
+                    </Col>
+                    <Col sm='3'>
+                      <Form.Label> جنسیت: </Form.Label>
+                      <Form.Control as='select' name='gender_limit'
+                        onChange={(event) => this.newTaskChange(event)} >
+                        <option value='MF'>تفاوتی ندارد</option>
+                        <option value='M'>مرد</option>
+                        <option value='F'>زن</option>
+                      </Form.Control>
+                    </Col>
+                    <Col sm='2'>
+                      <Form.Label> سن از: </Form.Label>
+                      <Form.Control name='age_limit_from' type='text' placeholder='از'
+                        value={this.state.newTaskFields.age_limit_from}
+                        onChange={(e) => this.agefChange(e)}
+                      />
+                    </Col>
+                    <Col sm='2'>
+                      <Form.Label> تا: </Form.Label>
+                      <Form.Control
+                        type='text' name='age_limit_to' placeholder='سن'
+                        value={this.state.newTaskFields.age_limit_to}
+                        onChange={(e) => this.agetChange(e)}
+                      />
+                    </Col>
+                  </Row>
+                  <br />
+                  <Row >
+                    <Col sm='2'> </Col>
+                    <Col sm='8'>
+                      <Form.Label>توضیحات:</Form.Label>
+                      <Form.Control as='textarea' rows='2' name='description' placeholder='توضیحات'
+                        onChange={(event) => this.newTaskChange(event)}
+                      />
+                    </Col>
+                    <Col sm='2'> </Col>
+                  </Row>
+                  <br />
+                  <Row>
+                    <Col sm='3'> </Col>
+                    <Col sm='6'>
+                      <Row>
+                        <Form.Label> انتخاب تاریخ:  </Form.Label>
+                      </Row>
+                      <Form.Control type='date' name='date'
+                        onChange={(event) => this.newTaskChange(event)} value={this.state.newTaskFields.date} />
+                    </Col>
+                    <Col sm='3'> </Col>
+                  </Row>
                 </Modal.Body>
                 <Modal.Footer id='newtaskFooter'>
+                  <Button variant='light' onClick={() => this.removeDate()}>
+                    پاک کردن تاریخ
+                  </Button>
                   <Alert show={this.state.alartShow} variant='danger'
                     onClose={() => this.alertclose()} dismissible >
                     <MdError size='25px' />

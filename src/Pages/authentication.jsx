@@ -4,10 +4,10 @@ import Login from '../Components/Login'
 import SignUp from '../Components/SignUp'
 
 export default class Authentication extends React.Component {
- state = {
-      key: 1
-    }  
-    
+  state = {
+    key: 1
+  }
+
   handleSelect(key) {
     this.setState({ key })
   }
