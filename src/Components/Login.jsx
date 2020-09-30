@@ -1,9 +1,8 @@
 import React from 'react'
-import { IoMdPerson, IoMdLock } from 'react-icons/io'
-import { MdError } from 'react-icons/md'
+import {IoMdLock, IoMdPerson} from 'react-icons/io'
 import axios from 'axios'
-import { withRouter } from 'react-router'
-import { Alert } from 'react-bootstrap'
+import {withRouter} from 'react-router'
+import {Alert} from 'react-bootstrap'
 
 class Login extends React.Component {
   state = {
@@ -62,7 +61,7 @@ class Login extends React.Component {
         </div>
         <button className='logbtn' onClick={() => this.handleRequest()} >ورود</button>
         <Alert id='authenalert' show={this.state.show} variant='danger' onClose={() => this.handleClose()} dismissible >
-          <MdError size='25px' /> <span style={{ margin: '2%', fontWeight: 'bold' }}> خطا</span>
+            <span style={{ fontWeight: 'bold' }}> خطایی رخ داده است </span>
         </Alert>
       </div>
     )
