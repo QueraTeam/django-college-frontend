@@ -9,11 +9,15 @@ import {
     Col,
     Form,
     Modal,
+    OverlayTrigger,
     Row,
     Tab,
-    Tabs
+    Tabs,
+    Tooltip
 } from 'react-bootstrap'
-import {IoIosAddCircleOutline} from 'react-icons/io'
+import { IoIosAddCircleOutline, IoMdCloseCircle } from 'react-icons/io'
+
+
 
 
 export default class CharityProfile extends React.Component {
@@ -71,11 +75,11 @@ export default class CharityProfile extends React.Component {
                         task.genderName = 'جنسیت: هردو'
                     }
                 })
-                this.setState({taskslist: response.data})
+                this.setState({ taskslist: response.data })
             })
             .catch((error) => {
                 console.log(error)
-                this.setState({errorModalShow: true})
+                this.setState({ errorModalShow: true })
             })
     }
 
@@ -83,27 +87,27 @@ export default class CharityProfile extends React.Component {
         const name = event.target.name
         const changeFields = this.state.fields
         changeFields[name] = event.target.value
-        this.setState({fields: changeFields})
+        this.setState({ fields: changeFields })
     }
 
     modalShow(e) {
         e.preventDefault()
-        this.setState({show: true})
+        this.setState({ show: true })
     }
 
     modalClose() {
-        this.setState({show: false})
+        this.setState({ show: false })
     }
 
     tabSelect(key) {
-        this.setState({key})
+        this.setState({ key })
     }
 
     newTaskChange(event) {
         const name = event.target.name
         const changeNewTaskFields = this.state.newTaskFields
         changeNewTaskFields[name] = event.target.value
-        this.setState({newTaskChange: changeNewTaskFields})
+        this.setState({ newTaskChange: changeNewTaskFields })
     }
 
     agefChange(e) {
@@ -124,7 +128,7 @@ export default class CharityProfile extends React.Component {
         if (age_limit_to === '' || this.state.regexp.test(age_limit_to)) {
             this.setState({
                 ...this.state,
-                newTaskFields: {...this.state.newTaskFields, age_limit_to: age_limit_to}
+                newTaskFields: { ...this.state.newTaskFields, age_limit_to: age_limit_to }
             })
         }
     }
@@ -143,7 +147,7 @@ export default class CharityProfile extends React.Component {
         }
 
         let config = {
-            headers: {'Authorization': `Token ${token}`}
+            headers: { 'Authorization': `Token ${token}` }
         }
         axios.post('http://localhost:8000/tasks/', data, config)
             .then((response) => {
@@ -152,7 +156,7 @@ export default class CharityProfile extends React.Component {
             })
             .catch((error) => {
                 console.log(error)
-                this.setState({alartShow: true})
+                this.setState({ alartShow: true })
             })
     }
 
@@ -172,11 +176,11 @@ export default class CharityProfile extends React.Component {
             .then((response) => {
                 console.log(response.data)
                 task.state = 'A'
-                this.setState({task})
+                this.setState({ task })
             })
             .catch((error) => {
                 console.log(error)
-                this.setState({errorModalShow: true})
+                this.setState({ errorModalShow: true })
             })
     }
 
@@ -196,11 +200,11 @@ export default class CharityProfile extends React.Component {
             .then((response) => {
                 console.log(response.data)
                 task.state = 'P'
-                this.setState({task})
+                this.setState({ task })
             })
             .catch((error) => {
                 console.log(error)
-                this.setState({errorModalShow: true})
+                this.setState({ errorModalShow: true })
             })
     }
 
@@ -217,26 +221,26 @@ export default class CharityProfile extends React.Component {
             .then((response) => {
                 console.log('taskrequest', response.data)
                 task.state = 'D'
-                this.setState({task})
+                this.setState({ task })
             })
             .catch((error) => {
                 console.log(error)
-                this.setState({errorModalShow: true})
+                this.setState({ errorModalShow: true })
             })
     }
 
     alertclose() {
-        this.setState({alartShow: false})
+        this.setState({ alartShow: false })
     }
 
     errorTaskClose() {
-        this.setState({errorModalShow: false})
+        this.setState({ errorModalShow: false })
     }
 
     removeDate() {
-        var newTaskFields = {...this.state.newTaskFields}
+        var newTaskFields = { ...this.state.newTaskFields }
         newTaskFields.date = ''
-        this.setState({newTaskFields})
+        this.setState({ newTaskFields })
     }
 
 
@@ -244,10 +248,10 @@ export default class CharityProfile extends React.Component {
         console.log('d', this.state.newTaskFields.date)
         return (
             <div>
-                <Navbar/>
+                <Navbar />
                 <div className='bene-container'>
                     <div className='demographic-container' dir='rtl'>
-                        <h2 style={{alignSelf: 'right', marginBottom: '10px'}}>
+                        <h2 style={{ alignSelf: 'right', marginBottom: '10px' }}>
                             اطلاعات کاربری
                         </h2>
                         <Form>
@@ -255,21 +259,21 @@ export default class CharityProfile extends React.Component {
                                 <Col>
                                     <Form.Label>نام</Form.Label>
                                     <Form.Control name='firstname'
-                                                  placeholder='نام خود را وارد نمایید'
-                                                  onChange={(event) => this.handleChange(event)}/>
+                                        placeholder='نام خود را وارد نمایید'
+                                        onChange={(event) => this.handleChange(event)} />
                                 </Col>
                                 <Col>
                                     <Form.Label>نام خانوادگی</Form.Label>
                                     <Form.Control name='lastname'
-                                                  placeholder='نام خانوادگی خود را وارد نمایید'
-                                                  onChange={(event) => this.handleChange(event)}/>
+                                        placeholder='نام خانوادگی خود را وارد نمایید'
+                                        onChange={(event) => this.handleChange(event)} />
                                 </Col>
                             </Form.Row>
                             <Form.Row>
                                 <Col>
                                     <Form.Label>جنسیت</Form.Label>
                                     <Form.Control as='select' name='gender'
-                                                  onChange={(event) => this.handleChange(event)}>
+                                        onChange={(event) => this.handleChange(event)}>
                                         <option value=''></option>
                                         <option value='F'>زن</option>
                                         <option value='M'>مرد</option>
@@ -278,8 +282,8 @@ export default class CharityProfile extends React.Component {
                                 <Col>
                                     <Form.Label>سن</Form.Label>
                                     <Form.Control type='number' name='age'
-                                                  placeholder='سن خود را وارد نمایید'
-                                                  onChange={(event) => this.handleChange(event)}
+                                        placeholder='سن خود را وارد نمایید'
+                                        onChange={(event) => this.handleChange(event)}
                                     />
                                 </Col>
                             </Form.Row>
@@ -287,8 +291,8 @@ export default class CharityProfile extends React.Component {
                                 <Col>
                                     <Form.Label>ایمیل</Form.Label>
                                     <Form.Control name='email'
-                                                  placeholder='ایمیل خود را وارد نمایید'
-                                                  onChange={(event) => this.handleChange(event)}
+                                        placeholder='ایمیل خود را وارد نمایید'
+                                        onChange={(event) => this.handleChange(event)}
                                     />
                                 </Col>
                                 <Col>
@@ -304,8 +308,8 @@ export default class CharityProfile extends React.Component {
                                 <Col>
                                     <Form.Label>آدرس</Form.Label>
                                     <Form.Control name='address'
-                                                  placeholder='آدرس خود را وارد نمایید'
-                                                  onChange={(event) => this.handleChange(event)}
+                                        placeholder='آدرس خود را وارد نمایید'
+                                        onChange={(event) => this.handleChange(event)}
                                     />
                                 </Col>
                             </Form.Row>
@@ -313,15 +317,15 @@ export default class CharityProfile extends React.Component {
                                 <Col>
                                     <Form.Label> نام موسسه خیریه</Form.Label>
                                     <Form.Control name='charityname'
-                                                  placeholder=' نام موسسه خیریه خود را وارد نمایید'
-                                                  onChange={(event) => this.handleChange(event)}
+                                        placeholder=' نام موسسه خیریه خود را وارد نمایید'
+                                        onChange={(event) => this.handleChange(event)}
                                     />
                                 </Col>
                                 <Col>
                                     <Form.Label>شماره ثبت</Form.Label>
                                     <Form.Control name='regnumber'
-                                                  placeholder=' شماره ثبت موسسه خیریه خود را وارد نمایید'
-                                                  onChange={(event) => this.handleChange(event)}
+                                        placeholder=' شماره ثبت موسسه خیریه خود را وارد نمایید'
+                                        onChange={(event) => this.handleChange(event)}
                                     />
                                 </Col>
                             </Form.Row>
@@ -330,8 +334,8 @@ export default class CharityProfile extends React.Component {
                                     <Form.Group controlId='exampleForm.ControlTextarea1'>
                                         <Form.Label>توضیحات</Form.Label>
                                         <Form.Control as='textarea' rows='3'
-                                                      name='description'
-                                                      onChange={(event) => this.handleChange(event)}
+                                            name='description'
+                                            onChange={(event) => this.handleChange(event)}
                                         />
                                     </Form.Group>
                                 </Col>
@@ -345,49 +349,61 @@ export default class CharityProfile extends React.Component {
                             </Form.Row>
                         </Form>
                     </div>
-                    <hr style={{width: '100%', margin: "30px"}}/>
+                    <hr style={{ width: '100%', margin: '30px' }} />
                     <div className='demand-container'>
                         <div className='name-creat'>
-                            <h2 style={{marginLeft: '10px'}}>پروژه‌های خیریه</h2>
-                            <a href="#">
-                                <IoIosAddCircleOutline
-                                    style={{color: "green"}}
-                                    onClick={(e) => this.modalShow(e)}
-                                    size='25px'
-                                    color='white'/>
-                            </a>
+                            <h2 style={{ marginLeft: '10px' }}>پروژه‌های خیریه</h2>
+                            <OverlayTrigger placement='left'
+                                overlay={
+                                    <Tooltip id='tooltip-left' dir='rtl'>
+                                        ایجاد پروژه جدید
+                                     </Tooltip>
+                                }
+                            >
+                                <button style={{ border: 'none', outline: 'none' }}>
+                                    <IoIosAddCircleOutline
+                                        onClick={(e) => this.modalShow(e)}
+                                        size='25px'
+                                        color='green'
+                                    />
+                                </button>
+                            </OverlayTrigger>
                             <Modal show={this.state.show} onHide={() => this.modalClose()}
-                                   size='lg' id='charitymodal'>
+                                size='lg' id='charitymodal'>
                                 <Modal.Header id='chmodt' closeButton>
                                     <Modal.Title> ایجاد پروژه جدید </Modal.Title>
                                 </Modal.Header>
-                                <Modal.Body dir='rtl' style={{textAlign: 'right'}}>
-                                    <Row>
-                                        <Col sm='4'>
-                                            <Form.Label> عنوان: </Form.Label>
+                                <Modal.Body dir='rtl' style={{ textAlign: 'right' }}>
+                                    <Form.Row>
+                                        <Col sm='6'>
+                                            <Form.Label> عنوان </Form.Label>
                                             <Form.Control name='title'
-                                                          placeholder='عنوان'
-                                                          onChange={(event) => this.newTaskChange(event)}/>
+                                                placeholder='عنوان'
+                                                onChange={(event) => this.newTaskChange(event)} />
                                         </Col>
-                                        <Col sm='3'>
-                                            <Form.Label> جنسیت: </Form.Label>
+                                        <Col sm='6'>
+                                            <Form.Label> جنسیت </Form.Label>
                                             <Form.Control as='select' name='gender_limit'
-                                                          onChange={(event) => this.newTaskChange(event)}>
+                                                onChange={(event) => this.newTaskChange(event)}>
                                                 <option value='MF'>تفاوتی ندارد</option>
                                                 <option value='M'>مرد</option>
                                                 <option value='F'>زن</option>
                                             </Form.Control>
                                         </Col>
-                                        <Col sm='2'>
-                                            <Form.Label> سن از: </Form.Label>
+
+                                    </Form.Row>
+                                    <br />
+                                    <Form.Row>
+                                        <Col sm='3'>
+                                            <Form.Label> سن از </Form.Label>
                                             <Form.Control name='age_limit_from'
-                                                          type='text' placeholder='از'
-                                                          value={this.state.newTaskFields.age_limit_from}
-                                                          onChange={(e) => this.agefChange(e)}
+                                                type='text' placeholder='از'
+                                                value={this.state.newTaskFields.age_limit_from}
+                                                onChange={(e) => this.agefChange(e)}
                                             />
                                         </Col>
-                                        <Col sm='2'>
-                                            <Form.Label> تا: </Form.Label>
+                                        <Col sm='3'>
+                                            <Form.Label> تا </Form.Label>
                                             <Form.Control
                                                 type='text' name='age_limit_to'
                                                 placeholder='سن'
@@ -395,45 +411,38 @@ export default class CharityProfile extends React.Component {
                                                 onChange={(e) => this.agetChange(e)}
                                             />
                                         </Col>
-                                    </Row>
-                                    <br/>
+                                        <Col sm='5'>
+                                            <Form.Label> انتخاب تاریخ </Form.Label>
+                                            <Form.Control type='date' name='date'
+                                                onChange={(event) => this.newTaskChange(event)}
+                                                value={this.state.newTaskFields.date} />
+                                        </Col>
+                                        <Col sm='1' style={{ display: 'flex', justifyContent: 'center', alignItems: 'flex-end' }}>
+                                            <Button variant='outline-danger'
+                                                onClick={() => this.removeDate()}>
+                                                <IoMdCloseCircle size='25px' />
+                                            </Button>
+                                        </Col>
+                                    </Form.Row>
+                                    <br />
                                     <Row>
-                                        <Col sm='2'> </Col>
-                                        <Col sm='8'>
-                                            <Form.Label>توضیحات:</Form.Label>
+                                        <Col sm='12'>
+                                            <Form.Label>توضیحات</Form.Label>
                                             <Form.Control as='textarea' rows='2'
-                                                          name='description'
-                                                          placeholder='توضیحات'
-                                                          onChange={(event) => this.newTaskChange(event)}
+                                                name='description'
+                                                onChange={(event) => this.newTaskChange(event)}
                                             />
                                         </Col>
-                                        <Col sm='2'> </Col>
                                     </Row>
-                                    <br/>
-                                    <Row>
-                                        <Col sm='3'> </Col>
-                                        <Col sm='6'>
-                                            <Row>
-                                                <Form.Label> انتخاب تاریخ: </Form.Label>
-                                            </Row>
-                                            <Form.Control type='date' name='date'
-                                                          onChange={(event) => this.newTaskChange(event)}
-                                                          value={this.state.newTaskFields.date}/>
-                                        </Col>
-                                        <Col sm='3'> </Col>
-                                    </Row>
+                                    <br />
                                 </Modal.Body>
                                 <Modal.Footer id='newtaskFooter'>
-                                    <Button variant='light'
-                                            onClick={() => this.removeDate()}>
-                                        پاک کردن تاریخ
-                                    </Button>
                                     <Alert show={this.state.alartShow} variant='danger'
-                                           onClose={() => this.alertclose()} dismissible>
-                                        <span style={{fontWeight: 'bold'}}> خطایی رخ داده است </span>
+                                        onClose={() => this.alertclose()} dismissible>
+                                        <span style={{ fontWeight: 'bold' }}> خطایی رخ داده است </span>
                                     </Alert>
                                     <Button id='newtaskClose' variant='outline-dark'
-                                            onClick={() => this.newTaskRequest()}>
+                                        onClick={() => this.newTaskRequest()}>
                                         ذخیره
                                     </Button>
                                 </Modal.Footer>
@@ -441,18 +450,18 @@ export default class CharityProfile extends React.Component {
                         </div>
                         <Tabs
                             className='tasks-in-charity-profile'
-                            style={{padding: '0', marginTop: '10px'}}
+                            style={{ padding: '0', marginTop: '10px' }}
                             activeKey={this.state.key}
                             onSelect={(eventKey) => this.tabSelect(eventKey)}
                         >
                             <Tab eventKey={1} title='در انتظار پذیرش'>
-                                { (this.state.taskslist.filter((task) => task.state === 'P').length > 0 &&
+                                {(this.state.taskslist.filter((task) => task.state === 'P').length > 0 &&
                                     this.state.taskslist.map((task, index) => {
                                         if (task.state === 'P') {
                                             return (
                                                 <div key={index}>
                                                     <Card className='text-right'
-                                                          id='charityCard'>
+                                                        id='charityCard'>
                                                         <Card.Header as='h4'>
 
                                                             <Row>
@@ -473,23 +482,23 @@ export default class CharityProfile extends React.Component {
                                             )
                                         }
                                     })) ||
-                                    <div style={{marginTop: '20px'}}>
+                                    <div style={{ marginTop: '20px' }}>
                                         <Card className='text-center' id='taskCard'>
                                             <Card.Body>
-                                                <span style={{color: "#bbb"}}>هیچ پروژه‌ای موجود نیست</span>
+                                                <span style={{ color: '#bbb' }}>هیچ پروژه‌ای موجود نیست</span>
                                             </Card.Body>
                                         </Card>
                                     </div>
                                 }
                             </Tab>
                             <Tab eventKey={2} title='در انتظار تائید'>
-                                { (this.state.taskslist.filter((task) => task.state === 'W').length > 0 &&
+                                {(this.state.taskslist.filter((task) => task.state === 'W').length > 0 &&
                                     this.state.taskslist.map((task, index) => {
                                         if (task.state === 'W') {
                                             return (
                                                 <div key={index}>
                                                     <Card className='text-right'
-                                                          id='charityCard'>
+                                                        id='charityCard'>
                                                         <Card.Header as='h4'>
                                                             <Row>
                                                                 {task.title}
@@ -504,11 +513,11 @@ export default class CharityProfile extends React.Component {
                                                             <p> {task.description} </p>
                                                             <div className='responses'>
                                                                 <Button variant='success'
-                                                                        onClick={() => this.acceptedResponse(task)}>
+                                                                    onClick={() => this.acceptedResponse(task)}>
                                                                     تائید
                                                                 </Button>
                                                                 <Button variant='danger'
-                                                                        onClick={() => this.rejectedResponse(task)}>
+                                                                    onClick={() => this.rejectedResponse(task)}>
                                                                     رد
                                                                 </Button>
                                                             </div>
@@ -518,23 +527,23 @@ export default class CharityProfile extends React.Component {
                                             )
                                         }
                                     })) ||
-                                    <div style={{marginTop: '20px'}}>
+                                    <div style={{ marginTop: '20px' }}>
                                         <Card className='text-center' id='taskCard'>
                                             <Card.Body>
-                                                <span style={{color: "#bbb"}}>هیچ پروژه‌ای موجود نیست</span>
+                                                <span style={{ color: '#bbb' }}>هیچ پروژه‌ای موجود نیست</span>
                                             </Card.Body>
                                         </Card>
                                     </div>
                                 }
                             </Tab>
                             <Tab eventKey={3} title='تائید شده'>
-                                { (this.state.taskslist.filter((task) => task.state === 'A').length > 0 &&
+                                {(this.state.taskslist.filter((task) => task.state === 'A').length > 0 &&
                                     this.state.taskslist.map((task, index) => {
                                         if (task.state === 'A') {
                                             return (
                                                 <div key={index}>
                                                     <Card className='text-right'
-                                                          id='charityCard'>
+                                                        id='charityCard'>
                                                         <Card.Header as='h4'>
                                                             <Row>
                                                                 {task.title}
@@ -549,8 +558,8 @@ export default class CharityProfile extends React.Component {
                                                             <p> {task.description} </p>
                                                             <div className='responses'>
                                                                 <Button variant='success'
-                                                                        size='lg'
-                                                                        onClick={() => this.taskDone(task)}>
+                                                                    size='lg'
+                                                                    onClick={() => this.taskDone(task)}>
                                                                     اتمام پروژه
                                                                 </Button>
                                                             </div>
@@ -560,23 +569,23 @@ export default class CharityProfile extends React.Component {
                                             )
                                         }
                                     })) ||
-                                    <div style={{marginTop: '20px'}}>
+                                    <div style={{ marginTop: '20px' }}>
                                         <Card className='text-center' id='taskCard'>
                                             <Card.Body>
-                                                <span style={{color: "#bbb"}}>هیچ پروژه‌ای موجود نیست</span>
+                                                <span style={{ color: '#bbb' }}>هیچ پروژه‌ای موجود نیست</span>
                                             </Card.Body>
                                         </Card>
                                     </div>
                                 }
                             </Tab>
                             <Tab eventKey={4} title='انجام شده'>
-                                { (this.state.taskslist.filter((task) => task.state === 'D').length > 0 &&
+                                {(this.state.taskslist.filter((task) => task.state === 'D').length > 0 &&
                                     this.state.taskslist.map((task, index) => {
                                         if (task.state === 'D') {
                                             return (
                                                 <div key={index}>
                                                     <Card className='text-right'
-                                                          id='charityCard'>
+                                                        id='charityCard'>
                                                         <Card.Header as='h4'>
                                                             <Row>
                                                                 {task.title}
@@ -596,10 +605,10 @@ export default class CharityProfile extends React.Component {
                                             )
                                         }
                                     })) ||
-                                    <div style={{marginTop: '20px'}}>
+                                    <div style={{ marginTop: '20px' }}>
                                         <Card className='text-center' id='taskCard'>
                                             <Card.Body>
-                                                <span style={{color: "#bbb"}}>هیچ پروژه‌ای موجود نیست</span>
+                                                <span style={{ color: '#bbb' }}>هیچ پروژه‌ای موجود نیست</span>
                                             </Card.Body>
                                         </Card>
                                     </div>
@@ -609,10 +618,10 @@ export default class CharityProfile extends React.Component {
                     </div>
                 </div>
                 <Modal show={this.state.errorModalShow}
-                       onHide={() => this.errorTaskClose()} size='sm' id='taskError'>
+                    onHide={() => this.errorTaskClose()} size='sm' id='taskError'>
                     <Modal.Header closeButton id='taskerrorHead'>
                         <Modal.Body id='taskerrorBody'>
-                            <span style={{fontWeight: 'bold'}}> خطایی رخ داده است </span>
+                            <span style={{ fontWeight: 'bold' }}> خطایی رخ داده است </span>
                         </Modal.Body>
                     </Modal.Header>
                 </Modal>

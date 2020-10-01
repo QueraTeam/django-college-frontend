@@ -46,7 +46,7 @@ class Navbar extends React.Component {
                     <div>
                         <ul className='navbar-nav'>
                             <li style={{color: '#fff'}}>
-                                <NavDropdown title="پروفایل ">
+                                <NavDropdown title='پروفایل '>
                                     {
                                         (this.state.isBenefactor &&
                                             <NavDropdown.Item

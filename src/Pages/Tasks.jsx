@@ -279,7 +279,7 @@ export default class Tasks extends React.Component {
                             <div>
                                 <Card className='text-center' id='taskCard'>
                                     <Card.Body>
-                                        <span style={{color: "#bbb"}}>هیچ پروژه‌ای موجود نیست</span>
+                                        <span style={{color: '#bbb'}}>هیچ پروژه‌ای موجود نیست</span>
                                     </Card.Body>
                                 </Card>
                             </div>

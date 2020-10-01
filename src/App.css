@@ -422,6 +422,7 @@ input.form-control {
 
 .name-creat {
     display: flex;
+    align-items: center;
     direction: rtl;
     width: 100%;
 }
@@ -438,16 +439,16 @@ input.form-control {
 /*--------------------------------charity modal--------------------------*/
 
 #charitymodal>.modal-content {
-    background: #ff9966;  
-    background: -webkit-linear-gradient(to right, #ff5e62, #ff9966); 
-    background: linear-gradient(to right, #ff5e62, #ff9966); 
+    background: #ECE9E6;
+    background: -webkit-linear-gradient(to bottom, #FFFFFF, #ECE9E6);
+    background: linear-gradient(to bottom, #FFFFFF, #ECE9E6);
 }
 
 #chmodt>.modal-title {
     width: 100%;
     display: flex;
     justify-content: center;
-    color: #fff
+    color: #128b71
 }
 
 .modal-header {
@@ -478,6 +479,7 @@ input.form-control {
     justify-content: space-around;
     align-items: center;
     background-color: #fff;
+    border-radius: 2px;
 }
 
 .demand-container > .nav-tabs .nav-link.active {
