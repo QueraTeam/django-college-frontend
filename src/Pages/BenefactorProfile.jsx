@@ -1,6 +1,6 @@
 import React from 'react'
 import Navbar from '../Components/Navbar'
-import {Button, Col, Form} from 'react-bootstrap'
+import { Button, Col, Form } from 'react-bootstrap'
 
 export default class BenefactorProfile extends React.Component {
     state = {
@@ -22,16 +22,16 @@ export default class BenefactorProfile extends React.Component {
         const name = event.target.name
         const changeFields = this.state.fields
         changeFields[name] = event.target.value
-        this.setState({fields: changeFields})
+        this.setState({ fields: changeFields })
     }
 
     render() {
         return (
             <div>
-                <Navbar/>
+                <Navbar />
                 <div className='bene-container'>
                     <div className='demographic-container' dir='rtl'>
-                        <h2 style={{alignSelf: 'right', marginBottom: '10px'}}>
+                        <h2 style={{ alignSelf: 'right', marginBottom: '10px' }}>
                             اطلاعات کاربری
                         </h2>
                         <Form>
@@ -39,21 +39,21 @@ export default class BenefactorProfile extends React.Component {
                                 <Col>
                                     <Form.Label>نام</Form.Label>
                                     <Form.Control name='firstname'
-                                                  placeholder='نام خود را وارد نمایید'
-                                                  onChange={(event) => this.handleChange(event)}/>
+                                        placeholder='نام خود را وارد نمایید'
+                                        onChange={(event) => this.handleChange(event)} />
                                 </Col>
                                 <Col>
                                     <Form.Label>نام خانوادگی</Form.Label>
                                     <Form.Control name='lastname'
-                                                  placeholder='نام خانوادگی خود را وارد نمایید'
-                                                  onChange={(event) => this.handleChange(event)}/>
+                                        placeholder='نام خانوادگی خود را وارد نمایید'
+                                        onChange={(event) => this.handleChange(event)} />
                                 </Col>
                             </Form.Row>
                             <Form.Row>
                                 <Col>
                                     <Form.Label> جنسیت </Form.Label>
                                     <Form.Control as='select' name='gender'
-                                                  onChange={(event) => this.handleChange(event)}>
+                                        onChange={(event) => this.handleChange(event)}>
                                         <option value=''></option>
                                         <option value='F'>زن</option>
                                         <option value='M'>مرد</option>
@@ -62,8 +62,8 @@ export default class BenefactorProfile extends React.Component {
                                 <Col>
                                     <Form.Label> سن </Form.Label>
                                     <Form.Control type='number' name='age'
-                                                  placeholder='سن خود را وارد نمایید'
-                                                  onChange={(event) => this.handleChange(event)}
+                                        placeholder='سن خود را وارد نمایید'
+                                        onChange={(event) => this.handleChange(event)}
                                     />
                                 </Col>
                             </Form.Row>
@@ -71,8 +71,8 @@ export default class BenefactorProfile extends React.Component {
                                 <Col>
                                     <Form.Label>ایمیل</Form.Label>
                                     <Form.Control name='email'
-                                                  placeholder='ایمیل خود را وارد نمایید'
-                                                  onChange={(event) => this.handleChange(event)}
+                                        placeholder='ایمیل خود را وارد نمایید'
+                                        onChange={(event) => this.handleChange(event)}
                                     />
                                 </Col>
                                 <Col>
@@ -88,8 +88,8 @@ export default class BenefactorProfile extends React.Component {
                                 <Col>
                                     <Form.Label> آدرس </Form.Label>
                                     <Form.Control name='address'
-                                                  placeholder='آدرس خود را وارد نمایید'
-                                                  onChange={(event) => this.handleChange(event)}
+                                        placeholder='آدرس خود را وارد نمایید'
+                                        onChange={(event) => this.handleChange(event)}
                                     />
                                 </Col>
                             </Form.Row>
@@ -97,17 +97,17 @@ export default class BenefactorProfile extends React.Component {
                                 <Col>
                                     <Form.Label> تجربه نیکوکاری </Form.Label>
                                     <Form.Control name='experience'
-                                                  placeholder='نگهداری از سالمندان و کودکان'
+                                        placeholder='نگهداری از سالمندان و کودکان'
 
-                                                  onChange={(event) => this.handleChange(event)}
+                                        onChange={(event) => this.handleChange(event)}
                                     />
                                 </Col>
                                 <Col>
                                     <Form.Label> زمان آزاد در هفته </Form.Label>
                                     <Form.Control name='freeTime'
-                                                  type='number'
-                                                  placeholder='20'
-                                                  onChange={(event) => this.handleChange(event)}
+                                        type='number'
+                                        placeholder='20'
+                                        onChange={(event) => this.handleChange(event)}
                                     />
                                 </Col>
 
@@ -117,8 +117,8 @@ export default class BenefactorProfile extends React.Component {
                                     <Form.Group controlId='exampleForm.ControlTextarea1'>
                                         <Form.Label>توضیحات</Form.Label>
                                         <Form.Control as='textarea' rows='3'
-                                                      name='description'
-                                                      onChange={(event) => this.handleChange(event)}
+                                            name='description'
+                                            onChange={(event) => this.handleChange(event)}
                                         />
                                     </Form.Group>
                                 </Col>

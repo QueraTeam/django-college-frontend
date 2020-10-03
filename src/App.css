@@ -217,38 +217,34 @@ body {
 
 
 /*-------------------------------navbar---------------------------*/
-.charityNav {
-    direction: rtl;
-    background: #141E30;
-    background: -webkit-linear-gradient(to top, #243B55, #141E30);
-    background: linear-gradient(to top, #243B55, #141E30);
-    border: none;
-    border-bottom: 2px solid #1a2b3f;
-    box-shadow: 2px 3px 7px #534d4d;
-    font-size:large !important;
+  .divNav {
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    background-color: #343a40;
     position: sticky;
     top: 0;
     z-index: 1;
-}
+} 
 
 input.form-control {
     text-overflow: ellipsis;
     padding-left: 20px;
 }
 
-.navbar-nav {
+/* .navbar-nav {
     display: flex;
     padding: 0 !important;
     align-items: center;
-}
+} */
 
 .navbar-nav > .nav-link {
     color: #fff !important;
 }
 
-.navbar {
+/* .navbar {
     padding: 0.5rem 0;
-}
+} */
 
 .mynav {
     width: 60%;
@@ -274,7 +270,7 @@ input.form-control {
 
 .dropdown-item {
     text-align: right;
-}
+} 
 
 /*------------------------------task page---------------------------*/
 .taskPage {
@@ -388,7 +384,6 @@ input.form-control {
     justify-content: center;
     align-items: center;
     width: 50%;
-    min-width: 450px;
     margin: auto;
 }
 
