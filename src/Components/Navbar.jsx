@@ -43,7 +43,7 @@ class MyNavbar extends React.Component {
     return (
       <div className='divNav'>
         <Navbar bg='dark' expand='lg' dir='rtl' style={{ width: '63%' }}>
-          <Navbar.Brand href='/tasks' style={{ color: '#fff' }}>نیکوکاری ها </Navbar.Brand>
+          <Navbar.Brand href='/tasks' style={{ color: '#fff' }}>نیکوکاری‌ها </Navbar.Brand>
           <Navbar.Toggle aria-controls='basic-navbar-nav' />
           <Navbar.Collapse id='basic-navbar-nav'>
             <Nav>
