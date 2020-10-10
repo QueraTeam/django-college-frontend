@@ -153,7 +153,7 @@ export default class Tasks extends React.Component {
                 <Navbar/>
                 <div className='search-task'>
                     <div className='searchBar'>
-                        <Card className='text-right'>
+                        <Card className='text-right' style={{position: 'sticky', top: '90px'}}>
                             <Card.Header as='h4' id='searchHead'>
                                 جستجو
                             </Card.Header>
