@@ -32,7 +32,7 @@ export default class BenefactorProfile extends React.Component {
                 <div className='bene-container'>
                     <div className='demographic-container' dir='rtl'>
                         <h2 style={{ alignSelf: 'right', marginBottom: '10px' }}>
-                            اطلاعات کاربری
+                            اطلاعات نیکوکار
                         </h2>
                         <Form>
                             <Form.Row>

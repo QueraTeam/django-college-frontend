@@ -252,7 +252,7 @@ export default class CharityProfile extends React.Component {
                 <div className='bene-container'>
                     <div className='demographic-container' dir='rtl'>
                         <h2 style={{ alignSelf: 'right', marginBottom: '10px' }}>
-                            اطلاعات کاربری
+                            اطلاعات موسسه‌ی خیریه
                         </h2>
                         <Form>
                             <Form.Row>
