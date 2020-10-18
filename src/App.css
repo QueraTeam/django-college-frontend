@@ -71,12 +71,7 @@ body {
     font-weight: bold;
 }
 
-.nav-link:hover {
-    color: rgb(175, 169, 169) !important;
-}
-
 .nav-link {
-    color: rgb(175, 169, 169) !important;
     text-decoration: none;
     background-color: transparent !important;
     outline: none;
@@ -84,18 +79,11 @@ body {
     margin: 5px;
 }
 
-.nav-link:hover {
-    color: #fff;
-    border: none;
-}
-
 .nav-tabs .nav-link {
     border: none;
-    font-size: x-large;
     color: #6e6e6e98 !important;
     background-color: transparent !important;
     margin: 5px;
-    font-size: 1.25em;
     outline: none;
     font-weight: bold;
 }
@@ -125,8 +113,7 @@ body {
     background-color: inherit;
     border: none;
     border-bottom: 1px solid #ffffff38;
-    padding: 5px;
-    padding-right: 20px;
+    padding: 5px 20px 5px 5px;
     outline: none;
     text-align: center;
 }
@@ -230,27 +217,9 @@ input.form-control {
     padding-left: 20px;
 }
 
-/* .navbar-nav {
-    display: flex;
-    padding: 0 !important;
-    align-items: center;
-} */
-
-.navbar-nav > .nav-link {
-    color: #fff !important;
-}
-
-/* .navbar {
-    padding: 0.5rem 0;
-} */
-
 .mynav {
     width: 60%;
     margin: auto;
-}
-
-.mynav > .dropdown-toggle, .nav-link {
-    color: #fff !important;
 }
 
 .logOutbtn {

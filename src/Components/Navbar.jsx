@@ -38,7 +38,7 @@ class MyNavbar extends React.Component {
     render() {
         return (
             <div className='divNav'>
-                <Navbar bg='dark' expand='lg' dir='rtl' style={{width: '63%'}}>
+                <Navbar bg='dark' variant="dark" expand='lg' dir='rtl' style={{width: '63%'}}>
                     <Navbar.Toggle aria-controls='basic-navbar-nav'/>
                     <Navbar.Collapse id='basic-navbar-nav'>
                         <Nav className="ml-auto">
@@ -60,6 +60,7 @@ class MyNavbar extends React.Component {
                                         موسسه خیریه</NavDropdown.Item>
                                 }
                             </NavDropdown>
+                            <Nav.Link href='http://localhost:8000/about-us/'>درباره‌ما</Nav.Link>
                         </Nav>
                         <nav className='mr-auto'>
                             <Button variant='danger'
