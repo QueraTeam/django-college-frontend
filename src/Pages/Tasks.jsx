@@ -3,6 +3,7 @@ import Navbar from '../Components/Navbar'
 import {Badge, Button, Card, Col, Form, Modal, Row} from 'react-bootstrap'
 import {IoMdSearch} from 'react-icons/io'
 import axios from 'axios'
+import {HOST} from '../host'
 
 export default class Tasks extends React.Component {
     state = {
@@ -38,7 +39,7 @@ export default class Tasks extends React.Component {
             }
         }
 
-        axios.get('http://localhost:8000/tasks?', config)
+        axios.get(`http://${HOST}/tasks?`, config)
             .then((response) => {
                 response.data.map((task) => {
                     if (task.gender_limit === 'F') {
@@ -73,7 +74,7 @@ export default class Tasks extends React.Component {
 
     filteredSearch() {
         const getToken = window.localStorage.getItem('token')
-        let a = 'http://localhost:8000/tasks?title='
+        let a = `http://${HOST}/tasks?title=`
         if (this.state.fields.title) {
             a += this.state.fields.title
         }
@@ -122,17 +123,13 @@ export default class Tasks extends React.Component {
 
     taskRequest(task) {
         const getToken = window.localStorage.getItem('token')
-        let a = 'http://localhost:8000/tasks/'
-        a += task.id
-        a += '/request/'
 
-        axios.get(a, {
+        axios.get(`http://${HOST}/tasks/${task.id}/request/`, {
             headers: {
                 'Authorization': `Token ${getToken}`
             }
         })
             .then((response) => {
-                console.log('taskrequest', response.data)
                 task.state = 'W'
                 this.setState({task})
 

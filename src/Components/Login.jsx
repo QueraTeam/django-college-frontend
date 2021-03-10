@@ -3,6 +3,7 @@ import {IoMdLock, IoMdPerson} from 'react-icons/io'
 import axios from 'axios'
 import {withRouter} from 'react-router'
 import {Alert} from 'react-bootstrap'
+import {HOST} from '../host'
 
 class Login extends React.Component {
   state = {
@@ -21,17 +22,15 @@ class Login extends React.Component {
   }
 
   handleRequest() {
-    axios.post('http://localhost:8000/accounts/login/', {
+    axios.post(`http://${HOST}/accounts/login/`, {
       username: this.state.fields.username,
       password: this.state.fields.password
     })
       .then((response) => {
-        console.log(response.data.token)
         window.localStorage.setItem('token', response.data.token)
         this.props.history.push('/tasks')
       })
       .catch((error) => {
-        console.log(error)
         this.setState({ show: true })
       })
   }

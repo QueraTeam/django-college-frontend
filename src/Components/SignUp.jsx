@@ -3,6 +3,7 @@ import {IoMdLock, IoMdPerson} from 'react-icons/io'
 import axios from 'axios'
 import {Alert, Button, Col, Modal, Row} from 'react-bootstrap'
 import {withRouter} from 'react-router'
+import {HOST} from "../host"
 
 class SignUp extends React.Component {
     state = {
@@ -21,7 +22,6 @@ class SignUp extends React.Component {
     checkboxChange(event) {
         const checked = event.target.checked
         const name = event.target.name
-        console.log(name, event.target.checked)
         this.setState({
             [name]: checked
         })
@@ -52,13 +52,12 @@ class SignUp extends React.Component {
     }
 
     signupRequest() {
-        axios.post('http://localhost:8000/accounts/register/', {
+        axios.post(`http://${HOST}/accounts/register/`, {
             username: this.state.fields.username,
             password: this.state.fields.password
         })
             .then((response) => {
-                console.log(response.data)
-                axios.post('http://localhost:8000/accounts/login/', {
+                axios.post(`http://${HOST}/accounts/login/`, {
                     username: this.state.fields.username,
                     password: this.state.fields.password
                 })
@@ -87,7 +86,7 @@ class SignUp extends React.Component {
         const ischarity = this.state.isCharity
         var token = window.localStorage.getItem('token')
         if (isBenefactor) {
-            axios.post('http://localhost:8000/benefactors/', '', {
+            axios.post(`http://${HOST}/benefactors/`, '', {
                 headers: {
                     'Authorization': `Token ${token}`
                 }
@@ -104,7 +103,7 @@ class SignUp extends React.Component {
                 })
         }
         if (ischarity) {
-            axios.post('http://localhost:8000/charities/', {
+            axios.post(`http://${HOST}/charities/`, {
                 name: this.state.fields.charityName,
                 reg_number: this.state.fields.charityReg
             }, {

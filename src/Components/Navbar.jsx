@@ -2,6 +2,7 @@ import React from 'react'
 import {Button, Nav, Navbar, NavDropdown} from 'react-bootstrap'
 import axios from 'axios'
 import {withRouter} from 'react-router'
+import {HOST} from "../host"
 
 class MyNavbar extends React.Component {
     state = {
@@ -22,7 +23,7 @@ class MyNavbar extends React.Component {
 
     logOut() {
         const token = window.localStorage.getItem('token')
-        axios.post('http://localhost:8000/accounts/logout/', '', {
+        axios.post(`http://${HOST}/accounts/logout/`, '', {
             headers: {
                 'Authorization': `Token ${token}`
             }
@@ -36,6 +37,8 @@ class MyNavbar extends React.Component {
     }
 
     render() {
+        let aboutUs = `http://${HOST}/about-us/`;
+
         return (
             <div className='divNav'>
                 <Navbar bg='dark' variant="dark" expand='lg' dir='rtl' style={{width: '63%'}}>
@@ -60,7 +63,7 @@ class MyNavbar extends React.Component {
                                         موسسه خیریه</NavDropdown.Item>
                                 }
                             </NavDropdown>
-                            <Nav.Link href='http://localhost:8000/about-us/'>درباره‌ما</Nav.Link>
+                            <Nav.Link href={aboutUs}>درباره‌ما</Nav.Link>
                         </Nav>
                         <nav className='mr-auto'>
                             <Button variant='danger'

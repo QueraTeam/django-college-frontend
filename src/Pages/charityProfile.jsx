@@ -16,9 +16,7 @@ import {
     Tooltip
 } from 'react-bootstrap'
 import { IoIosAddCircleOutline, IoMdCloseCircle } from 'react-icons/io'
-
-
-
+import {HOST} from "../host"
 
 export default class CharityProfile extends React.Component {
 
@@ -55,15 +53,12 @@ export default class CharityProfile extends React.Component {
     componentDidMount() {
         let name = window.localStorage.getItem('charityname')
         const getToken = window.localStorage.getItem('token')
-        let a = 'http://localhost:8000/tasks?charity='
-        a += name
-        axios.get(a, {
+        axios.get(`http://${HOST}/tasks?charity=${name}`, {
             headers: {
                 'Authorization': `Token ${getToken}`
             }
         })
             .then((response) => {
-                console.log('taskslist', response.data)
                 response.data.map((task) => {
                     if (task.gender_limit === 'F') {
                         task.genderName = 'جنسیت: زن'
@@ -149,7 +144,7 @@ export default class CharityProfile extends React.Component {
         let config = {
             headers: { 'Authorization': `Token ${token}` }
         }
-        axios.post('http://localhost:8000/tasks/', data, config)
+        axios.post(`http://${HOST}/tasks/`, data, config)
             .then((response) => {
                 console.log(response.data)
                 window.location.reload()
@@ -163,10 +158,7 @@ export default class CharityProfile extends React.Component {
     acceptedResponse(task) {
         var token = window.localStorage.getItem('token')
         var acc = 'A'
-        let a = 'http://localhost:8000/tasks/'
-        a += task.id
-        a += '/response/'
-        axios.post(a, {
+        axios.post(`http://${HOST}/tasks/${task.id}/response/`, {
             response: acc
         }, {
             headers: {
@@ -174,7 +166,6 @@ export default class CharityProfile extends React.Component {
             }
         })
             .then((response) => {
-                console.log(response.data)
                 task.state = 'A'
                 this.setState({ task })
             })
@@ -187,10 +178,7 @@ export default class CharityProfile extends React.Component {
     rejectedResponse(task) {
         var token = window.localStorage.getItem('token')
         var rej = 'R'
-        let a = 'http://localhost:8000/tasks/'
-        a += task.id
-        a += '/response/'
-        axios.post(a, {
+        axios.post(`http://${HOST}/tasks/${task.id}/response/`, {
             response: rej
         }, {
             headers: {
@@ -198,7 +186,6 @@ export default class CharityProfile extends React.Component {
             }
         })
             .then((response) => {
-                console.log(response.data)
                 task.state = 'P'
                 this.setState({ task })
             })
@@ -210,16 +197,12 @@ export default class CharityProfile extends React.Component {
 
     taskDone(task) {
         const getToken = window.localStorage.getItem('token')
-        let a = 'http://localhost:8000/tasks/'
-        a += task.id
-        a += '/done/'
-        axios.post(a, '', {
+        axios.post(`http://${HOST}/tasks/${task.id}/done/`, '', {
             headers: {
                 'Authorization': `Token ${getToken}`
             }
         })
             .then((response) => {
-                console.log('taskrequest', response.data)
                 task.state = 'D'
                 this.setState({ task })
             })
